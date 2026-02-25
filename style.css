@@ -1,0 +1,35 @@
+body {
+    font-family: Arial;
+    margin: 0;
+    text-align: center;
+}
+
+header {
+    background: maroon;
+    color: white;
+    padding: 15px;
+}
+
+nav a {
+    color: white;
+    margin: 10px;
+    text-decoration: none;
+}
+
+.hero {
+    padding: 60px;
+}
+
+.btn {
+    background: orange;
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+    margin: 10px;
+    display: inline-block;
+}
+
+footer {
+    background: #eee;
+    padding: 10px;
+}
