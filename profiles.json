@@ -8,7 +8,8 @@
     "education": "MA Political",
     "occupation": "Govt. Job in Parliament",
     "city": "New Delhi",
-    "contact": "Hidden - Contact via admin"
+    "contact": "Hidden - Contact via admin",
+    "photo": "images/shivani.jpg"
     },
 {
   "type": "bride",
@@ -19,6 +20,7 @@
   "education": "B.Tech",
   "occupation": "Software Engineer",
   "city": "Ahmedabad",
-  "contact": "Hidden - Contact via admin"
+  "contact": "Hidden - Contact via admin",
+  "photo": "images/anjali.jpg"
 }
 ]
