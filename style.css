@@ -102,3 +102,11 @@ h2 {
   gap: 25px;
   padding: 30px;
 }
+#searchInput {
+  display: block;
+  margin: 0 auto 25px auto;
+  padding: 10px;
+  width: 350px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
