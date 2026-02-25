@@ -11,9 +11,9 @@ fetch("profiles.json")
 
       const card = document.createElement("div");
       card.className = "profile-card";
-
       card.innerHTML = `
-        <h3>${profile.name}</h3>
+       <img src="${profile.photo}" class="profile-photo">
+       <h3>${profile.name}</h3>
         <p><strong>Category:</strong> ${profile.category}</p>
         <p><strong>Age:</strong> ${profile.age}</p>
         <p><strong>Height:</strong> ${profile.height}</p>
