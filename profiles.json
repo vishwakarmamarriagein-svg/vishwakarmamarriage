@@ -9,5 +9,17 @@
     "occupation": "Govt. Job in Parliament",
     "city": "New Delhi",
     "contact": "Hidden - Contact via admin"
+    },
+{
+  "type": "bride",
+  "category": "Manu",
+  "name": "Anjali Sharma",
+  "age": "26",
+  "height": "5'4\"",
+  "education": "B.Tech",
+  "occupation": "Software Engineer",
+  "city": "Ahmedabad",
+  "contact": "Hidden - Contact via admin"
+}
   }
 ]
