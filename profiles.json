@@ -22,5 +22,29 @@
   "city": "Ahmedabad",
   "contact": "Hidden - Contact via admin",
   "photo": "images/anjali.jpg"
+},
+  {
+  "type": "groom",
+  "category": "Manu",
+  "name": "Rahul Vishwakarma",
+  "age": "30",
+  "height": "5'9\"",
+  "education": "MBA",
+  "occupation": "Business Owner",
+  "city": "Rajkot",
+  "contact": "Hidden - Contact via admin",
+  "photo": "images/rahul.jpg"
+},
+{
+  "type": "groom",
+  "category": "Shilpi",
+  "name": "Amit Panchal",
+  "age": "28",
+  "height": "5'10\"",
+  "education": "B.Tech Mechanical",
+  "occupation": "Engineer",
+  "city": "Ahmedabad",
+  "contact": "Hidden - Contact via admin",
+  "photo": "images/amit.jpg"
 }
 ]
