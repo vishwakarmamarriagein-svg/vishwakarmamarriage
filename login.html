@@ -47,34 +47,36 @@
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword } 
+from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDjQhpE7CVkcmbOzqGNiQb22-LJ7XF8DQI",
+  apiKey: "AIzaSyDjQhP...",
   authDomain: "vishwakarmamarriage-e8e13.firebaseapp.com",
   projectId: "vishwakarmamarriage-e8e13",
   storageBucket: "vishwakarmamarriage-e8e13.firebasestorage.app",
   messagingSenderId: "287592386640",
-  appId: "1:287592386640:web:93a60b14daf415eac3c155",
-  measurementId: "G-ZRZV7KSB8Z"
+  appId: "1:287592386640:web:93a60b14daf415eac3c155"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-window.login = function() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+  e.preventDefault();
 
-    signInWithEmailAndPassword(auth, email, password)
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-        document.getElementById("message").innerHTML = "Login Successful!";
-        window.location.href = "admin.html";
+      alert("Login Successful!");
+      window.location.href = "admin.html";
     })
     .catch((error) => {
-        document.getElementById("message").innerHTML = "Invalid login credentials!";
+      alert(error.message);
     });
-}
+});
 </script>
 
 </body>
