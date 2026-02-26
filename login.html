@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Login - Vishwakarma Matrimony</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            padding-top: 100px;
+            background-color: #f2f2f2;
+        }
+        .login-box {
+            background: white;
+            padding: 30px;
+            width: 300px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px;
+            width: 100%;
+            background: maroon;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: darkred;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-box">
+    <h2>Admin Login</h2>
+    <input type="email" id="email" placeholder="Enter Email">
+    <input type="password" id="password" placeholder="Enter Password">
+    <button onclick="login()">Login</button>
+    <p id="message"></p>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDjQhpE7CVkcmbOzqGNiQb22-LJ7XF8DQI",
+  authDomain: "vishwakarmamarriage-e8e13.firebaseapp.com",
+  projectId: "vishwakarmamarriage-e8e13",
+  storageBucket: "vishwakarmamarriage-e8e13.firebasestorage.app",
+  messagingSenderId: "287592386640",
+  appId: "1:287592386640:web:93a60b14daf415eac3c155",
+  measurementId: "G-ZRZV7KSB8Z"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+window.login = function() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+        document.getElementById("message").innerHTML = "Login Successful!";
+        window.location.href = "admin.html";
+    })
+    .catch((error) => {
+        document.getElementById("message").innerHTML = "Invalid login credentials!";
+    });
+}
+</script>
+
+</body>
+</html>
