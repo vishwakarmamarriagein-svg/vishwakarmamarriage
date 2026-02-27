@@ -26,7 +26,18 @@
     </style>
 </head>
 <body>
-
+<button id="logoutBtn" style="
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 8px 15px;
+  background: maroon;
+  color: white;
+  border: none;
+  cursor: pointer;
+">
+  Logout
+</button>
 <div class="box">
     <h2>Admin Dashboard</h2>
     <p>Welcome Admin 👋</p>
@@ -85,6 +96,11 @@ auth.onAuthStateChanged(function(user) {
   if (!user) {
     window.location.href = "login.html";
   }
+});
+    document.getElementById("logoutBtn").addEventListener("click", function() {
+  auth.signOut().then(function() {
+    window.location.href = "login.html";
+  });
 });
 </script>
 </body>
