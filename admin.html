@@ -63,6 +63,29 @@ window.logout = function() {
     });
 }
 </script>
+<!-- Firebase CDN -->
+<script src="https://www.gstatic.com/firebasejs/12.9.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.9.0/firebase-auth-compat.js"></script>
 
+<script>
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY_HERE",
+  authDomain: "vishwakarmamarriage-e8e13.firebaseapp.com",
+  projectId: "vishwakarmamarriage-e8e13",
+  storageBucket: "vishwakarmamarriage-e8e13.appspot.com",
+  messagingSenderId: "287592386640",
+  appId: "1:287592386640:web:a7efcf2b1f3214c3c155"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+// 🔐 Protect Page
+auth.onAuthStateChanged(function(user) {
+  if (!user) {
+    window.location.href = "login.html";
+  }
+});
+</script>
 </body>
 </html>
