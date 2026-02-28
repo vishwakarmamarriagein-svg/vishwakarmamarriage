@@ -7,7 +7,8 @@
     "height": "5'2\"",
     "education": "MA Political",
     "occupation": "Govt. Job in Parliament",
-    "city": "New Delhi",
+    "district": "Rajkot",
+    "state": "Gujarat"
     "contact": "Hidden - Contact via admin",
     "photo": "images/shivani.jpg"
     },
@@ -19,7 +20,8 @@
   "height": "5'4\"",
   "education": "B.Tech",
   "occupation": "Software Engineer",
-  "city": "Ahmedabad",
+  "district": "Lucknow",
+  "state": "Utar Pradesh"
   "contact": "Hidden - Contact via admin",
   "photo": "images/anjali.jpg"
 },
@@ -31,7 +33,8 @@
   "height": "5'9\"",
   "education": "MBA",
   "occupation": "Business Owner",
-  "city": "Rajkot",
+  "district": "Bahraich",
+  "state": "Uttar Pradesh"
   "contact": "Hidden - Contact via admin",
   "photo": "images/rahul.jpg"
 },
@@ -43,7 +46,8 @@
   "height": "5'10\"",
   "education": "B.Tech Mechanical",
   "occupation": "Engineer",
-  "city": "Ahmedabad",
+  "district": "Rajkot",
+  "state": "Gujarat"
   "contact": "Hidden - Contact via admin",
   "photo": "images/amit.jpg"
 }
