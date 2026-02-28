@@ -113,12 +113,17 @@ profiles
       div.style.marginBottom = "10px";
 
      div.innerHTML = `
-  <img src="${profile.photo}" width="100"><br>
-  <strong>${profile.name}</strong><br>
-  Age: ${profile.age}<br>
-  Location: ${profile.district}, ${profile.state}<br>
-  Type: ${profile.type}<br>
-  Category: ${profile.category}
+<img src="${profile.photo}" width="100"><br>
+<strong>${profile.name}</strong><br>
+Age: ${profile.age}<br>
+Location: ${profile.district}, ${profile.state}<br>
+Type: ${profile.type}<br>
+Category: ${profile.category}<br><br>
+
+<button onclick="deleteProfile(${index})"
+style="background:red;color:white;border:none;padding:5px 10px;cursor:pointer;">
+Delete
+</button>
 `;
       container.appendChild(div);
     });
@@ -143,7 +148,13 @@ onAuthStateChanged(auth, (user) => {
       signOut(auth);
       window.location.href = "login.html";
     } else {
-      loadProfiles();   // 👈 Add this line
+      loadProfiles();   // 
+        window.deleteProfile = function(index) {
+    if (confirm("Are you sure you want to delete this profile?")) {
+        const cards = document.querySelectorAll("#profilesContainer > div");
+        cards[index].remove();
+    }
+}
     }
   }
 });
