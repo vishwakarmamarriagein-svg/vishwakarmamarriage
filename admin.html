@@ -98,11 +98,15 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+    let allProfiles = [];
     // Load profiles
 async function loadProfiles() {
   try {
-    const response = await fetch("profiles.json");
-    const profiles = await response.json();
+if (allProfiles.length === 0) {
+  const response = await fetch("profiles.json");
+  allProfiles = await response.json();
+}
+const profiles = allProfiles;
     const stateFilter = document.getElementById("stateFilter");
 // Only populate dropdown once
 if (stateFilter.options.length === 1) {
@@ -160,6 +164,22 @@ window.deleteProfile = function(index) {
     cards[index].remove();
   }
 };
+    document.getElementById("addProfileBtn").addEventListener("click", function() {
+
+  const newProfile = {
+    type: document.getElementById("newType").value,
+    category: document.getElementById("newCategory").value,
+    name: document.getElementById("newName").value,
+    age: document.getElementById("newAge").value,
+    district: document.getElementById("newDistrict").value,
+    state: document.getElementById("newState").value,
+    contact: "Hidden - Contact via admin",
+    photo: document.getElementById("newPhoto").value
+  };
+
+  allProfiles.push(newProfile);
+loadProfiles();
+});
 // Protect page
 
     // Call filters again when changed
