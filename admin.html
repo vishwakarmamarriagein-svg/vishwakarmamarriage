@@ -82,18 +82,18 @@ async function loadProfiles() {
   try {
     const response = await fetch("profiles.json");
     const profiles = await response.json();
-const stateSet = new Set();
-    profiles.forEach(p => stateSet.add(p.state));
-
     const stateFilter = document.getElementById("stateFilter");
-    stateFilter.innerHTML = '<option value="">All States</option>';
-
-    stateSet.forEach(state => {
-      const option = document.createElement("option");
-      option.value = state;
-      option.textContent = state;
-      stateFilter.appendChild(option);
-    });
+// Only populate dropdown once
+if (stateFilter.options.length === 1) {
+  const stateSet = new Set();
+  profiles.forEach(p => stateSet.add(p.state));
+  stateSet.forEach(state => {
+    const option = document.createElement("option");
+    option.value = state;
+    option.textContent = state;
+    stateFilter.appendChild(option);
+  });
+}
     const container = document.getElementById("profilesContainer");
     container.innerHTML = "";
     const searchValue = document.getElementById("searchInput").value.toLowerCase();
