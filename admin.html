@@ -99,12 +99,13 @@ const stateSet = new Set();
     const searchValue = document.getElementById("searchInput").value.toLowerCase();
       const selectedType = document.getElementById("typeFilter").value;
 const selectedState = document.getElementById("stateFilter").value;
-
 profiles
   .filter(profile =>
     profile.name.toLowerCase().includes(searchValue) &&
-         (selectedType === "" ||profile.type.trim().toLowerCase() === selectedType.trim().toLowerCase()) &&
-    (selectedState === "" || profile.state === selectedState)
+    (selectedType === "" || 
+     profile.type.trim().toLowerCase() === selectedType.trim().toLowerCase()) &&
+    (selectedState === "" || 
+     profile.state.trim().toLowerCase() === selectedState.trim().toLowerCase())
   )
   .forEach((profile, index) => {
       const div = document.createElement("div");
