@@ -103,7 +103,8 @@ const selectedState = document.getElementById("stateFilter").value;
 profiles
   .filter(profile =>
     profile.name.toLowerCase().includes(searchValue) &&
-    (selectedType === "" || profile.type.toLowerCase() === selectedType.toLowerCase()) &&
+         (selectedType === "" || 
+ profile.type.trim().toLowerCase() === selectedType.trim().toLowerCase())
     (selectedState === "" || profile.state === selectedState)
   )
   .forEach((profile, index) => {
