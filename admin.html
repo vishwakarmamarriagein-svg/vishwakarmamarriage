@@ -58,7 +58,7 @@
   </select>
 </div>
 <div id="profilesContainer"></div>
-    <button onclick="logout()">Logout</button>
+
 </div>
 
 <script type="module">
@@ -149,8 +149,7 @@ onAuthStateChanged(auth, (user) => {
       window.location.href = "login.html";
     } else {
       loadProfiles();   // 
-        window.deleteProfile = function(index) {
-    if (confirm("Are you sure you want to delete this profile?")) {
+          if (confirm("Are you sure you want to delete this profile?")) {
         const cards = document.querySelectorAll("#profilesContainer > div");
         cards[index].remove();
     }
