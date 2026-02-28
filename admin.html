@@ -79,9 +79,12 @@ async function loadProfiles() {
       div.style.marginBottom = "10px";
 
       div.innerHTML = `
-        <strong>${profile.name}</strong><br>
-        Age: ${profile.age}<br>
-        Location: ${profile.location}
+       <img src="${profile.photo}" width="80"><br>
+  <strong>${profile.name}</strong><br>
+  Age: ${profile.age}<br>
+  Location: ${profile.district}, ${profile.state}<br>
+  Type: ${profile.type}<br>
+  Category: ${profile.category}
       `;
 
       container.appendChild(div);
