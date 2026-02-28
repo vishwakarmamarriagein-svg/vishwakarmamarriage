@@ -43,6 +43,20 @@
     <p>Welcome Admin 👋</p>
     <hr>
 <h3>All Profiles</h3>
+    <div style="margin-bottom:20px;">
+  <input type="text" id="searchInput" placeholder="Search by name..." 
+    style="padding:8px;width:200px;margin-right:10px;">
+    
+  <select id="typeFilter" style="padding:8px;margin-right:10px;">
+    <option value="">All Types</option>
+    <option value="bride">Bride</option>
+    <option value="groom">Groom</option>
+  </select>
+
+  <select id="stateFilter" style="padding:8px;">
+    <option value="">All States</option>
+  </select>
+</div>
 <div id="profilesContainer"></div>
     <button onclick="logout()">Logout</button>
 </div>
