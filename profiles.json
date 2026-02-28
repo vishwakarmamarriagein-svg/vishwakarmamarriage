@@ -8,7 +8,7 @@
     "education": "MA Political",
     "occupation": "Govt. Job in Parliament",
     "district": "Rajkot",
-    "state": "Gujarat"
+    "state": "Gujarat",
     "contact": "Hidden - Contact via admin",
     "photo": "images/shivani.jpg"
     },
@@ -21,7 +21,7 @@
   "education": "B.Tech",
   "occupation": "Software Engineer",
   "district": "Lucknow",
-  "state": "Utar Pradesh"
+  "state": "Utar Pradesh",
   "contact": "Hidden - Contact via admin",
   "photo": "images/anjali.jpg"
 },
@@ -34,7 +34,7 @@
   "education": "MBA",
   "occupation": "Business Owner",
   "district": "Bahraich",
-  "state": "Uttar Pradesh"
+  "state": "Uttar Pradesh",
   "contact": "Hidden - Contact via admin",
   "photo": "images/rahul.jpg"
 },
@@ -47,7 +47,7 @@
   "education": "B.Tech Mechanical",
   "occupation": "Engineer",
   "district": "Rajkot",
-  "state": "Gujarat"
+  "state": "Gujarat",
   "contact": "Hidden - Contact via admin",
   "photo": "images/amit.jpg"
 }
