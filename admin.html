@@ -82,11 +82,31 @@ async function loadProfiles() {
   try {
     const response = await fetch("profiles.json");
     const profiles = await response.json();
+const stateSet = new Set();
+    profiles.forEach(p => stateSet.add(p.state));
 
+    const stateFilter = document.getElementById("stateFilter");
+    stateFilter.innerHTML = '<option value="">All States</option>';
+
+    stateSet.forEach(state => {
+      const option = document.createElement("option");
+      option.value = state;
+      option.textContent = state;
+      stateFilter.appendChild(option);
+    });
     const container = document.getElementById("profilesContainer");
     container.innerHTML = "";
+    const searchValue = document.getElementById("searchInput").value.toLowerCase();
+      const selectedType = document.getElementById("typeFilter").value;
+const selectedState = document.getElementById("stateFilter").value;
 
-    profiles.forEach((profile, index) => {
+profiles
+  .filter(profile =>
+    profile.name.toLowerCase().includes(searchValue) &&
+    (selectedType === "" || profile.type === selectedType) &&
+    (selectedState === "" || profile.state === selectedState)
+  )
+  .forEach((profile, index) => {
       const div = document.createElement("div");
       div.style.border = "1px solid #ccc";
       div.style.padding = "10px";
