@@ -17,7 +17,52 @@
  </div>
 
 <div id="profiles-container" data-type="groom"></div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+import { getFirestore, collection, getDocs } 
+from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
-<script src="script.js"></script>
+const firebaseConfig = {
+  apiKey: "AIzaSyAyT4AF8qZMyvqZNC8hGanMvGSwfydTDJU",
+  authDomain: "vishwakarmamarriage-e8e13.firebaseapp.com",
+  projectId: "vishwakarmamarriage-e8e13",
+  storageBucket: "vishwakarmamarriage-e8e13.firebasestorage.app",
+  messagingSenderId: "287592386640",
+  appId: "1:287592386640:web:93a60b14daf415eac3c155"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const container = document.getElementById("profiles-container");
+
+async function loadProfiles() {
+  container.innerHTML = "";
+
+  const querySnapshot = await getDocs(collection(db, "profiles"));
+
+  querySnapshot.forEach((docSnap) => {
+
+    const profile = docSnap.data();
+
+    if (profile.type !== "groom") return;
+
+    const card = document.createElement("div");
+    card.className = "profile-card";
+
+    card.innerHTML = `
+      <img src="${profile.photo}" class="profile-photo">
+      <h3>${profile.name}</h3>
+      <p><strong>Category:</strong> ${profile.category}</p>
+      <p><strong>Age:</strong> ${profile.age}</p>
+      <p><strong>Location:</strong> ${profile.district}, ${profile.state}</p>
+    `;
+
+    container.appendChild(card);
+  });
+}
+loadProfiles();
+</script>
+    
 </body>
 </html>
