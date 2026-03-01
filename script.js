@@ -19,7 +19,7 @@ fetch("profiles.json")
         <p><strong>Height:</strong> ${profile.height}</p>
         <p><strong>Education:</strong> ${profile.education}</p>
         <p><strong>Occupation:</strong> ${profile.occupation}</p>
-        <p><strong>City:</strong> ${profile.city}</p>
+        <p><strong>Location:</strong> ${profile.district}, ${profile.state}</p>
         <button onclick="showContact(this, '${profile.contact}')">View Contact</button>
         <p class="contact-number"></p>
       `;
