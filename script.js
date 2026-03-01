@@ -1,4 +1,5 @@
 let selectedCategory = "All";
+let selectedState = "All";
 let allProfiles = [];
 
 fetch("profiles.json")
