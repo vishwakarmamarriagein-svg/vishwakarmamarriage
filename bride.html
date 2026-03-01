@@ -7,7 +7,11 @@
 <body>
 <h2>Bride Profiles</h2>
 <input type="text" id="searchInput" placeholder="Search by Name, City, Education..." onkeyup="searchProfiles()" style="padding:8px; width:300px; margin-bottom:20px;">
-<div class="category-buttons">
+<select id="stateFilter" onchange="filterState(this.value)" 
+        style="padding:8px;margin-left:10px;border-radius:6px;">
+  <option value="All">All States</option>
+</select>
+    <div class="category-buttons">
   <button onclick="filterCategory('All')">All</button>
   <button onclick="filterCategory('Manu')">Manu</button>
   <button onclick="filterCategory('May')">May</button>
