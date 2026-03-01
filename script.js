@@ -1,3 +1,4 @@
+let selectedCategory = "All";
 fetch("profiles.json")
   .then(response => response.json())
   .then(data => {
@@ -46,4 +47,8 @@ function searchProfiles() {
       card.style.display = "none";
     }
   });
+}
+function filterCategory(category) {
+  selectedCategory = category;
+  renderProfiles();
 }
