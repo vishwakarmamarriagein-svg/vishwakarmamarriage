@@ -1,4 +1,3 @@
-let selectedCategory = "All";
 let allProfiles = [];
 
 fetch("profiles.json")
