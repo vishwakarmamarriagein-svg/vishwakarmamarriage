@@ -161,6 +161,10 @@ async function loadPendingProfiles() {
 
   alert("Profile Added Successfully");
 });
+    document.getElementById("logoutBtn").addEventListener("click", async function() {
+  await signOut(auth);
+  window.location.href = "login.html";
+});
    </script>
 </body>
 </html>
