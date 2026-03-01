@@ -33,13 +33,6 @@ footer {
     background: #eee;
     padding: 10px;
 }
-#profiles-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-  padding: 20px;
-}
-
 .profile-card {
   background: #ffffff;
   padding: 20px;
@@ -99,8 +92,8 @@ h2 {
 #profiles-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 25px;
-  padding: 30px;
+  gap: 30px;
+  padding: 40px;
 }
 #searchInput {
   display: block;
