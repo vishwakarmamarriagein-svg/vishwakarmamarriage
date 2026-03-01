@@ -5,6 +5,15 @@ fetch("profiles.json")
   .then(response => response.json())
   .then(data => {
     allProfiles = data;
+
+    // Make "All" button active on load
+    const buttons = document.querySelectorAll(".category-buttons button");
+    buttons.forEach(btn => {
+      if (btn.innerText === "All") {
+        btn.classList.add("active");
+      }
+    });
+
     renderProfiles();
   });
 
