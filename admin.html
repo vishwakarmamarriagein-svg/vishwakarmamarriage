@@ -139,7 +139,8 @@ profiles
       div.style.marginBottom = "10px";
 
      div.innerHTML = `
-<img src="${profile.photo}" width="100"><br>
+<img src="${profile.photo}" 
+     style="width:120px;height:120px;object-fit:cover;border-radius:8px;"><br>
 <strong>${profile.name}</strong><br>
 Age: ${profile.age}<br>
 Location: ${profile.district}, ${profile.state}<br>
