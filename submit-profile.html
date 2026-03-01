@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Submit Profile</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2 style="text-align:center; margin-top:30px;">Submit Your Profile</h2>
+
+<div style="max-width:500px; margin:30px auto; background:white; padding:25px; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.1);">
+
+  <input type="text" id="name" placeholder="Full Name" style="width:100%; padding:8px; margin-bottom:10px;">
+  
+  <select id="type" style="width:100%; padding:8px; margin-bottom:10px;">
+    <option value="bride">Bride</option>
+    <option value="groom">Groom</option>
+  </select>
+
+  <input type="text" id="category" placeholder="Category (Manu, Shilpi, etc)" style="width:100%; padding:8px; margin-bottom:10px;">
+
+  <input type="number" id="age" placeholder="Age" style="width:100%; padding:8px; margin-bottom:10px;">
+
+  <input type="text" id="height" placeholder="Height (5'6)" style="width:100%; padding:8px; margin-bottom:10px;">
+
+  <input type="text" id="education" placeholder="Education" style="width:100%; padding:8px; margin-bottom:10px;">
+
+  <input type="text" id="occupation" placeholder="Occupation" style="width:100%; padding:8px; margin-bottom:10px;">
+
+  <input type="text" id="district" placeholder="District" style="width:100%; padding:8px; margin-bottom:10px;">
+
+  <input type="text" id="state" placeholder="State" style="width:100%; padding:8px; margin-bottom:10px;">
+
+  <input type="text" id="contact" placeholder="Contact Number" style="width:100%; padding:8px; margin-bottom:15px;">
+
+  <button onclick="submitProfile()" style="width:100%; padding:10px; background:maroon; color:white; border:none;">
+    Submit for Approval
+  </button>
+
+  <p id="message" style="text-align:center; margin-top:15px;"></p>
+
+</div>
+
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "vishwakarmamarriage-e8e13.firebaseapp.com",
+  projectId: "vishwakarmamarriage-e8e13",
+  storageBucket: "vishwakarmamarriage-e8e13.appspot.com",
+  messagingSenderId: "287592386640",
+  appId: "1:287592386640:web:93a60b14daf415eac3c155"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.submitProfile = async function() {
+
+  const profile = {
+    name: document.getElementById("name").value,
+    type: document.getElementById("type").value,
+    category: document.getElementById("category").value,
+    age: document.getElementById("age").value,
+    height: document.getElementById("height").value,
+    education: document.getElementById("education").value,
+    occupation: document.getElementById("occupation").value,
+    district: document.getElementById("district").value,
+    state: document.getElementById("state").value,
+    contact: document.getElementById("contact").value,
+    status: "pending",
+    createdAt: new Date()
+  };
+
+  try {
+    await addDoc(collection(db, "pendingProfiles"), profile);
+    document.getElementById("message").innerText = "Profile submitted successfully. Awaiting admin approval.";
+  } catch (error) {
+    document.getElementById("message").innerText = "Error submitting profile.";
+    console.error(error);
+  }
+
+};
+</script>
+
+</body>
+</html>
