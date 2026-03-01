@@ -61,5 +61,17 @@ function searchProfiles() {
 }
 function filterCategory(category) {
   selectedCategory = category;
+
+  // Remove active class from all buttons
+  const buttons = document.querySelectorAll(".category-buttons button");
+  buttons.forEach(btn => btn.classList.remove("active"));
+
+  // Add active class to clicked button
+  buttons.forEach(btn => {
+    if (btn.innerText === category) {
+      btn.classList.add("active");
+    }
+  });
+
   renderProfiles();
 }
