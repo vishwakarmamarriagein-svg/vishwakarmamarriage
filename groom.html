@@ -6,8 +6,8 @@
 </head>
 <body>
 <h2>Groom Profiles</h2>
-<input type="text" id="searchInput" placeholder="Search by Name, City, Education..." onkeyup="searchProfiles()" style="padding:8px; width:300px; margin-bottom:20px;">
-    <div class="category-buttons">
+<input type="text" id="searchInput" placeholder="Search by Name..." 
+style="padding:8px; width:300px; margin-bottom:20px;">
   <button onclick="filterCategory('All')">All</button>
   <button onclick="filterCategory('Manu')">Manu</button>
   <button onclick="filterCategory('May')">May</button>
@@ -49,6 +49,8 @@ async function loadProfiles() {
 
    if (!profile.type || profile.type.toLowerCase().trim() !== "groom") return;
 
+if (selectedCategory !== "All" && profile.category !== selectedCategory) return;
+
     const card = document.createElement("div");
     card.className = "profile-card";
 
@@ -72,6 +74,11 @@ card.innerHTML = `
   });
 }
 loadProfiles();
+    let selectedCategory = "All";
+    window.filterCategory = function(category) {
+  selectedCategory = category;
+  loadProfiles();
+};
 </script>
     
 </body>
