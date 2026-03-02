@@ -46,7 +46,6 @@
 <!-- Firebase CDN -->
 <script src="https://www.gstatic.com/firebasejs/12.9.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/12.9.0/firebase-auth-compat.js"></script>
-
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword } 
@@ -64,7 +63,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-document.getElementById("loginBtn").addEventListener("click", async () => {
+const form = document.getElementById("loginForm");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();   // VERY IMPORTANT
 
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
@@ -84,5 +86,6 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
   }
 });
 </script>
+ 
    </body>
 </html>
