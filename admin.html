@@ -82,18 +82,31 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 onAuthStateChanged(auth, (user) => {
+
   if (!user) {
     window.location.href = "login.html";
-  } else {
-    if (user.email.toLowerCase().trim() !== "vishwakarmamarriage.in@gmail.com") {
-      alert("Access Denied");
-      signOut(auth);
-      window.location.href = "login.html";
-    } else {
-      loadPendingProfiles();
-    }
+    return;
   }
+
+  const adminEmail = "vishwakarmamarriage.in@gmail.com";
+
+  if (!user.email) {
+    window.location.href = "login.html";
+    return;
+  }
+
+  if (user.email.toLowerCase() !== adminEmail.toLowerCase()) {
+    alert("Access Denied");
+    signOut(auth);
+    window.location.href = "login.html";
+    return;
+  }
+
+  // ✅ Only admin reaches here
+  loadPendingProfiles();
 });
+    
+
 async function loadPendingProfiles() {
 
   const container = document.getElementById("profilesContainer");
