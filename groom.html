@@ -53,12 +53,13 @@ async function loadProfiles() {
     card.className = "profile-card";
 
 card.innerHTML = `
-  <img src="${profile.photo}" class="profile-photo">
-  <h3>${profile.name}</h3>
-  <p><strong>Category:</strong> ${profile.category}</p>
-  <p><strong>Age:</strong> ${profile.age}</p>
-  <p><strong>Location:</strong> ${profile.district}, ${profile.state}</p>
-  <p class="contact-area">Login to view contact</p>
+  <a href="profile.html?id=${docSnap.id}" style="text-decoration:none;color:inherit;">
+    <img src="${profile.photo}" class="profile-photo">
+    <h3>${profile.name}</h3>
+    <p><strong>Category:</strong> ${profile.category}</p>
+    <p><strong>Age:</strong> ${profile.age}</p>
+    <p><strong>Location:</strong> ${profile.district}, ${profile.state}</p>
+  </a>
 `;
 
     container.appendChild(card);
