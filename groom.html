@@ -21,6 +21,8 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
 import { getFirestore, collection, getDocs } 
 from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged } 
+from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAyT4AF8qZMyvqZNC8hGanMvGSwfydTDJU",
@@ -33,7 +35,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
+const auth = getAuth(app);
 const container = document.getElementById("profiles-container");
 
 async function loadProfiles() {
@@ -45,20 +47,27 @@ async function loadProfiles() {
 
     const profile = docSnap.data();
 
-    if (profile.type !== "groom") return;
+   if (!profile.type || profile.type.toLowerCase().trim() !== "groom") return;
 
     const card = document.createElement("div");
     card.className = "profile-card";
 
-    card.innerHTML = `
-      <img src="${profile.photo}" class="profile-photo">
-      <h3>${profile.name}</h3>
-      <p><strong>Category:</strong> ${profile.category}</p>
-      <p><strong>Age:</strong> ${profile.age}</p>
-      <p><strong>Location:</strong> ${profile.district}, ${profile.state}</p>
-    `;
+card.innerHTML = `
+  <img src="${profile.photo}" class="profile-photo">
+  <h3>${profile.name}</h3>
+  <p><strong>Category:</strong> ${profile.category}</p>
+  <p><strong>Age:</strong> ${profile.age}</p>
+  <p><strong>Location:</strong> ${profile.district}, ${profile.state}</p>
+  <p class="contact-area">Login to view contact</p>
+`;
 
     container.appendChild(card);
+      onAuthStateChanged(auth, (user) => {
+  if (user) {
+    card.querySelector(".contact-area").innerHTML =
+      "<strong>Contact:</strong> " + (profile.contact || "Contact via Admin");
+  }
+});
   });
 }
 loadProfiles();
