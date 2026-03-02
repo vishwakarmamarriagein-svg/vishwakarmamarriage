@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register - Vishwakarma Matrimony</title>
+</head>
+<body>
+
+<h2>Create Account</h2>
+
+<input type="email" id="email" placeholder="Email"><br><br>
+<input type="password" id="password" placeholder="Password"><br><br>
+
+<button id="registerBtn">Register</button>
+
+<p>Already have account? <a href="login.html">Login</a></p>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword } 
+from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAyT4AF8qZMyvqZNC8hGanMvGSwfydTDJU",
+  authDomain: "vishwakarmamarriage-e8e13.firebaseapp.com",
+  projectId: "vishwakarmamarriage-e8e13",
+  storageBucket: "vishwakarmamarriage-e8e13.firebasestorage.app",
+  messagingSenderId: "287592386640",
+  appId: "1:287592386640:web:93a60b14daf415eac3c155"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+document.getElementById("registerBtn").addEventListener("click", async () => {
+
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  try {
+    await createUserWithEmailAndPassword(auth, email, password);
+    alert("Account Created Successfully");
+    window.location.href = "login.html";
+  } catch (error) {
+    alert(error.message);
+  }
+
+});
+</script>
+
+</body>
+</html>
