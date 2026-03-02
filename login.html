@@ -46,43 +46,43 @@
 <!-- Firebase CDN -->
 <script src="https://www.gstatic.com/firebasejs/12.9.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/12.9.0/firebase-auth-compat.js"></script>
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyAyT4AF8qZMyvqZNC8hGanMvGSwfydTDJU",
-    authDomain: "vishwakarmamarriage-e8e13.firebaseapp.com",
-    projectId: "vishwakarmamarriage-e8e13",
-    storageBucket: "vishwakarmamarriage-e8e13.appspot.com",
-    messagingSenderId: "287592386640",
-    appId: "1:287592386640:web:a7efcf2b1f3214c3c155"
-  };
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
 
-  document.getElementById("loginForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } 
+from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+const firebaseConfig = {
+  apiKey: "AIzaSyAyT4AF8qZMyvqZNC8hGanMvGSwfydTDJU",
+  authDomain: "vishwakarmamarriage-e8e13.firebaseapp.com",
+  projectId: "vishwakarmamarriage-e8e13",
+  storageBucket: "vishwakarmamarriage-e8e13.firebasestorage.app",
+  messagingSenderId: "287592386640",
+  appId: "1:287592386640:web:93a60b14daf415eac3c155"
+};
 
-auth.signInWithEmailAndPassword(email, password)
-  .then((userCredential) => {
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
+document.getElementById("loginBtn").addEventListener("click", async () => {
+
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
     if (user.email === "vishwakarmamarriage.in@gmail.com") {
-        window.location.href = "admin.html";
+      window.location.href = "admin.html";
     } else {
-        window.location.href = "groom.html";
+      window.location.href = "groom.html";
     }
 
-  })
-  .catch((error) => {
+  } catch (error) {
     alert(error.message);
-  });
-      .catch((error) => {
-        alert(error.message);
-      });
-  });
-</script> 
-</body>
+  }
+});
+</script>
+   </body>
 </html>
