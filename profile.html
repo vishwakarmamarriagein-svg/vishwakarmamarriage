@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile Details</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="profileContainer" style="max-width:800px;margin:auto;padding:30px;"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+import { getFirestore, doc, getDoc } 
+from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged } 
+from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAyT4AF8qZMyvqZNC8hGanMvGSwfydTDJU",
+  authDomain: "vishwakarmamarriage-e8e13.firebaseapp.com",
+  projectId: "vishwakarmamarriage-e8e13",
+  storageBucket: "vishwakarmamarriage-e8e13.firebasestorage.app",
+  messagingSenderId: "287592386640",
+  appId: "1:287592386640:web:93a60b14daf415eac3c155"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
+const urlParams = new URLSearchParams(window.location.search);
+const profileId = urlParams.get("id");
+
+const container = document.getElementById("profileContainer");
+
+async function loadProfile() {
+
+  const docRef = doc(db, "profiles", profileId);
+  const docSnap = await getDoc(docRef);
+
+  if (!docSnap.exists()) {
+    container.innerHTML = "<h2>Profile Not Found</h2>";
+    return;
+  }
+
+  const profile = docSnap.data();
+
+  container.innerHTML = `
+    <img src="${profile.photo}" style="width:100%;max-height:400px;object-fit:cover;border-radius:10px;">
+    <h2>${profile.name}</h2>
+    <p><strong>Age:</strong> ${profile.age}</p>
+    <p><strong>Category:</strong> ${profile.category}</p>
+    <p><strong>Location:</strong> ${profile.district}, ${profile.state}</p>
+    <p id="contactArea">Login to view contact</p>
+  `;
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      document.getElementById("contactArea").innerHTML =
+        "<strong>Contact:</strong> " + (profile.contact || "Contact via Admin");
+    }
+  });
+}
+
+loadProfile();
+</script>
+
+</body>
+</html>
