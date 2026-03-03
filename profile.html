@@ -1,3 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile Details</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="profileContainer" style="max-width:800px;margin:auto;padding:30px;"></div>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
@@ -16,16 +26,27 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-const container = document.getElementById("profileContainer");
-const urlParams = new URLSearchParams(window.location.search);
-const profileId = urlParams.get("id");
+window.addEventListener("DOMContentLoaded", async () => {
 
-if (!profileId) {
-  container.innerHTML = "<h2>Invalid Profile Link</h2>";
-} else {
-  const docRef = doc(db, "profiles", profileId);
+  const container = document.getElementById("profileContainer");
 
-  getDoc(docRef).then((docSnap) => {
+  if (!container) {
+    console.error("profileContainer not found");
+    return;
+  }
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const profileId = urlParams.get("id");
+
+  if (!profileId) {
+    container.innerHTML = "<h2>Invalid Profile Link</h2>";
+    return;
+  }
+
+  try {
+
+    const docRef = doc(db, "profiles", profileId);
+    const docSnap = await getDoc(docRef);
 
     if (!docSnap.exists()) {
       container.innerHTML = "<h2>Profile Not Found</h2>";
@@ -54,9 +75,13 @@ if (!profileId) {
       }
     });
 
-  }).catch((error) => {
-    container.innerHTML = "<h2>Error loading profile</h2>";
+  } catch (error) {
     console.error(error);
-  });
-}
+    container.innerHTML = "<h2>Error loading profile</h2>";
+  }
+
+});
 </script>
+
+</body>
+</html>
