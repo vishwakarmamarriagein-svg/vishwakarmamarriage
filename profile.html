@@ -1,9 +1,7 @@
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js
-import { getFirestore, doc, getDoc } 
-from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
-import { getAuth, onAuthStateChanged } 
-from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAyT4AF8qZMyvqZNC8hGanMvGSwfydTDJU",
@@ -18,48 +16,47 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
+const container = document.getElementById("profileContainer");
 const urlParams = new URLSearchParams(window.location.search);
 const profileId = urlParams.get("id");
 
-const container = document.getElementById("profileContainer");
-
-let currentProfileData = null;
-
-async function loadProfile() {
-
-  if (!profileId) {
-    container.innerHTML = "<h2>Profile Not Found</h2>";
-    return;
-  }
-
+if (!profileId) {
+  container.innerHTML = "<h2>Invalid Profile Link</h2>";
+} else {
   const docRef = doc(db, "profiles", profileId);
-  const docSnap = await getDoc(docRef);
 
-  if (!docSnap.exists()) {
-    container.innerHTML = "<h2>Profile Not Found</h2>";
-    return;
-  }
+  getDoc(docRef).then((docSnap) => {
 
-  const profile = docSnap.data();
-  currentProfileData = profile;
+    if (!docSnap.exists()) {
+      container.innerHTML = "<h2>Profile Not Found</h2>";
+      return;
+    }
 
-  container.innerHTML = `
-    <img src="${profile.photo}" style="width:100%;max-height:400px;object-fit:cover;border-radius:10px;">
-    <h2>${profile.name}</h2>
-    <p><strong>Age:</strong> ${profile.age}</p>
-    <p><strong>Category:</strong> ${profile.category}</p>
-    <p><strong>Location:</strong> ${profile.district}, ${profile.state}</p>
-    <p id="contactArea">Login to view contact</p>
-  `;
+    const profile = docSnap.data();
+
+    container.innerHTML = `
+      <img src="${profile.photo}" style="width:100%;max-height:400px;object-fit:cover;border-radius:10px;">
+      <h2>${profile.name}</h2>
+      <p><strong>Age:</strong> ${profile.age}</p>
+      <p><strong>Category:</strong> ${profile.category}</p>
+      <p><strong>Location:</strong> ${profile.district}, ${profile.state}</p>
+      <p id="contactArea">Login to view contact</p>
+    `;
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const contactArea = document.getElementById("contactArea");
+        if (contactArea) {
+          contactArea.innerHTML =
+            "<strong>Contact:</strong> " +
+            (profile.contact || "Contact via Admin");
+        }
+      }
+    });
+
+  }).catch((error) => {
+    container.innerHTML = "<h2>Error loading profile</h2>";
+    console.error(error);
+  });
 }
-
-loadProfile();
-
-onAuthStateChanged(auth, (user) => {
-  if (user && currentProfileData) {
-    document.getElementById("contactArea").innerHTML =
-      "<strong>Contact:</strong> " +
-      (currentProfileData.contact || "Contact via Admin");
-  }
-});
 </script>
