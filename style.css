@@ -145,3 +145,9 @@ h2 {
   border-radius: 6px;
   font-weight: 500;
 }
+#profiles-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
