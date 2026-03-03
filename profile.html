@@ -61,9 +61,16 @@ window.addEventListener("DOMContentLoaded", async () => {
       <p><strong>Age:</strong> ${profile.age}</p>
       <p><strong>Category:</strong> ${profile.category}</p>
       <p><strong>Location:</strong> ${profile.district}, ${profile.state}</p>
-      <p id="contactArea">Login to view contact</p>
+      <p id="contactArea">
+  Login to view contact<br><br>
+  <a href="login.html">
+    <button style="padding:8px 15px;background:maroon;color:white;border:none;border-radius:5px;cursor:pointer;">
+      Login Now
+    </button>
+  </a>
+</p>
+      
     `;
-
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const contactArea = document.getElementById("contactArea");
