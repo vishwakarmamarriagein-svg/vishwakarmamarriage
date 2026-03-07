@@ -126,6 +126,58 @@ document.getElementById("profileForm").addEventListener("submit", async (e) => {
 
 });
 </script>
+<form>
+Your form fields here
+</form>
 
+<script>
+  <script>
+
+const districtsByState = {
+
+"Gujarat":[
+"Ahmedabad","Amreli","Anand","Aravalli","Banaskantha","Bharuch","Bhavnagar",
+"Botad","Chhota Udaipur","Dahod","Dang","Devbhoomi Dwarka","Gandhinagar",
+"Gir Somnath","Jamnagar","Junagadh","Kheda","Kutch","Mahisagar","Mehsana",
+"Morbi","Narmada","Navsari","Panchmahal","Patan","Porbandar","Rajkot",
+"Sabarkantha","Surat","Surendranagar","Tapi","Vadodara","Valsad"
+],
+
+"Maharashtra":[
+"Mumbai City","Mumbai Suburban","Pune","Nagpur","Nashik","Thane","Aurangabad",
+"Solapur","Kolhapur","Satara","Amravati","Akola","Jalgaon"
+],
+
+"Rajasthan":[
+"Ajmer","Alwar","Banswara","Barmer","Bharatpur","Bikaner","Bundi",
+"Chittorgarh","Churu","Dausa","Dungarpur","Hanumangarh","Jaipur",
+"Jaisalmer","Jalore","Jhunjhunu","Jodhpur","Kota","Nagaur","Pali",
+"Sikar","Sirohi","Sri Ganganagar","Tonk","Udaipur"
+]
+
+};
+
+const stateSelect = document.getElementById("state");
+const districtSelect = document.getElementById("district");
+
+stateSelect.addEventListener("change", function(){
+
+const districts = districtsByState[this.value] || [];
+
+districtSelect.innerHTML = "<option value=''>Select District</option>";
+
+districts.forEach(function(district){
+
+let option = document.createElement("option");
+option.value = district;
+option.textContent = district;
+
+districtSelect.appendChild(option);
+
+});
+
+});
+
+</script>
 </body>
 </html>
