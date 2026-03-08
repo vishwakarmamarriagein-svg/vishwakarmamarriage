@@ -208,3 +208,28 @@ border-radius:5px;
 color:red;
 font-weight:bold;
 }
+.register-btn{
+display:inline-block;
+margin-top:15px;
+background:#8b0000;
+color:white;
+padding:12px 25px;
+border-radius:6px;
+text-decoration:none;
+font-weight:bold;
+}
+.hero{
+padding:70px 20px;
+}
+
+.features{
+padding:60px 20px;
+}
+.feature{
+transition:0.3s;
+}
+
+.feature:hover{
+transform:translateY(-5px);
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
