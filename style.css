@@ -374,3 +374,40 @@ border-top:1px solid #444;
 padding-top:15px;
 font-size:14px;
 }
+.lineages{
+text-align:center;
+padding:50px 20px;
+background:#f8f8f8;
+}
+
+.lineage-text{
+max-width:700px;
+margin:auto;
+margin-bottom:30px;
+color:#555;
+}
+
+.lineage-box{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:25px;
+}
+
+.lineage{
+width:180px;
+background:white;
+padding:20px;
+border-radius:8px;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
+transition:0.3s;
+}
+
+.lineage:hover{
+transform:translateY(-5px);
+}
+
+.lineage h3{
+color:#8b0000;
+margin-bottom:8px;
+}
