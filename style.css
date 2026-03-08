@@ -233,3 +233,15 @@ transition:0.3s;
 transform:translateY(-5px);
 box-shadow:0 10px 25px rgba(0,0,0,0.15);
 }
+.btn{
+background:#f39c12;
+color:white;
+padding:14px 28px;
+font-size:16px;
+border-radius:6px;
+text-decoration:none;
+font-weight:bold;
+}
+.features{
+border-top:1px solid #eee;
+}
