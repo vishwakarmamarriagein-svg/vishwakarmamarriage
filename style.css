@@ -288,3 +288,43 @@ height:35px;
 transform:scale(1.1);
 transition:0.2s;
 }
+.whatsapp-container{
+position:fixed;
+bottom:25px;
+right:25px;
+display:flex;
+align-items:center;
+z-index:1000;
+}
+
+.whatsapp-btn{
+background:#25D366;
+width:60px;
+height:60px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 4px 12px rgba(0,0,0,0.3);
+}
+
+.whatsapp-btn img{
+width:35px;
+height:35px;
+}
+
+.whatsapp-tooltip{
+margin-right:10px;
+background:#333;
+color:white;
+padding:6px 10px;
+border-radius:5px;
+font-size:14px;
+opacity:0;
+transition:0.3s;
+white-space:nowrap;
+}
+
+.whatsapp-container:hover .whatsapp-tooltip{
+opacity:1;
+}
