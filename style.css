@@ -328,3 +328,49 @@ white-space:nowrap;
 .whatsapp-container:hover .whatsapp-tooltip{
 opacity:1;
 }
+.site-footer{
+background:#222;
+color:white;
+padding:40px 20px;
+margin-top:50px;
+}
+
+.footer-container{
+display:flex;
+justify-content:space-between;
+max-width:1000px;
+margin:auto;
+flex-wrap:wrap;
+gap:30px;
+}
+
+.footer-container h3,
+.footer-container h4{
+margin-bottom:10px;
+}
+
+.footer-links ul{
+list-style:none;
+padding:0;
+}
+
+.footer-links li{
+margin-bottom:6px;
+}
+
+.footer-links a{
+color:#ddd;
+text-decoration:none;
+}
+
+.footer-links a:hover{
+color:white;
+}
+
+.footer-bottom{
+text-align:center;
+margin-top:20px;
+border-top:1px solid #444;
+padding-top:15px;
+font-size:14px;
+}
