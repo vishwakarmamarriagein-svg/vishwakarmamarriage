@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Vishwakarma Matrimony</title>
-    <link rel="stylesheet" href="style.css">
+<title>Vishwakarma Matrimony</title>
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <header>
-    <h1>Vishwakarma Matrimony</h1>
+<h1>Vishwakarma Matrimony</h1>
+
 <nav class="navbar">
 <a href="index.html">Home</a>
 <a href="groom.html">Groom</a>
@@ -15,45 +17,55 @@
 <a href="register.html">Register</a>
 <a href="login.html">Login</a>
 </nav>
+
 </header>
 
 <section class="hero">
-    <h2>Connecting Vishwakarma Families with Trust & Tradition</h2>
-    <a href="groom.html" class="btn">View Groom Profiles</a>
-    <a href="bride.html" class="btn">View Bride Profiles</a>
+
+<h2>Connecting Vishwakarma Families with Trust & Tradition</h2>
+
+<p class="login-info">
+🔒 Register or Login to view contact numbers and connect with profiles.
+</p>
+
+<div class="main-buttons">
+<a href="groom.html" class="btn">Browse Groom Profiles</a>
+<a href="bride.html" class="btn">Browse Bride Profiles</a>
+</div>
+
 </section>
-   <a href="submit-profile.html">
-  <button style="padding:10px 20px;background:maroon;color:white;border:none;">
-    Register Your Profile
-  </button>
+
+<div class="register-section">
+<a href="submit-profile.html" class="register-btn">
+Register Your Profile Free
 </a>
+</div>
+
 <footer>
-    <p>© 2026 Vishwakarma Matrimony</p>
+<p>© 2026 Vishwakarma Matrimony</p>
 </footer>
+
 <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-analytics.js";
-  import { getAuth } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyDjQhpE7CVkcmboZqGNiqb22-LJ7Xf8DQI",
-    authDomain: "vishwakarmamarriage-e8e13.firebaseapp.com",
-    projectId: "vishwakarmamarriage-e8e13",
-    storageBucket: "vishwakarmamarriage-e8e13.firebasestorage.app",
-    messagingSenderId: "287592386640",
-    appId: "1:287592386640:web:93a60b14daf415eac3c155",
-    measurementId: "G-ZR2V7KSB8Z"
-  };
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-analytics.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-  const auth = getAuth(app);
+const firebaseConfig = {
+apiKey: "AIzaSyDjQhpE7CVkcmboZqGNiqb22-LJ7Xf8DQI",
+authDomain: "vishwakarmamarriage-e8e13.firebaseapp.com",
+projectId: "vishwakarmamarriage-e8e13",
+storageBucket: "vishwakarmamarriage-e8e13.firebasestorage.app",
+messagingSenderId: "287592386640",
+appId: "1:287592386640:web:93a60b14daf415eac3c155",
+measurementId: "G-ZR2V7KSB8Z"
+};
+
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const auth = getAuth(app);
+
 </script>
- </body>
+
+</body>
 </html>
