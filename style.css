@@ -274,3 +274,16 @@ transition:0.3s;
 transform:translateY(-6px);
 box-shadow:0 12px 30px rgba(0,0,0,0.15);
 }
+
+.lineage:hover{
+transform:translateY(-6px);
+box-shadow:0 12px 30px rgba(0,0,0,0.15);
+}
+.lineage-text{
+max-width:800px;
+margin:0 auto 35px auto;
+color:#555;
+font-size:16px;
+line-height:1.6;
+text-align:center;
+}
