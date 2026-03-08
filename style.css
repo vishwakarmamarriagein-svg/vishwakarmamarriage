@@ -411,3 +411,15 @@ transform:translateY(-5px);
 color:#8b0000;
 margin-bottom:8px;
 }
+.hero {
+background:
+linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+url("wedding.png");
+
+background-size:cover;
+background-position:center;
+
+padding:120px 20px;
+text-align:center;
+color:white;
+}
