@@ -245,3 +245,22 @@ font-weight:bold;
 .features{
 border-top:1px solid #eee;
 }
+.stats{
+display:flex;
+justify-content:center;
+gap:60px;
+background:white;
+padding:40px 20px;
+text-align:center;
+}
+
+.stat-box h3{
+font-size:28px;
+color:#8b0000;
+margin-bottom:5px;
+}
+
+.stat-box p{
+color:#555;
+font-size:15px;
+}
