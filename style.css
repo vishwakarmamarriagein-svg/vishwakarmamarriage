@@ -437,3 +437,31 @@ width:90px;
 border-radius:50%;
 border:3px solid gold;
 }
+.btn{
+padding:14px 28px;
+border-radius:30px;
+font-size:16px;
+font-weight:bold;
+margin:8px;
+}
+
+.btn-groom{
+background:#ff9800;
+color:white;
+}
+
+.btn-bride{
+background:#ffa726;
+color:white;
+}
+
+.btn-register{
+background:#8B0000;
+color:white;
+}
+.stat-card{
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
