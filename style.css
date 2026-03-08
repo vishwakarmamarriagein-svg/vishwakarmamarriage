@@ -465,3 +465,18 @@ padding:25px;
 border-radius:12px;
 box-shadow:0 4px 10px rgba(0,0,0,0.1);
 }
+.vishwakarma-icon img{
+width:120px;
+background:white;
+padding:8px;
+border-radius:50%;
+border:3px solid gold;
+box-shadow:0 4px 12px rgba(0,0,0,0.4);
+margin-bottom:15px;
+}
+.vishwakarma-icon{
+margin-bottom:20px;
+}
+.navbar{
+padding:12px 40px;
+}
