@@ -423,3 +423,12 @@ padding:120px 20px;
 text-align:center;
 color:white;
 }
+.vishwakarma-icon{
+text-align:center;
+margin-bottom:15px;
+}
+
+.vishwakarma-icon img{
+width:90px;
+border-radius:50%;
+}
