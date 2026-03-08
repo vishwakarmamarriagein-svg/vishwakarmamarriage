@@ -3,22 +3,27 @@
 <head>
 <title>Vishwakarma Matrimony</title>
 <link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
 
 <header>
-<h1>Vishwakarma Matrimony</h1>
+
+<h1 class="logo">Vishwakarma Matrimony</h1>
 
 <nav class="navbar">
 <a href="index.html">Home</a>
 <a href="groom.html">Groom</a>
 <a href="bride.html">Bride</a>
-<a href="register.html">Register</a>
+<a href="submit-profile.html">Register</a>
 <a href="login.html">Login</a>
 </nav>
 
 </header>
+
+
+<!-- HERO SECTION -->
 
 <section class="hero">
 
@@ -28,23 +33,35 @@
 
 <h2>Connecting Vishwakarma Families with Trust & Tradition</h2>
 
+<p class="blessing">With the blessings of Lord Vishwakarma</p>
+
 <p class="login-info">
-🔒 Register or Login to view contact numbers and connect with profiles.
+🔒 Register or Login to view contact numbers and connect with profiles
 </p>
 
 <div class="main-buttons">
-<a href="groom.html" class="btn">Browse Groom Profiles</a>
-<a href="bride.html" class="btn">Browse Bride Profiles</a>
+
+<a href="groom.html" class="btn groom">Browse Groom Profiles</a>
+
+<a href="bride.html" class="btn bride">Browse Bride Profiles</a>
+
 </div>
 
 <div class="register-section">
+
 <a href="submit-profile.html" class="register-btn">
 Register Your Profile Free
 </a>
+
 </div>
 
 </section>
-  <section class="stats">
+
+
+
+<!-- STATS SECTION -->
+
+<section class="stats">
 
 <div class="stat-box">
 <h3>👨 100+</h3>
@@ -63,7 +80,10 @@ Register Your Profile Free
 
 </section>
 
-  
+
+
+<!-- LINEAGES -->
+
 <section class="lineages">
 
 <h2>Five Lineages of Vishwakarma Community</h2>
@@ -78,78 +98,85 @@ Marriages are traditionally considered acceptable among these lineages.
 
 <div class="lineage">
 <h3>Manu</h3>
-<p>Associated with metal and blacksmith craftsmanship.</p>
+<p>Metal and blacksmith craftsmanship</p>
 </div>
 
 <div class="lineage">
-<h3>May (Maya)</h3>
-<p>Traditionally linked with carpentry and wood craftsmanship.</p>
+<h3>Maya</h3>
+<p>Carpentry and wood craftsmanship</p>
 </div>
 
 <div class="lineage">
 <h3>Tvasta</h3>
-<p>Known for metal casting and mechanical craftsmanship.</p>
+<p>Metal casting and mechanical work</p>
 </div>
 
 <div class="lineage">
 <h3>Shilpi</h3>
-<p>Associated with stone carving and temple architecture.</p>
+<p>Stone carving and temple architecture</p>
 </div>
 
 <div class="lineage">
 <h3>Daivagya</h3>
-<p>Traditionally linked with goldsmith and precious metal work.</p>
+<p>Goldsmith and precious metal work</p>
 </div>
 
 </div>
 
 </section>
-  <section class="features">
+
+
+
+<!-- FEATURES -->
+
+<section class="features">
+
 <h2>Why Choose Vishwakarma Matrimony?</h2>
+
 <div class="feature-box">
 
 <div class="feature">
 <h3>🔐 Verified Profiles</h3>
-<p>All profiles are reviewed before approval.</p>
+<p>All profiles are reviewed before approval</p>
 </div>
 
 <div class="feature">
 <h3>📞 Direct Contact</h3>
-<p>Connect with families directly after login.</p>
+<p>Connect with families directly after login</p>
 </div>
 
 <div class="feature">
 <h3>🛠 Community Focus</h3>
-<p>Dedicated matrimony platform for Vishwakarma community.</p>
+<p>Dedicated platform for Vishwakarma community</p>
 </div>
 
 </div>
 
 </section>
 
- <footer class="site-footer">
+
+
+<!-- FOOTER -->
+
+<footer class="site-footer">
 
 <div class="footer-container">
 
-<div class="footer-about">
+<div>
 <h3>Vishwakarma Matrimony</h3>
 <p>
-A dedicated platform to connect Vishwakarma families
-for meaningful and trusted matrimonial alliances.
+Connecting Vishwakarma families with trust and tradition.
 </p>
 </div>
 
-<div class="footer-links">
+<div>
 <h4>Quick Links</h4>
-<ul>
-<li><a href="index.html">Home</a></li>
-<li><a href="groom.html">Groom Profiles</a></li>
-<li><a href="bride.html">Bride Profiles</a></li>
-<li><a href="submit-profile.html">Register Profile</a></li>
-</ul>
+<p><a href="groom.html">Groom Profiles</a></p>
+<p><a href="bride.html">Bride Profiles</a></p>
+<p><a href="submit-profile.html">Register Profile</a></p>
 </div>
 
-<div class="footer-contact">
+<div>
 <h4>Contact</h4>
 <p>Email: support@vishwakarmamarriage.in</p>
 <p>WhatsApp: +91 79905 89183</p>
@@ -158,47 +185,27 @@ for meaningful and trusted matrimonial alliances.
 </div>
 
 <div class="footer-bottom">
-<p>© 2026 Vishwakarma Matrimony | All Rights Reserved</p>
+© 2026 Vishwakarma Matrimony
 </div>
 
-</footer> 
+</footer>
 
 
+<!-- WHATSAPP BUTTON -->
 
-  
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-analytics.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
-
-const firebaseConfig = {
-apiKey: "AIzaSyDjQhpE7CVkcmboZqGNiqb22-LJ7Xf8DQI",
-authDomain: "vishwakarmamarriage-e8e13.firebaseapp.com",
-projectId: "vishwakarmamarriage-e8e13",
-storageBucket: "vishwakarmamarriage-e8e13.firebasestorage.app",
-messagingSenderId: "287592386640",
-appId: "1:287592386640:web:93a60b14daf415eac3c155",
-measurementId: "G-ZR2V7KSB8Z"
-};
-
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth(app);
-
-</script>
 <div class="whatsapp-container">
 
-<a href="https://wa.me/917990589183?text=Hello%20I%20need%20help%20with%20Vishwakarma%20Matrimony"
-class="whatsapp-btn" target="_blank">
+<a href="https://wa.me/917990589183" class="whatsapp-btn" target="_blank">
 
-<img src="https://cdn-icons-png.flaticon.com/512/733/733585.png"
-alt="WhatsApp">
+<img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
 
 </a>
 
-<span class="whatsapp-tooltip">Need Help? Chat on WhatsApp</span>
+<span class="whatsapp-tooltip">
+Need Help? Chat on WhatsApp
+</span>
 
 </div>
+
 </body>
 </html>
