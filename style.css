@@ -231,6 +231,8 @@ margin:auto;
 .footer-container a{
 color:#ddd;
 text-decoration:none;
+display:block;
+margin-bottom:6px;
 }
 
 .footer-bottom{
