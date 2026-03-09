@@ -321,11 +321,9 @@ font-weight:bold;
 color:white;
 }
 
-.logo-icon{
-width:50px;
-height:50px;
-margin-right:10px;
-}
+
+
+
 .logo{
 font-family:'Poppins', sans-serif;
 }
@@ -343,10 +341,6 @@ display:flex;
 align-items:center;
 }
 
-.logo-icon{
-width:45px;
-margin-right:12px;
-}
 
 .logo-text{
 font-size:28px;
@@ -388,18 +382,14 @@ font-size:40px;
 font-weight:700;
 }
 .logo-icon{
-height:42px;
-width:auto;
-margin-right:12px;
-border-radius:6px;
-}
-.logo-icon{
-height:42px;
-width:42px;
+height:60px;
+width:60px;
 margin-right:12px;
 border-radius:50%;
 object-fit:cover;
+border:2px solid #ffd700;
 }
+
 .logo-text{
 font-family:'Poppins', sans-serif;
 font-weight:700;
