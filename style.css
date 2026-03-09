@@ -301,3 +301,14 @@ background:white;
 font-size:28px;
 margin-bottom:20px;
 }
+.lineage-image{
+text-align:center;
+margin-top:40px;
+}
+
+.lineage-image img{
+max-width:100%;
+height:auto;
+border-radius:10px;
+box-shadow:0 8px 25px rgba(0,0,0,0.15);
+}
