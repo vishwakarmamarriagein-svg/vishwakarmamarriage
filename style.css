@@ -432,8 +432,9 @@ font-size:26px;
 
 .navbar{
 display:flex;
-flex-wrap:wrap;
+flex-wrap:nowrap;
 justify-content:center;
+gap:12px;
 margin-top:10px;
 }
 
@@ -570,8 +571,8 @@ margin-top:10px;
 }
 
 .navbar a{
-margin:6px 10px;
-font-size:14px;
+margin:4px 6px;
+font-size:13px;
 }
 
 .hero{
