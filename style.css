@@ -110,11 +110,9 @@ font-size:28px;
 /* LINEAGES */
 
 .lineages{
-text-align:center;
-padding:60px 20px;
+padding:30px 20px 60px 20px;
 background:#f8f8f8;
 }
-
 .lineage-box{
 display:flex;
 flex-wrap:wrap;
