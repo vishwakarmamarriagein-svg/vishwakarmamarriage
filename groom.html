@@ -105,8 +105,17 @@ searchInput.addEventListener("input", function () {
 
 let selectedCategory = "All";
 window.filterCategory = function(category) {
-  selectedCategory = category;
-  loadProfiles();
+
+selectedCategory = category;
+
+document.querySelectorAll(".filters button").forEach(btn=>{
+btn.classList.remove("active");
+});
+
+event.target.classList.add("active");
+
+loadProfiles();
+
 };
 </script>
 <button id="logoutBtn" style="
