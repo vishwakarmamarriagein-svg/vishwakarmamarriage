@@ -1,21 +1,69 @@
 body{
-font-family:Arial;
+font-family:Arial, sans-serif;
 margin:0;
 background:#f5f5f5;
 }
 
 /* HEADER */
 
-.logo{
-margin:0;
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px 40px;
+background:#a80000;
+color:white;
+box-shadow:0 2px 10px rgba(0,0,0,0.2);
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+.logo-container{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.logo-icon{
+height:55px;
+width:55px;
+border-radius:50%;
+object-fit:cover;
+border:2px solid #ffd700;
+}
+
+.logo-text{
+font-family:'Poppins', sans-serif;
+font-size:28px;
+font-weight:700;
+color:white;
+}
+
+.navbar{
+display:flex;
+align-items:center;
 }
 
 .navbar a{
 color:white;
-margin-right:20px;
 text-decoration:none;
+margin-left:20px;
+font-size:16px;
+font-weight:500;
 }
 
+.navbar a:hover{
+color:#ffd700;
+}
+
+.register-btn{
+background:#ffcc00;
+color:black !important;
+padding:6px 12px;
+border-radius:6px;
+font-weight:600;
+}
 
 /* HERO SECTION */
 
@@ -23,18 +71,15 @@ text-decoration:none;
 background:
 linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
 url("wedding.png");
-
 background-size:cover;
-background-position:center 20%;
-
-padding:140px 20px;
+background-position:center;
+padding:120px 20px;
 text-align:center;
 color:white;
 }
 
 .hero h2{
-font-size:34px;
-font-weight:600;
+font-size:36px;
 text-shadow:2px 2px 10px rgba(0,0,0,0.8);
 }
 
@@ -48,20 +93,6 @@ margin-bottom:10px;
 margin-bottom:20px;
 }
 
-
-/* VISHWAKARMA ICON */
-
-.vishwakarma-icon img{
-width:95px;
-background:white;
-padding:6px;
-border-radius:50%;
-border:2px solid gold;
-box-shadow:0 4px 10px rgba(0,0,0,0.3);
-margin-bottom:15px;
-}
-
-
 /* BUTTONS */
 
 .btn{
@@ -71,24 +102,16 @@ padding:14px 28px;
 border-radius:30px;
 text-decoration:none;
 font-weight:bold;
-margin:10px;
+margin:8px;
 display:inline-block;
 transition:0.3s;
+min-width:220px;
+text-align:center;
 }
 
 .btn:hover{
 transform:scale(1.05);
 }
-
-.register-btn{
-background:#b30000;
-color:white;
-padding:14px 30px;
-border-radius:30px;
-text-decoration:none;
-font-weight:bold;
-}
-
 
 /* STATS */
 
@@ -99,37 +122,50 @@ gap:60px;
 background:white;
 padding:30px 20px;
 text-align:center;
+margin-bottom:10px;
 }
 
 .stat-box h3{
 color:#8b0000;
-font-size:28px;
+font-size:32px;
+margin-bottom:5px;
 }
-
 
 /* LINEAGES */
 
 .lineages{
 text-align:center;
-padding:25px 20px 50px 20px;
+padding:40px 20px;
 background:#f8f8f8;
 }
-.lineage-box{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:25px;
-margin-top:30px;
+
+.lineages h2{
+font-size:28px;
+margin-bottom:15px;
 }
 
-.lineage{
-width:180px;
-background:white;
-padding:20px;
+.lineages h2::after{
+content:"";
+display:block;
+width:60px;
+height:3px;
+background:#8b0000;
+margin:10px auto 0;
+}
+
+.lineage-text{
+max-width:800px;
+margin:0 auto 30px;
+color:#555;
+font-size:16px;
+line-height:1.6;
+}
+
+.lineage-image img{
+max-width:100%;
 border-radius:10px;
-box-shadow:0 4px 12px rgba(0,0,0,0.1);
+box-shadow:0 8px 25px rgba(0,0,0,0.15);
 }
-
 
 /* FEATURES */
 
@@ -159,7 +195,6 @@ transition:0.3s;
 transform:translateY(-5px);
 }
 
-
 /* FOOTER */
 
 .site-footer{
@@ -184,15 +219,12 @@ text-align:center;
 margin-top:20px;
 }
 
-
-/* WHATSAPP */
+/* WHATSAPP BUTTON */
 
 .whatsapp-container{
 position:fixed;
 bottom:25px;
 right:25px;
-display:flex;
-align-items:center;
 }
 
 .whatsapp-btn{
@@ -210,220 +242,14 @@ box-shadow:0 4px 12px rgba(0,0,0,0.3);
 width:35px;
 }
 
-.whatsapp-tooltip{
-margin-right:10px;
-background:#333;
-color:white;
-padding:6px 10px;
-border-radius:5px;
-font-size:14px;
-opacity:0;
-transition:0.3s;
-}
-
-.whatsapp-container:hover .whatsapp-tooltip{
-opacity:1;
-}
-.main-buttons{
-display:flex;
-justify-content:center;
-gap:20px;
-flex-wrap:wrap;
-margin-top:20px;
-}
-
-.register-section{
-margin-top:20px;
-}
-.btn{
-background:#f39c12;
-color:white;
-padding:14px 28px;
-border-radius:30px;
-text-decoration:none;
-font-weight:bold;
-margin:6px;
-display:inline-block;
-transition:0.3s;
-min-width:220px;
-text-align:center;
-}
-header{
-background:#8b0000;
-color:white;
-padding:15px 40px;
-box-shadow:0 3px 10px rgba(0,0,0,0.3);
-}
-.lineage{
-width:190px;
-background:white;
-padding:22px;
-border-radius:12px;
-box-shadow:0 6px 18px rgba(0,0,0,0.08);
-transition:0.3s;
-}
-
-.lineage:hover{
-transform:translateY(-6px);
-box-shadow:0 12px 30px rgba(0,0,0,0.15);
-}
-
-.lineage:hover{
-transform:translateY(-6px);
-box-shadow:0 12px 30px rgba(0,0,0,0.15);
-}
-.lineage-text{
-max-width:800px;
-margin:0 auto 35px auto;
-color:#555;
-font-size:16px;
-line-height:1.6;
-text-align:center;
-}
-
-.features{
-padding:70px 20px;
-background:white;
-}
-.lineages h2,
-.features h2{
-font-size:28px;
-margin-bottom:15px;
-text-align:center;
-}
-.lineage-image{
-text-align:center;
-margin-top:40px;
-}
-
-.lineage-image img{
-max-width:100%;
-height:auto;
-border-radius:10px;
-box-shadow:0 8px 25px rgba(0,0,0,0.15);
-}
-.logo{
-display:flex;
-align-items:center;
-gap:10px;
-font-size:28px;
-font-weight:bold;
-color:white;
-}
-
-
-
-
-.logo{
-font-family:'Poppins', sans-serif;
-}
-.header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:12px 50px;
-background:#a80000;
-box-shadow:0 2px 10px rgba(0,0,0,0.15);
-}
-
-.logo-container{
-display:flex;
-align-items:center;
-}
-
-
-.logo-text{
-font-size:26px;
-font-weight:700;
-color:white;
-letter-spacing:0.5px;
-}
-
-.navbar a{
-color:white;
-margin-left:25px;
-text-decoration:none;
-font-size:16px;
-font-weight:500;
-transition:0.3s;
-}
-
-.navbar a:hover{
-color:#ffd700;
-}
-
-.register-btn{
-background:#ffcc00;
-color:black !important;
-padding:4px 10px;
-border-radius:6px;
-font-weight:600;
-}
-.header{
-position:sticky;
-top:0;
-z-index:1000;
-}
-.navbar a:hover{
-color:#ffd700;
-transform:translateY(-1px);
-}
-.hero-title{
-font-size:40px;
-font-weight:700;
-}
-.logo-icon{
-height:60px;
-width:60px;
-margin-right:12px;
-border-radius:50%;
-object-fit:cover;
-border:2px solid #ffd700;
-}
-
-.logo-text{
-font-family:'Poppins', sans-serif;
-font-weight:700;
-letter-spacing:0.5px;
-}
-.stats-section{
-    margin-bottom: 20px;
-}
-
-h2{
-margin-top:10px;
-}
-.stats{
-margin-bottom:10px;
-}
-.lineages h2::after{
-content:"";
-display:block;
-width:60px;
-height:3px;
-background:#8b0000;
-margin:10px auto 0;
-}
-.stat-box h3{
-color:#8b0000;
-font-size:32px;
-margin-bottom:5px;
-}
-.stat-box{
-transition:0.3s;
-}
-
-.stat-box:hover{
-transform:translateY(-4px);
-}
-/* MOBILE NAVBAR FIX */
+/* MOBILE RESPONSIVE */
 
 @media (max-width:768px){
 
 .header{
 flex-direction:column;
-align-items:center;
 padding:10px;
+text-align:center;
 }
 
 .logo-text{
@@ -431,58 +257,6 @@ font-size:22px;
 }
 
 .navbar{
-display:flex;
-flex-wrap:nowrap;
-justify-content:center;
-gap:12px;
-margin-top:10px;
-}
-
-.navbar a{
-margin:6px 10px;
-font-size:14px;
-}
-
-}
-
-@media (max-width:768px){
-
-.hero h1{
-font-size:28px;
-line-height:36px;
-}
-
-.hero p{
-font-size:16px;
-}
-
-}
-@media (max-width:768px){
-
-.hero-buttons{
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:10px;
-}
-
-.hero-buttons a{
-width:90%;
-text-align:center;
-}
-
-}
-@media (max-width:768px){
-
-header img{
-width:40px;
-}
-
-}
-@media (max-width:768px){
-
-.navbar{
-display:flex;
 flex-wrap:nowrap;
 justify-content:center;
 gap:8px;
@@ -493,89 +267,6 @@ margin-top:10px;
 font-size:12px;
 margin:0 3px;
 white-space:nowrap;
-}
-
-}
-@media (max-width:768px){
-
-.features{
-display:flex;
-flex-direction:column;
-gap:20px;
-}
-
-.feature-card{
-width:90%;
-margin:auto;
-}
-
-}
-.whatsapp-btn{
-bottom:25px;
-right:20px;
-}
-/* NAVBAR */
-
-.nav-container{
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.logo-area{
-display:flex;
-align-items:center;
-gap:10px;
-}
-
-.logo-img{
-width:45px;
-}
-
-.logo-text{
-font-size:24px;
-margin:0;
-color:white;
-}
-
-.navbar a{
-color:white;
-margin-left:20px;
-text-decoration:none;
-font-weight:500;
-}
-
-.menu-toggle{
-display:none;
-font-size:28px;
-cursor:pointer;
-color:white;
-}
-/* MOBILE RESPONSIVE */
-
-@media (max-width:768px){
-
-.header{
-flex-direction:column;
-align-items:center;
-padding:10px;
-}
-
-.logo-text{
-font-size:26px;
-text-align:center;
-}
-
-.navbar{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-margin-top:10px;
-}
-
-.navbar a{
-margin:4px 6px;
-font-size:13px;
 }
 
 .hero{
@@ -601,14 +292,4 @@ align-items:center;
 width:90%;
 }
 
-}
-
-
-.logo-icon{
-height:55px;
-width:55px;
-margin-right:12px;
-border-radius:50%;
-object-fit:cover;
-border:2px solid #ffd700;
 }
