@@ -387,3 +387,16 @@ transform:translateY(-1px);
 font-size:40px;
 font-weight:700;
 }
+.logo-icon{
+height:42px;
+width:auto;
+margin-right:12px;
+border-radius:6px;
+}
+.logo-icon{
+height:42px;
+width:42px;
+margin-right:12px;
+border-radius:50%;
+object-fit:cover;
+}
