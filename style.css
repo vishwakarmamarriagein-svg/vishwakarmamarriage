@@ -333,7 +333,7 @@ align-items:center;
 
 
 .logo-text{
-font-size:32px;
+font-size:26px;
 font-weight:700;
 color:white;
 letter-spacing:0.5px;
@@ -483,13 +483,16 @@ width:40px;
 
 .navbar{
 display:flex;
-flex-wrap:wrap;
-justify-content:flex-end;
+flex-wrap:nowrap;
+justify-content:center;
+gap:8px;
+margin-top:10px;
 }
 
 .navbar a{
-font-size:13px;
-margin:4px 6px;
+font-size:12px;
+margin:0 3px;
+white-space:nowrap;
 }
 
 }
