@@ -419,9 +419,9 @@ margin-top:10px;
 background:#a80000;
 }
 .profile-card{
-background:white;
+background:linear-gradient(180deg,#ffffff,#fafafa);
 border-radius:12px;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
+box-shadow:0 6px 18px rgba(0,0,0,0.1);
 padding:15px;
 text-align:center;
 transition:0.3s;
@@ -429,7 +429,7 @@ transition:0.3s;
 
 .profile-card:hover{
 transform:translateY(-8px);
-box-shadow:0 10px 25px rgba(0,0,0,0.2);
+box-shadow:0 12px 28px rgba(0,0,0,0.2);
 }
 .profile-photo{
 width:100%;
