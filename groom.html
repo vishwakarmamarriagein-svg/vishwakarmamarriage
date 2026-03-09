@@ -77,9 +77,9 @@ if (
 card.innerHTML = `
   <img src="${profile.photo}" class="profile-photo">
   <h3>${profile.name}</h3>
-  <p><strong>Category:</strong> ${profile.category}</p>
-  <p><strong>Age:</strong> ${profile.age}</p>
-  <p><strong>Location:</strong> ${profile.district}, ${profile.state}</p>
+  <p class="category-badge">${profile.category}</p>
+<p>👤 Age: ${profile.age}</p>
+<p>📍 ${profile.district}, ${profile.state}</p>
   <a href="profile.html?id=${docSnap.id}">
    <button class="view-btn">
 View Full Profile
