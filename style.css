@@ -389,3 +389,10 @@ font-family:'Poppins', sans-serif;
 font-weight:700;
 letter-spacing:0.5px;
 }
+.stats-section{
+    margin-bottom: 20px;
+}
+
+h2{
+margin-top:10px;
+}
