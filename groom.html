@@ -4,10 +4,14 @@
     <title>Groom Profiles</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
+<div class="page-container">
+
 <h2>Groom Profiles</h2>
 
- <div class="top-bar">
+<div class="top-bar">
 
 <input type="text" id="searchInput" placeholder="Search by Name...">
 
@@ -23,6 +27,7 @@
 </div>
 
 <div id="profiles-container" data-type="groom"></div>
+    </div>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
 import { getFirestore, collection, getDocs } 
@@ -67,9 +72,9 @@ card.innerHTML = `
   <p><strong>Age:</strong> ${profile.age}</p>
   <p><strong>Location:</strong> ${profile.district}, ${profile.state}</p>
   <a href="profile.html?id=${docSnap.id}">
-    <button style="padding:8px 12px; background:maroon; color:white; border:none; cursor:pointer; margin-top:10px;">
-      View Full Profile
-    </button>
+   <button class="view-btn">
+View Full Profile
+</button>
   </a>
 `;
 
