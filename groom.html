@@ -48,7 +48,8 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 const container = document.getElementById("profiles-container");
-
+const searchInput = document.getElementById("searchInput");
+let searchText = "";
 async function loadProfiles() {
   container.innerHTML = "";
 
@@ -61,6 +62,14 @@ async function loadProfiles() {
    if (!profile.type || profile.type.toLowerCase().trim() !== "groom") return;
 
 if (selectedCategory !== "All" && profile.category !== selectedCategory) return;
+
+const text = searchText.toLowerCase();
+
+if (
+  profile.name.toLowerCase().indexOf(text) === -1 &&
+  profile.district.toLowerCase().indexOf(text) === -1 &&
+  profile.state.toLowerCase().indexOf(text) === -1
+) return;
 
     const card = document.createElement("div");
     card.className = "profile-card";
@@ -88,8 +97,14 @@ View Full Profile
   });
 }
 loadProfiles();
-    let selectedCategory = "All";
-    window.filterCategory = function(category) {
+
+searchInput.addEventListener("input", function () {
+  searchText = this.value;
+  loadProfiles();
+});
+
+let selectedCategory = "All";
+window.filterCategory = function(category) {
   selectedCategory = category;
   loadProfiles();
 };
