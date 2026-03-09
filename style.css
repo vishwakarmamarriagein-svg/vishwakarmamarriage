@@ -353,3 +353,68 @@ object-fit:cover;
 border-radius:8px;
 background:#f0f0f0;
 }
+
+
+.page-container{
+max-width:1200px;
+margin:auto;
+padding:10px;
+}
+
+h2{
+text-align:center;
+margin-top:30px;
+color:#8b0000;
+}
+
+/* SEARCH BAR */
+
+.top-bar{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:20px;
+flex-wrap:wrap;
+margin:25px auto;
+}
+
+/* SEARCH BOX */
+
+#searchInput{
+padding:10px;
+width:250px;
+border-radius:6px;
+border:1px solid #ccc;
+}
+
+/* FILTER BUTTONS */
+
+.filters button{
+padding:8px 14px;
+border:1px solid #8b0000;
+background:white;
+color:#8b0000;
+border-radius:5px;
+cursor:pointer;
+}
+
+.filters button:hover{
+background:#8b0000;
+color:white;
+}
+
+/* PROFILE BUTTON */
+
+.view-btn{
+background:#8b0000;
+color:white;
+padding:8px 14px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+margin-top:10px;
+}
+
+.view-btn:hover{
+background:#a80000;
+}
