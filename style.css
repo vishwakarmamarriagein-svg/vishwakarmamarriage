@@ -562,3 +562,11 @@ right:0;
 width:200px;
 padding:15px;
 }
+.logo-icon{
+height:55px;
+width:55px;
+margin-right:12px;
+border-radius:50%;
+object-fit:cover;
+border:2px solid #ffd700;
+}
