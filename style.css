@@ -447,3 +447,7 @@ border-radius:20px;
 font-size:13px;
 margin-bottom:6px;
 }
+.filters button.active{
+background:#8b0000;
+color:white;
+}
