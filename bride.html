@@ -1,96 +1,137 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Bride Profiles</title>
-    <link rel="stylesheet" href="style.css">
+<title>Bride Profiles</title>
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
+<div class="page-container">
+
 <h2>Bride Profiles</h2>
-<input type="text" id="searchInput" placeholder="Search by Name, City, Education..." onkeyup="searchProfiles()" style="padding:8px; width:300px; margin-bottom:20px;">
-    <div class="category-buttons">
-  <button onclick="filterCategory('All')">All</button>
-  <button onclick="filterCategory('Manu')">Manu</button>
-  <button onclick="filterCategory('May')">May</button>
-  <button onclick="filterCategory('Twasta')">Twasta</button>
-  <button onclick="filterCategory('Shilpi')">Shilpi</button>
-  <button onclick="filterCategory('Daiwaggya')">Daiwaggya</button>
+
+<div class="top-bar">
+
+<input type="text" id="searchInput" placeholder="Search by Name, District or State">
+
+<div class="filters">
+<button onclick="filterCategory('All')">All</button>
+<button onclick="filterCategory('Manu')">Manu</button>
+<button onclick="filterCategory('May')">May</button>
+<button onclick="filterCategory('Twasta')">Twasta</button>
+<button onclick="filterCategory('Shilpi')">Shilpi</button>
+<button onclick="filterCategory('Daiwaggya')">Daiwaggya</button>
 </div>
-<div id="profiles-container" data-type="bride"></div>
+
+</div>
+
+<div id="profiles-container"></div>
+
+</div>
+
+
 <script type="module">
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
 import { getFirestore, collection, getDocs } 
 from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
-import { getAuth, onAuthStateChanged, signOut } 
-from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 const firebaseConfig = {
-  apiKey: "AIzaSyAyT4AF8qZMyvqZNC8hGanMvGSwfydTDJU",
-  authDomain: "vishwakarmamarriage-e8e13.firebaseapp.com",
-  projectId: "vishwakarmamarriage-e8e13",
-  storageBucket: "vishwakarmamarriage-e8e13.firebasestorage.app",
-  messagingSenderId: "287592386640",
-  appId: "1:287592386640:web:93a60b14daf415eac3c155"
+apiKey: "AIzaSyAyT4AF8qZMyvqZNC8hGanMvGSwfydTDJU",
+authDomain: "vishwakarmamarriage-e8e13.firebaseapp.com",
+projectId: "vishwakarmamarriage-e8e13",
+storageBucket: "vishwakarmamarriage-e8e13.firebasestorage.app",
+messagingSenderId: "287592386640",
+appId: "1:287592386640:web:93a60b14daf415eac3c155"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const auth = getAuth(app);
+
 const container = document.getElementById("profiles-container");
+const searchInput = document.getElementById("searchInput");
 
-async function loadProfiles() {
-  container.innerHTML = "";
+let searchText = "";
+let selectedCategory = "All";
 
-  const querySnapshot = await getDocs(collection(db, "profiles"));
 
-  querySnapshot.forEach((docSnap) => {
+async function loadProfiles(){
 
-    const profile = docSnap.data();
+container.innerHTML="";
 
-    if (profile.type !== "bride") return;
+const querySnapshot = await getDocs(collection(db,"profiles"));
 
-    const card = document.createElement("div");
-    card.className = "profile-card";
-card.innerHTML = `
-  <a href="profile.html?id=${docSnap.id}" style="text-decoration:none;color:inherit;">
-    <img src="${profile.photo}" class="profile-photo">
-    <h3>${profile.name}</h3>
-    <p><strong>Category:</strong> ${profile.category}</p>
-    <p><strong>Age:</strong> ${profile.age}</p>
-    <p><strong>Location:</strong> ${profile.district}, ${profile.state}</p>
-  </a>
+querySnapshot.forEach((docSnap)=>{
+
+const profile = docSnap.data();
+
+if(!profile.type || profile.type.toLowerCase().trim() !== "bride") return;
+
+if(selectedCategory !== "All" && profile.category !== selectedCategory) return;
+
+const text = searchText.toLowerCase();
+
+if(
+profile.name.toLowerCase().indexOf(text) === -1 &&
+profile.district.toLowerCase().indexOf(text) === -1 &&
+profile.state.toLowerCase().indexOf(text) === -1
+) return;
+
+
+const card = document.createElement("div");
+card.className="profile-card";
+
+card.innerHTML=`
+
+<img src="${profile.photo}" class="profile-photo">
+
+<h3>${profile.name}</h3>
+
+<p class="category-badge">${profile.category}</p>
+
+<p>👤 Age: ${profile.age}</p>
+
+<p>📍 ${profile.district}, ${profile.state}</p>
+
+<a href="profile.html?id=${docSnap.id}">
+<button class="view-btn">View Full Profile</button>
+</a>
+
 `;
- container.appendChild(card);
-  });
+
+container.appendChild(card);
+
+});
+
 }
 
 loadProfiles();
-    const logoutBtn = document.getElementById("logoutBtn");
 
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    logoutBtn.style.display = "block";
-  } else {
-    logoutBtn.style.display = "none";
-  }
+
+searchInput.addEventListener("input",function(){
+
+searchText=this.value;
+loadProfiles();
+
 });
 
-logoutBtn.addEventListener("click", async () => {
-  await signOut(auth);
-  window.location.reload();
+
+window.filterCategory=function(category){
+
+selectedCategory=category;
+
+document.querySelectorAll(".filters button").forEach(btn=>{
+btn.classList.remove("active");
 });
+
+event.target.classList.add("active");
+
+loadProfiles();
+
+};
+
 </script>
-    <button id="logoutBtn" style="
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  padding: 8px 15px;
-  background: maroon;
-  color: white;
-  border: none;
-  cursor: pointer;
-  display: none;
-">
-  Logout
-</button>
+
 </body>
 </html>
