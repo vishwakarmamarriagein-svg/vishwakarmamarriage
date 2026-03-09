@@ -379,3 +379,11 @@ position:sticky;
 top:0;
 z-index:1000;
 }
+.navbar a:hover{
+color:#ffd700;
+transform:translateY(-1px);
+}
+.hero-title{
+font-size:40px;
+font-weight:700;
+}
