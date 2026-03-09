@@ -97,8 +97,8 @@ display:flex;
 justify-content:center;
 gap:60px;
 background:white;
-padding:40px;
-text-align:center;
+.stats{
+padding:30px 20px;
 }
 
 .stat-box h3{
