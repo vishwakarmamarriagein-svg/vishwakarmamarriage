@@ -505,3 +505,69 @@ margin:auto;
 bottom:25px;
 right:20px;
 }
+/* NAVBAR */
+
+.nav-container{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo-area{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.logo-img{
+width:45px;
+}
+
+.logo-text{
+font-size:24px;
+margin:0;
+color:white;
+}
+
+.navbar a{
+color:white;
+margin-left:20px;
+text-decoration:none;
+font-weight:500;
+}
+
+.menu-toggle{
+display:none;
+font-size:28px;
+cursor:pointer;
+color:white;
+}
+
+/* MOBILE */
+
+@media (max-width:768px){
+
+.menu-toggle{
+display:block;
+}
+
+.navbar{
+display:none;
+flex-direction:column;
+background:#8b0000;
+position:absolute;
+top:70px;
+right:0;
+width:200px;
+padding:15px;
+}
+
+.navbar a{
+margin:10px 0;
+}
+
+.navbar.show{
+display:flex;
+}
+
+}
