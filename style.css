@@ -473,3 +473,35 @@ width:40px;
 }
 
 }
+@media (max-width:768px){
+
+.navbar{
+display:flex;
+flex-wrap:wrap;
+justify-content:flex-end;
+}
+
+.navbar a{
+font-size:13px;
+margin:4px 6px;
+}
+
+}
+@media (max-width:768px){
+
+.features{
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+.feature-card{
+width:90%;
+margin:auto;
+}
+
+}
+.whatsapp-btn{
+bottom:25px;
+right:20px;
+}
