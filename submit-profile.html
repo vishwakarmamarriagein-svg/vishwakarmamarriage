@@ -65,7 +65,9 @@ display:none;
 
 <input type="text" id="name" placeholder="Full Name" required>
 
-<input type="number" id="age" placeholder="Age" required>
+<input type="date" id="dob" required>
+
+<input type="number" id="age" placeholder="Age (Auto Calculated)" readonly>
 
 <select id="type" required>
 <option value="">Select Type</option>
@@ -145,6 +147,27 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 const storage = getStorage(app);
+  const storage = getStorage(app);
+
+// DOB → Age Auto Calculation
+document.getElementById("dob").addEventListener("change", function(){
+
+const dob = new Date(this.value);
+const today = new Date();
+
+let age = today.getFullYear() - dob.getFullYear();
+
+const m = today.getMonth() - dob.getMonth();
+
+if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+age--;
+}
+
+document.getElementById("age").value = age;
+
+});
+
+document.getElementById("profileForm").addEventListener("submit", async (e)=>{
 
 document.getElementById("profileForm").addEventListener("submit", async (e)=>{
 
