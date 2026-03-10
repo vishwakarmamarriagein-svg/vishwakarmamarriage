@@ -63,11 +63,14 @@ display:none;
 
 <form id="profileForm">
 
-<input type="text" id="name" placeholder="Full Name" required>
+<label>Full Name</label>
+<input type="text" id="name" required>
 
+<label>Date of Birth</label>
 <input type="date" id="dob" required>
 
-<input type="number" id="age" placeholder="Age (Auto Calculated)" readonly>
+<label>Age</label>
+<input type="number" id="age" readonly>
 
 <select id="type" required>
 <option value="">Select Type</option>
@@ -75,7 +78,7 @@ display:none;
 <option value="groom">Groom</option>
 </select>
 
-<select id="category">
+<select id="category" required>
 <option value="">Select Category</option>
 <option value="Manu">Manu</option>
 <option value="May">May</option>
@@ -113,8 +116,7 @@ display:none;
 
 <input type="file" id="photo" accept="image/*" required>
 
-<input type="text" id="contact" placeholder="Contact Number" required>
-
+<input type="tel" id="contact" placeholder="Contact Number" pattern="[0-9]{10}" required>
 <button id="submitBtn" type="submit">Submit Profile</button>
 
 </form>
