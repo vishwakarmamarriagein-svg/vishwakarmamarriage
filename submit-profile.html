@@ -166,7 +166,7 @@ const city=document.getElementById("City").value;
 const district=document.getElementById("district").value;
 const state=document.getElementById("state").value;
 const contact=document.getElementById("contact").value;
-
+const profileID = "VM" + Date.now();
 const file=document.getElementById("photo").files[0];
 
 let photoURL="";
@@ -182,7 +182,7 @@ photoURL=await getDownloadURL(storageRef);
 }
 
 const profileData={
-
+profileID: profileID,
 name:name,
 age:age,
 type:type,
@@ -211,6 +211,10 @@ messageBox.innerHTML=`
 
 <br><br>
 
+Your Profile ID: <b>${profileID}</b>
+
+<br><br>
+
 Contact Admin for Approval.
 
 <br><br>
@@ -234,7 +238,7 @@ submitBtn.innerText="Submitted";
 const whatsappMessage=
 `Hello Admin,
 New profile submitted on Vishwakarma Matrimony
-
+Profile ID: ${profileID}
 Name: ${name}
 Age: ${age}
 Category: ${category}
