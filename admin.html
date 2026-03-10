@@ -110,10 +110,10 @@ onAuthStateChanged(auth, (user) => {
 async function loadPendingProfiles() {
 
   const container = document.getElementById("profilesContainer");
-  container.innerHTML = "";
+  container.innerHTML = "Loading pending profiles...";
 
   const querySnapshot = await getDocs(collection(db, "pendingProfiles"));
-
+console.log("Pending profiles:", querySnapshot.size);
   querySnapshot.forEach((docSnap) => {
 
     const data = docSnap.data();
@@ -125,7 +125,7 @@ async function loadPendingProfiles() {
     div.style.marginBottom = "10px";
 
     div.innerHTML = `
-      <img src="${data.photo}" width="100"><br>
+      <img src="${data.photo || 'images/default.jpg'}" width="100"><br>
       <strong>${data.name}</strong><br>
       Type: ${data.type}<br>
       Category: ${data.category}<br>
