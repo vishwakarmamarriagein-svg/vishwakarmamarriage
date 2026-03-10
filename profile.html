@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Profile Details</title>
-    <link rel="stylesheet" href="style.css">
+<title>Profile Details</title>
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <!-- Logout Button -->
 <button id="logoutBtn" style="
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  padding: 8px 15px;
-  background: maroon;
-  color: white;
-  border: none;
-  cursor: pointer;
-  display: none;
+position:absolute;
+top:20px;
+right:20px;
+padding:8px 15px;
+background:maroon;
+color:white;
+border:none;
+cursor:pointer;
+display:none;
 ">
-  Logout
+Logout
 </button>
 
 <div id="profileContainer" style="max-width:800px;margin:auto;padding:30px;"></div>
@@ -30,12 +31,12 @@ import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAyT4AF8qZMyvqZNC8hGanMvGSwfydTDJU",
-  authDomain: "vishwakarmamarriage-e8e13.firebaseapp.com",
-  projectId: "vishwakarmamarriage-e8e13",
-  storageBucket: "vishwakarmamarriage-e8e13.firebasestorage.app",
-  messagingSenderId: "287592386640",
-  appId: "1:287592386640:web:93a60b14daf415eac3c155"
+apiKey: "AIzaSyAyT4AF8qZMyvqZNC8hGanMvGSwfydTDJU",
+authDomain: "vishwakarmamarriage-e8e13.firebaseapp.com",
+projectId: "vishwakarmamarriage-e8e13",
+storageBucket: "vishwakarmamarriage-e8e13.firebasestorage.app",
+messagingSenderId: "287592386640",
+appId: "1:287592386640:web:93a60b14daf415eac3c155"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -47,25 +48,25 @@ const container = document.getElementById("profileContainer");
 
 window.addEventListener("DOMContentLoaded", async () => {
 
-  const urlParams = new URLSearchParams(window.location.search);
-  const profileId = urlParams.get("id");
+const urlParams = new URLSearchParams(window.location.search);
+const profileId = urlParams.get("id");
 
-  if (!profileId) {
-    container.innerHTML = "<h2>Invalid Profile Link</h2>";
-    return;
-  }
+if (!profileId) {
+container.innerHTML = "<h2>Invalid Profile Link</h2>";
+return;
+}
 
-  try {
+try {
 
-    const docRef = doc(db, "profiles", profileId);
-    const docSnap = await getDoc(docRef);
+const docRef = doc(db, "profiles", profileId);
+const docSnap = await getDoc(docRef);
 
-    if (!docSnap.exists()) {
-      container.innerHTML = "<h2>Profile Not Found</h2>";
-      return;
-    }
+if (!docSnap.exists()) {
+container.innerHTML = "<h2>Profile Not Found</h2>";
+return;
+}
 
-    const profile = docSnap.data();
+const profile = docSnap.data();
 
 container.innerHTML = `
 
@@ -80,7 +81,6 @@ container.innerHTML = `
 <p><strong>Manglik:</strong> ${profile.manglik}</p>
 
 <p><strong>Qualification:</strong> ${profile.qualification}</p>
-
 <p><strong>Job Status:</strong> ${profile.job}</p>
 
 ${profile.job === "Working" ? `
@@ -96,6 +96,7 @@ ${profile.job === "Working" ? `
 <p><strong>Location:</strong> ${profile.city}, ${profile.district}, ${profile.state}</p>
 
 <p id="contactArea">
+
 Login to view contact<br><br>
 
 <a href="login.html">
@@ -107,45 +108,38 @@ Login Now
 </p>
 
 `;
-        <a href="login.html">
-          <button style="padding:8px 15px;background:maroon;color:white;border:none;border-radius:5px;cursor:pointer;">
-            Login Now
-          </button>
-        </a>
-      </p>
-    `;
 
-    // Show contact if logged in
-    onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, (user) => {
 
-      if (user) {
+if (user) {
 
-        logoutBtn.style.display = "block";
+logoutBtn.style.display = "block";
 
-        const contactArea = document.getElementById("contactArea");
-        if (contactArea) {
-          contactArea.innerHTML =
-            "<strong>Contact:</strong> " +
-            (profile.contact || "Contact via Admin");
-        }
+const contactArea = document.getElementById("contactArea");
 
-      } else {
-        logoutBtn.style.display = "none";
-      }
+if (contactArea) {
+contactArea.innerHTML =
+"<strong>Contact:</strong> " + (profile.contact || "Contact via Admin");
+}
 
-    });
-
-  } catch (error) {
-    console.error(error);
-    container.innerHTML = "<h2>Error loading profile</h2>";
-  }
+}
 
 });
 
-// Logout Function
+} catch (error) {
+
+console.error(error);
+container.innerHTML = "<h2>Error loading profile</h2>";
+
+}
+
+});
+
 logoutBtn.addEventListener("click", async () => {
-  await signOut(auth);
-  window.location.href = "login.html";
+
+await signOut(auth);
+window.location.href = "login.html";
+
 });
 
 </script>
