@@ -110,7 +110,7 @@ onAuthStateChanged(auth, (user) => {
 async function loadPendingProfiles() {
 
   const container = document.getElementById("profilesContainer");
-  container.innerHTML = "Loading pending profiles...";
+  container.innerHTML = "";
 
   const querySnapshot = await getDocs(collection(db, "pendingProfiles"));
 console.log("Pending profiles:", querySnapshot.size);
@@ -125,16 +125,23 @@ console.log("Pending profiles:", querySnapshot.size);
     div.style.marginBottom = "10px";
 
     div.innerHTML = `
-      <img src="${data.photo || 'images/default.jpg'}" width="100"><br>
-      <strong>${data.name}</strong><br>
-      Type: ${data.type}<br>
-      Category: ${data.category}<br>
-      Location: ${data.district}, ${data.state}<br><br>
+     div.innerHTML = `
+  <img src="${data.photo || 'images/default.jpg'}" width="100"><br>
+  <strong>${data.name}</strong><br>
+  Age: ${data.age}<br>
+  Type: ${data.type}<br>
+  Category: ${data.category}<br>
+  Location: ${data.district}, ${data.state}<br><br>
 
-      <button onclick="approveProfile('${docId}')"
-      style="background:green;color:white;padding:5px 10px;border:none;">
-      Approve
-      </button>
+     <button onclick="approveProfile('${docId}')"
+style="background:green;color:white;padding:5px 10px;border:none;margin-right:5px;">
+Approve
+</button>
+
+<button onclick="rejectProfile('${docId}')"
+style="background:red;color:white;padding:5px 10px;border:none;">
+Reject
+</button>
     `;
 
     container.appendChild(div);
