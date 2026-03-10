@@ -69,7 +69,8 @@ margin-bottom:10px;
 <h3>Pending Profiles</h3>
 
 <div id="profilesContainer"></div>
-  <hr>
+
+<hr>
 
 <h3>Approved Profiles</h3>
 
@@ -111,7 +112,6 @@ appId: "1:287592386640:web:93a60b14daf415eac3c155"
 
 };
 
-
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -140,6 +140,7 @@ return;
 }
 
 loadPendingProfiles();
+loadApprovedProfiles();
 
 });
 
@@ -193,6 +194,50 @@ container.appendChild(div);
 
 
 
+async function loadApprovedProfiles(){
+
+const container=document.getElementById("approvedProfilesContainer");
+
+container.innerHTML="";
+
+const querySnapshot=await getDocs(collection(db,"profiles"));
+
+querySnapshot.forEach((docSnap)=>{
+
+const data=docSnap.data();
+const docId=docSnap.id;
+
+const div=document.createElement("div");
+div.className="profileCard";
+
+div.innerHTML=`
+
+<img src="${data.photo || 'images/default.jpg'}" width="100"><br>
+
+<strong>${data.name}</strong><br>
+
+Age: ${data.age}<br>
+
+Type: ${data.type}<br>
+
+Category: ${data.category}<br>
+
+Location: ${data.district}, ${data.state}<br>
+
+Contact: ${data.contact}<br><br>
+
+<button class="delete" onclick="deleteApprovedProfile('${docId}')">Delete</button>
+
+`;
+
+container.appendChild(div);
+
+});
+
+}
+
+
+
 window.approveProfile=async function(docId){
 
 const docRef=doc(db,"pendingProfiles",docId);
@@ -210,6 +255,7 @@ await deleteDoc(docRef);
 alert("Profile Approved Successfully");
 
 loadPendingProfiles();
+loadApprovedProfiles();
 
 }
 
@@ -244,6 +290,22 @@ await deleteDoc(docRef);
 alert("Profile Deleted");
 
 loadPendingProfiles();
+
+}
+
+
+
+window.deleteApprovedProfile=async function(docId){
+
+if(!confirm("Delete this approved profile permanently?")) return;
+
+const docRef=doc(db,"profiles",docId);
+
+await deleteDoc(docRef);
+
+alert("Approved profile deleted");
+
+loadApprovedProfiles();
 
 }
 
