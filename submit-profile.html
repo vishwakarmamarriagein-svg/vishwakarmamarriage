@@ -147,7 +147,6 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 const storage = getStorage(app);
-  const storage = getStorage(app);
 
 // DOB → Age Auto Calculation
 document.getElementById("dob").addEventListener("change", function(){
@@ -166,8 +165,6 @@ age--;
 document.getElementById("age").value = age;
 
 });
-
-document.getElementById("profileForm").addEventListener("submit", async (e)=>{
 
 document.getElementById("profileForm").addEventListener("submit", async (e)=>{
 
