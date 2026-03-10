@@ -67,14 +67,46 @@ window.addEventListener("DOMContentLoaded", async () => {
 
     const profile = docSnap.data();
 
-    container.innerHTML = `
-      <img src="${profile.photo}" style="width:100%;max-height:400px;object-fit:cover;border-radius:10px;">
-      <h2>${profile.name}</h2>
-      <p><strong>Age:</strong> ${profile.age}</p>
-      <p><strong>Category:</strong> ${profile.category}</p>
-      <p><strong>Location:</strong> ${profile.district}, ${profile.state}</p>
-      <p id="contactArea">
-        Login to view contact<br><br>
+container.innerHTML = `
+
+<img src="${profile.photo}" style="width:100%;max-height:400px;object-fit:cover;border-radius:10px;">
+
+<h2>${profile.name}</h2>
+
+<p><strong>Age:</strong> ${profile.age}</p>
+<p><strong>Height:</strong> ${profile.height}</p>
+<p><strong>Weight:</strong> ${profile.weight} kg</p>
+
+<p><strong>Manglik:</strong> ${profile.manglik}</p>
+
+<p><strong>Qualification:</strong> ${profile.qualification}</p>
+
+<p><strong>Job Status:</strong> ${profile.job}</p>
+
+${profile.job === "Working" ? `
+<p><strong>Occupation:</strong> ${profile.occupation}</p>
+<p><strong>Salary:</strong> ₹${profile.salary}</p>
+` : ""}
+
+<p><strong>Father Name:</strong> ${profile.father}</p>
+<p><strong>Mother Name:</strong> ${profile.mother}</p>
+
+<p><strong>Category:</strong> ${profile.category}</p>
+
+<p><strong>Location:</strong> ${profile.city}, ${profile.district}, ${profile.state}</p>
+
+<p id="contactArea">
+Login to view contact<br><br>
+
+<a href="login.html">
+<button style="padding:8px 15px;background:maroon;color:white;border:none;border-radius:5px;cursor:pointer;">
+Login Now
+</button>
+</a>
+
+</p>
+
+`;
         <a href="login.html">
           <button style="padding:8px 15px;background:maroon;color:white;border:none;border-radius:5px;cursor:pointer;">
             Login Now
