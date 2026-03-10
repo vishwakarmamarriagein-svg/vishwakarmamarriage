@@ -114,7 +114,10 @@ display:none;
 
 </select>
 
-<input type="file" id="photo" accept="image/*" required>
+<label for="photo" class="upload-btn">Upload Photo</label>
+<input type="file" id="photo" accept="image/*" required hidden>
+
+<span id="fileName" style="font-size:14px;color:#666;"></span>
 
 <input type="tel" id="contact" placeholder="Contact Number" pattern="[0-9]{10}" required>
 <button id="submitBtn" type="submit">Submit Profile</button>
