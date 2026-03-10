@@ -216,38 +216,6 @@ loadPendingProfiles();
 
 }
 
-
-
-document.getElementById("addProfileBtn").addEventListener("click",async()=>{
-
-const newProfile={
-
-type:document.getElementById("newType").value,
-
-category:document.getElementById("newCategory").value,
-
-name:document.getElementById("newName").value,
-
-age:document.getElementById("newAge").value,
-
-district:document.getElementById("newDistrict").value,
-
-state:document.getElementById("newState").value,
-
-photo:document.getElementById("newPhoto").value,
-
-status:"approved"
-
-};
-
-await addDoc(collection(db,"profiles"),newProfile);
-
-alert("Profile Added Successfully");
-
-});
-
-
-
 document.getElementById("logoutBtn").addEventListener("click",async()=>{
 
 await signOut(auth);
