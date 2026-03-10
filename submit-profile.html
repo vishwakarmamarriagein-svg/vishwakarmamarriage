@@ -116,17 +116,18 @@ if (file) {
   e.preventDefault();
 
   const profileData = {
-    name: document.getElementById("name").value,
-    age: document.getElementById("age").value,
-    type: document.getElementById("type").value,
-    category: document.getElementById("category").value,
-    district: document.getElementById("district").value,
-    state: document.getElementById("state").value,
-    photo: photoURL,
-    contact: document.getElementById("contact").value,
-    status: "pending",
-    createdAt: new Date()
-  };
+  name: document.getElementById("name").value,
+  age: document.getElementById("age").value,
+  type: document.getElementById("type").value,
+  category: document.getElementById("category").value,
+  city: document.getElementById("City").value,
+  district: document.getElementById("district").value,
+  state: document.getElementById("state").value,
+  photo: photoURL,
+  contact: document.getElementById("contact").value,
+  status: "pending",
+  createdAt: new Date()
+};
 
   try {
     console.log("Submitting profile:", profileData);
