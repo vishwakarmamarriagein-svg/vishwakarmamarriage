@@ -66,6 +66,17 @@ margin-top:20px;
 display:none;
 }
 
+.whatsapp-btn{
+display:inline-block;
+margin-top:15px;
+background:#25D366;
+color:white;
+padding:10px 18px;
+border-radius:6px;
+text-decoration:none;
+font-weight:bold;
+}
+
 </style>
 
 </head>
@@ -330,7 +341,9 @@ await addDoc(collection(db,"pendingProfiles"),profileData);
 document.getElementById("message").style.display="block";
 
 document.getElementById("message").innerHTML=
-"<b style='color:green'>Profile Submitted Successfully</b>";
+"<b style='color:green;font-size:18px;'>Profile Submitted Successfully</b><br><br>"+
+"Please contact admin on WhatsApp for profile approval.<br>"+
+"<a class='whatsapp-btn' href='https://wa.me/917990589183?text=Hello%20Admin%20I%20have%20submitted%20my%20profile%20on%20Vishwakarma%20Matrimony' target='_blank'>Contact Admin on WhatsApp</a>";
 
 document.getElementById("profileForm").reset();
 
