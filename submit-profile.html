@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <title>Submit Profile - Vishwakarma Matrimony</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
 <link rel="stylesheet" href="style.css">
 
 <style>
+
 body{
 font-family:Arial, sans-serif;
 margin:0;
@@ -24,7 +26,7 @@ flex-direction:column;
 gap:10px;
 }
 
-input, select{
+input,select{
 width:100%;
 padding:10px;
 font-size:16px;
@@ -50,9 +52,11 @@ text-align:center;
 margin-top:20px;
 display:none;
 }
+
 </style>
 
 </head>
+
 <body>
 
 <h2 style="text-align:center;">Submit Your Profile</h2>
@@ -85,17 +89,13 @@ display:none;
 <select id="state" required>
 
 <option value="">Select State</option>
-
 <option value="Andhra Pradesh">Andhra Pradesh</option>
-<option value="Arunachal Pradesh">Arunachal Pradesh</option>
 <option value="Assam">Assam</option>
 <option value="Bihar">Bihar</option>
 <option value="Chhattisgarh">Chhattisgarh</option>
 <option value="Goa">Goa</option>
 <option value="Gujarat">Gujarat</option>
 <option value="Haryana">Haryana</option>
-<option value="Himachal Pradesh">Himachal Pradesh</option>
-<option value="Jharkhand">Jharkhand</option>
 <option value="Karnataka">Karnataka</option>
 <option value="Kerala">Kerala</option>
 <option value="Madhya Pradesh">Madhya Pradesh</option>
@@ -105,7 +105,6 @@ display:none;
 <option value="Tamil Nadu">Tamil Nadu</option>
 <option value="Telangana">Telangana</option>
 <option value="Uttar Pradesh">Uttar Pradesh</option>
-<option value="Uttarakhand">Uttarakhand</option>
 <option value="West Bengal">West Bengal</option>
 
 </select>
@@ -114,9 +113,7 @@ display:none;
 
 <input type="text" id="contact" placeholder="Contact Number" required>
 
-<button id="submitBtn" type="submit">
-Submit Profile
-</button>
+<button id="submitBtn" type="submit">Submit Profile</button>
 
 </form>
 
@@ -126,7 +123,7 @@ Submit Profile
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
 
-import { getFirestore, collection, addDoc } 
+import { getFirestore, collection, addDoc }
 from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
 import { getStorage, ref, uploadBytes, getDownloadURL }
@@ -135,15 +132,10 @@ from "https://www.gstatic.com/firebasejs/12.9.0/firebase-storage.js";
 const firebaseConfig = {
 
 apiKey: "AIzaSyAyT4AF8qZMyvqZNC8hGanMvGSwfydTDJU",
-
 authDomain: "vishwakarmamarriage-e8e13.firebaseapp.com",
-
 projectId: "vishwakarmamarriage-e8e13",
-
 storageBucket: "vishwakarmamarriage-e8e13.firebasestorage.app",
-
 messagingSenderId: "287592386640",
-
 appId: "1:287592386640:web:93a60b14daf415eac3c155"
 
 };
@@ -154,65 +146,64 @@ const db = getFirestore(app);
 
 const storage = getStorage(app);
 
-document.getElementById("profileForm").addEventListener("submit", async (e) => {
+document.getElementById("profileForm").addEventListener("submit", async (e)=>{
 
 e.preventDefault();
 
-const submitBtn = document.getElementById("submitBtn");
+const submitBtn=document.getElementById("submitBtn");
 
-submitBtn.disabled = true;
+submitBtn.disabled=true;
 
-submitBtn.innerText = "Submitting...";
+submitBtn.innerText="Submitting...";
 
 try{
 
-const file = document.getElementById("photo").files[0];
+const name=document.getElementById("name").value;
+const age=document.getElementById("age").value;
+const type=document.getElementById("type").value;
+const category=document.getElementById("category").value;
+const city=document.getElementById("City").value;
+const district=document.getElementById("district").value;
+const state=document.getElementById("state").value;
+const contact=document.getElementById("contact").value;
 
-let photoURL = "";
+const file=document.getElementById("photo").files[0];
+
+let photoURL="";
 
 if(file){
 
-const storageRef = ref(storage,"profiles/" + Date.now() + "_" + file.name);
+const storageRef=ref(storage,"profiles/"+Date.now()+"_"+file.name);
 
 await uploadBytes(storageRef,file);
 
-photoURL = await getDownloadURL(storageRef);
+photoURL=await getDownloadURL(storageRef);
 
 }
 
-const profileData = {
+const profileData={
 
-name: document.getElementById("name").value,
-
-age: document.getElementById("age").value,
-
-type: document.getElementById("type").value,
-
-category: document.getElementById("category").value,
-
-city: document.getElementById("City").value,
-
-district: document.getElementById("district").value,
-
-state: document.getElementById("state").value,
-
-photo: photoURL,
-
-contact: document.getElementById("contact").value,
-
-status: "pending",
-
-createdAt: new Date()
+name:name,
+age:age,
+type:type,
+category:category,
+city:city,
+district:district,
+state:state,
+photo:photoURL,
+contact:contact,
+status:"pending",
+createdAt:new Date()
 
 };
 
 await addDoc(collection(db,"pendingProfiles"),profileData);
 
-const messageBox = document.getElementById("message");
+const messageBox=document.getElementById("message");
 
-messageBox.style.display = "block";
+messageBox.style.display="block";
 
-messageBox.innerHTML = `
+messageBox.innerHTML=`
 
 <div style="background:#e8f5e9;border:1px solid #4CAF50;padding:20px;border-radius:6px;max-width:450px;margin:auto;">
 
@@ -224,15 +215,11 @@ Contact Admin for Approval.
 
 <br><br>
 
-<a href="https://wa.me/917990589183?text=Hello%20Admin,%20I%20have%20submitted%20my%20profile%20on%20Vishwakarma%20Matrimony.%20Please%20approve%20it."
-
-target="_blank"
-
-style="background:#25D366;color:white;padding:10px 15px;text-decoration:none;border-radius:5px;font-weight:bold;">
+<button id="whatsappBtn" style="background:#25D366;color:white;padding:10px 15px;border:none;border-radius:5px;font-weight:bold;cursor:pointer;">
 
 Chat with Admin on WhatsApp
 
-</a>
+</button>
 
 </div>
 
@@ -242,7 +229,27 @@ messageBox.scrollIntoView({behavior:"smooth"});
 
 document.getElementById("profileForm").reset();
 
-submitBtn.innerText = "Submitted";
+submitBtn.innerText="Submitted";
+
+const whatsappMessage=
+`Hello Admin,
+New profile submitted on Vishwakarma Matrimony
+
+Name: ${name}
+Age: ${age}
+Category: ${category}
+City: ${city}
+Contact: ${contact}
+
+Please review and approve.`;
+
+document.getElementById("whatsappBtn").onclick=function(){
+
+const encodedMessage=encodeURIComponent(whatsappMessage);
+
+window.open(`https://wa.me/917990589183?text=${encodedMessage}`,"_blank");
+
+};
 
 }
 
@@ -266,3 +273,4 @@ console.error(error);
 
 </body>
 </html>
+```
