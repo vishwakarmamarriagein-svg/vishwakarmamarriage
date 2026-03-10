@@ -148,7 +148,19 @@ Reject
   });
 }
    window.approveProfile = async function(docId) {
+window.rejectProfile = async function(docId) {
 
+  if (!confirm("Reject this profile?")) return;
+
+  const docRef = doc(db, "pendingProfiles", docId);
+
+  await deleteDoc(docRef);
+
+  alert("Profile Rejected");
+
+  loadPendingProfiles();
+
+};
   const docRef = doc(db, "pendingProfiles", docId);
   const docSnap = await getDoc(docRef);
 
