@@ -70,13 +70,13 @@
 <input type="file" id="photo" accept="image/*" required>
   <input type="text" id="contact" placeholder="Contact Number" required>
 
-  <button type="submit" style="background:maroon;color:white;padding:10px;border:none;cursor:pointer;">
-    Submit Profile
-  </button>
+<button id="submitBtn" type="submit" style="background:maroon;color:white;padding:10px;border:none;cursor:pointer;">
+Submit Profile
+</button>
 
 </form>
 
-<p id="message" style="text-align:center;margin-top:15px;"></p>
+<p id="message" style="text-align:center;margin-top:15px;display:none;"></p>
 
 <script type="module">
   
@@ -99,7 +99,8 @@ const storage = getStorage(app);
 document.getElementById("profileForm").addEventListener("submit", async (e) => {
 
   e.preventDefault();
-
+document.getElementById("submitBtn").disabled = true;
+document.getElementById("submitBtn").innerText = "Submitting...";
   const file = document.getElementById("photo").files[0];
 
 let photoURL = "";
@@ -129,11 +130,15 @@ if (file) {
 
   try {
     console.log("Submitting profile:", profileData);
-    await addDoc(collection(db, "pendingProfiles"), profileData);
-    document.getElementById("message").innerHTML =
+   await addDoc(collection(db, "pendingProfiles"), profileData);
+
+document.getElementById("message").style.display="block";
+
+document.getElementById("message").innerHTML =
 `
 <div style="background:#e8f5e9;border:1px solid #4CAF50;padding:15px;border-radius:5px;max-width:450px;margin:auto;">
 <b style="color:#2e7d32;">Profile Submitted Successfully!</b><br><br>
+document.getElementById("message").scrollIntoView({behavior:"smooth"});
 Contact Admin for Approval.<br><br>
 
 <a href="https://wa.me/917990589183?text=Hello%20Admin,%20I%20have%20submitted%20my%20profile%20on%20Vishwakarma%20Matrimony.%20Please%20approve%20it."
@@ -144,8 +149,12 @@ Chat with Admin on WhatsApp
 </div>
 `;
     document.getElementById("profileForm").reset();
+    document.getElementById("submitBtn").innerText = "Submitted";
   } catch (error) {
-    document.getElementById("message").innerText = "Error submitting profile.";
+    document.getElementById("message").innerText = "Error submitting profile. Please try again.";
+
+document.getElementById("submitBtn").disabled = false;
+document.getElementById("submitBtn").innerText = "Submit Profile";
     console.error(error);
   }
 
