@@ -22,6 +22,7 @@ padding:8px 12px;
 border:none;
 cursor:pointer;
 color:white;
+margin-right:5px;
 }
 
 .approve{
@@ -32,11 +33,21 @@ background:green;
 background:red;
 }
 
+.delete{
+background:#555;
+}
+
 .logout{
 position:absolute;
 top:20px;
 right:20px;
 background:maroon;
+}
+
+.profileCard{
+border:1px solid #ccc;
+padding:10px;
+margin-bottom:10px;
 }
 
 </style>
@@ -140,15 +151,10 @@ const querySnapshot=await getDocs(collection(db,"pendingProfiles"));
 querySnapshot.forEach((docSnap)=>{
 
 const data=docSnap.data();
-
 const docId=docSnap.id;
 
 const div=document.createElement("div");
-
-div.style.border="1px solid #ccc";
-div.style.padding="10px";
-div.style.marginBottom="10px";
-
+div.className="profileCard";
 
 div.innerHTML=`
 
@@ -163,11 +169,14 @@ Type: ${data.type}<br>
 Category: ${data.category}<br>
 
 Location: ${data.district}, ${data.state}<br>
+
 Contact: ${data.contact}<br><br>
 
 <button class="approve" onclick="approveProfile('${docId}')">Approve</button>
 
 <button class="reject" onclick="rejectProfile('${docId}')">Reject</button>
+
+<button class="delete" onclick="deleteProfile('${docId}')">Delete</button>
 
 `;
 
@@ -216,6 +225,24 @@ alert("Profile Rejected");
 loadPendingProfiles();
 
 }
+
+
+
+window.deleteProfile=async function(docId){
+
+if(!confirm("Delete this profile permanently?")) return;
+
+const docRef=doc(db,"pendingProfiles",docId);
+
+await deleteDoc(docRef);
+
+alert("Profile Deleted");
+
+loadPendingProfiles();
+
+}
+
+
 
 document.getElementById("logoutBtn").addEventListener("click",async()=>{
 
