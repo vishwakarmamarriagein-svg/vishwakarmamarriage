@@ -84,7 +84,7 @@ display:none;
 
 <label>Age</label>
 <input type="number" id="age" readonly>
-<label>Height (cm)</label>
+
 <label>Height</label>
 
 <div style="display:flex; gap:10px;">
@@ -116,30 +116,31 @@ display:none;
 </div>
 
 <label>Weight (kg)</label>
-<input type="number" id="weight" placeholder="Enter Weight in kg" required>
+<input type="number" id="weight" required>
 
 <label>Manglik</label>
 <select id="manglik" required>
 <option value="">Select</option>
-<option value="Yes">Yes</option>
-<option value="No">No</option>
+<option>Yes</option>
+<option>No</option>
 </select>
 
 <label>Qualification</label>
-<input type="text" id="qualification" placeholder="Highest Qualification" required>
+<input type="text" id="qualification" required>
 
 <label>Job Status</label>
 <select id="job" required>
 <option value="">Select</option>
-<option value="Working">Working</option>
-<option value="Not Working">Not Working</option>
+<option>Working</option>
+<option>Not Working</option>
 </select>
 
 <label>Father Name</label>
-<input type="text" id="father" placeholder="Father Name" required>
+<input type="text" id="father" required>
 
 <label>Mother Name</label>
-<input type="text" id="mother" placeholder="Mother Name" required>
+<input type="text" id="mother" required>
+
 <select id="type" required>
 <option value="">Select Type</option>
 <option value="bride">Bride</option>
@@ -161,28 +162,23 @@ display:none;
 
 <select id="state" required>
 <option value="">Select State</option>
-<option value="Andhra Pradesh">Andhra Pradesh</option>
-<option value="Assam">Assam</option>
-<option value="Bihar">Bihar</option>
-<option value="Chhattisgarh">Chhattisgarh</option>
-<option value="Goa">Goa</option>
-<option value="Gujarat">Gujarat</option>
-<option value="Haryana">Haryana</option>
-<option value="Karnataka">Karnataka</option>
-<option value="Kerala">Kerala</option>
-<option value="Madhya Pradesh">Madhya Pradesh</option>
-<option value="Maharashtra">Maharashtra</option>
-<option value="Punjab">Punjab</option>
-<option value="Rajasthan">Rajasthan</option>
-<option value="Tamil Nadu">Tamil Nadu</option>
-<option value="Telangana">Telangana</option>
-<option value="Uttar Pradesh">Uttar Pradesh</option>
-<option value="West Bengal">West Bengal</option>
+<option>Gujarat</option>
+<option>Uttar Pradesh</option>
+<option>Maharashtra</option>
+<option>Rajasthan</option>
+<option>Madhya Pradesh</option>
+<option>Bihar</option>
+<option>Punjab</option>
+<option>Haryana</option>
+<option>Tamil Nadu</option>
+<option>Karnataka</option>
+<option>West Bengal</option>
 </select>
 
 <label for="photo" class="upload-btn">Upload Photo</label>
 <input type="file" id="photo" accept="image/*" required hidden>
-<div id="fileName" style="font-size:14px;color:#666;"></div>
+
+<div id="fileName"></div>
 
 <input type="tel" id="contact" placeholder="Contact Number" maxlength="10" required>
 
@@ -195,14 +191,14 @@ display:none;
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-import { getFirestore, collection, addDoc } 
+import { getFirestore, collection, addDoc }
 from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 import { getStorage, ref, uploadBytes, getDownloadURL }
 from "https://www.gstatic.com/firebasejs/12.9.0/firebase-storage.js";
 
 const firebaseConfig = {
 
-apiKey: "AIzaSyAyT4AF8qZMyvqZNC8hGanMvGSwfydTDJU",
+apiKey: "AIzaSyAy...",
 authDomain: "vishwakarmamarriage-e8e13.firebaseapp.com",
 projectId: "vishwakarmamarriage-e8e13",
 storageBucket: "vishwakarmamarriage-e8e13.firebasestorage.app",
@@ -216,25 +212,22 @@ const db = getFirestore(app);
 const storage = getStorage(app);
 
 
-// DOB → Age Auto Calculation
 document.getElementById("dob").addEventListener("change", function(){
 
 const dob = new Date(this.value);
 const today = new Date();
 
 let age = today.getFullYear() - dob.getFullYear();
+
 const m = today.getMonth() - dob.getMonth();
 
-if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
-age--;
-}
+if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) age--;
 
 document.getElementById("age").value = age;
 
 });
 
 
-// Show selected photo name
 document.getElementById("photo").addEventListener("change", function(){
 
 const file = this.files[0];
@@ -246,7 +239,6 @@ document.getElementById("fileName").textContent = file.name;
 });
 
 
-// Form submit
 document.getElementById("profileForm").addEventListener("submit", async (e)=>{
 
 e.preventDefault();
@@ -261,38 +253,42 @@ const name=document.getElementById("name").value;
 const age=document.getElementById("age").value;
 const type=document.getElementById("type").value;
 
-if(type === "bride" && age < 18){
-alert("Bride must be at least 18 years old as per Government of India law.");
-submitBtn.disabled=false;
-submitBtn.innerText="Submit Profile";
+if(type==="bride" && age<18){
+alert("Bride must be at least 18 years old.");
 return;
 }
 
-if(type === "groom" && age < 21){
-alert("Groom must be at least 21 years old as per Government of India law.");
-submitBtn.disabled=false;
-submitBtn.innerText="Submit Profile";
+if(type==="groom" && age<21){
+alert("Groom must be at least 21 years old.");
 return;
 }
+
+const heightFeet=document.getElementById("heightFeet").value;
+const heightInch=document.getElementById("heightInch").value;
+const height=heightFeet + "'" + heightInch + '"';
+
+const weight=document.getElementById("weight").value;
+const manglik=document.getElementById("manglik").value;
+const qualification=document.getElementById("qualification").value;
+const job=document.getElementById("job").value;
+const father=document.getElementById("father").value;
+const mother=document.getElementById("mother").value;
 
 const category=document.getElementById("category").value;
 const city=document.getElementById("City").value;
 const district=document.getElementById("district").value;
 const state=document.getElementById("state").value;
 const contact=document.getElementById("contact").value;
-if(contact.length !== 10 || !/^[0-9]+$/.test(contact)){
 
+if(contact.length!==10){
 alert("Please enter 10 digit mobile number");
-
-submitBtn.disabled=false;
-submitBtn.innerText="Submit Profile";
-
 return;
-
 }
-const profileID = "VM" + Date.now();
+
+const profileID="VM"+Date.now();
 
 const file=document.getElementById("photo").files[0];
+
 let photoURL="";
 
 if(file){
@@ -306,85 +302,46 @@ photoURL=await getDownloadURL(storageRef);
 }
 
 const profileData={
-profileID: profileID,
-name:name,
-age:age,
-type:type,
-category:category,
-city:city,
-district:district,
-state:state,
+
+profileID,
+name,
+age,
+height,
+weight,
+manglik,
+qualification,
+job,
+father,
+mother,
+type,
+category,
+city,
+district,
+state,
+contact,
 photo:photoURL,
-contact:contact,
 status:"pending",
 createdAt:new Date()
+
 };
 
 await addDoc(collection(db,"pendingProfiles"),profileData);
 
-const messageBox=document.getElementById("message");
+document.getElementById("message").style.display="block";
 
-messageBox.style.display="block";
-
-messageBox.innerHTML=`
-<div style="background:#e8f5e9;border:1px solid #4CAF50;padding:20px;border-radius:6px;max-width:450px;margin:auto;">
-
-<b style="color:#2e7d32;font-size:18px;">Profile Submitted Successfully!</b>
-
-<br><br>
-
-Your Profile ID: <b>${profileID}</b>
-
-<br><br>
-
-Contact Admin for Approval.
-
-<br><br>
-
-<button id="whatsappBtn" style="background:#25D366;color:white;padding:10px 15px;border:none;border-radius:5px;font-weight:bold;cursor:pointer;">
-Click Here to Chat
-</button>
-
-</div>
-`;
-
-messageBox.scrollIntoView({behavior:"smooth"});
+document.getElementById("message").innerHTML=
+"<b style='color:green'>Profile Submitted Successfully</b>";
 
 document.getElementById("profileForm").reset();
+
 submitBtn.innerText="Submitted";
 
-const whatsappMessage=
-`Hello Admin,
-New profile submitted on Vishwakarma Matrimony
+}catch(error){
 
-Profile ID: ${profileID}
-Name: ${name}
-Age: ${age}
-Category: ${category}
-City: ${city}
-Contact: ${contact}
-
-Please review and approve.`;
-
-document.getElementById("whatsappBtn").onclick=function(){
-
-const encodedMessage=encodeURIComponent(whatsappMessage);
-
-window.open(`https://wa.me/917990589183?text=${encodedMessage}`,"_blank");
-
-};
-
-}
-
-catch(error){
-
-document.getElementById("message").style.display="block";
-document.getElementById("message").innerText="Error submitting profile. Please try again.";
+alert("Error submitting profile");
 
 submitBtn.disabled=false;
 submitBtn.innerText="Submit Profile";
-
-console.error(error);
 
 }
 
