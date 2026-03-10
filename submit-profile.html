@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,8 +6,6 @@
 <title>Submit Profile - Vishwakarma Matrimony</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link rel="stylesheet" href="style.css">
 
 <style>
 
@@ -45,6 +44,21 @@ font-size:16px;
 button:disabled{
 background:#999;
 cursor:not-allowed;
+}
+
+.upload-btn{
+display:block;
+background:#8b0000;
+color:white;
+padding:10px;
+border-radius:4px;
+cursor:pointer;
+text-align:center;
+font-size:15px;
+}
+
+.upload-btn:hover{
+background:#a00000;
 }
 
 #message{
@@ -92,7 +106,6 @@ display:none;
 <input type="text" id="district" placeholder="Enter District" required>
 
 <select id="state" required>
-
 <option value="">Select State</option>
 <option value="Andhra Pradesh">Andhra Pradesh</option>
 <option value="Assam">Assam</option>
@@ -111,15 +124,14 @@ display:none;
 <option value="Telangana">Telangana</option>
 <option value="Uttar Pradesh">Uttar Pradesh</option>
 <option value="West Bengal">West Bengal</option>
-
 </select>
 
 <label for="photo" class="upload-btn">Upload Photo</label>
 <input type="file" id="photo" accept="image/*" required hidden>
-
-<span id="fileName" style="font-size:14px;color:#666;"></span>
+<div id="fileName" style="font-size:14px;color:#666;"></div>
 
 <input type="tel" id="contact" placeholder="Contact Number" pattern="[0-9]{10}" required>
+
 <button id="submitBtn" type="submit">Submit Profile</button>
 
 </form>
@@ -129,10 +141,8 @@ display:none;
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-
-import { getFirestore, collection, addDoc }
+import { getFirestore, collection, addDoc } 
 from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
-
 import { getStorage, ref, uploadBytes, getDownloadURL }
 from "https://www.gstatic.com/firebasejs/12.9.0/firebase-storage.js";
 
@@ -148,10 +158,9 @@ appId: "1:287592386640:web:93a60b14daf415eac3c155"
 };
 
 const app = initializeApp(firebaseConfig);
-
 const db = getFirestore(app);
-
 const storage = getStorage(app);
+
 
 // DOB → Age Auto Calculation
 document.getElementById("dob").addEventListener("change", function(){
@@ -160,7 +169,6 @@ const dob = new Date(this.value);
 const today = new Date();
 
 let age = today.getFullYear() - dob.getFullYear();
-
 const m = today.getMonth() - dob.getMonth();
 
 if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
@@ -171,14 +179,26 @@ document.getElementById("age").value = age;
 
 });
 
+
+// Show selected photo name
+document.getElementById("photo").addEventListener("change", function(){
+
+const file = this.files[0];
+
+if(file){
+document.getElementById("fileName").textContent = file.name;
+}
+
+});
+
+
+// Form submit
 document.getElementById("profileForm").addEventListener("submit", async (e)=>{
 
 e.preventDefault();
 
 const submitBtn=document.getElementById("submitBtn");
-
 submitBtn.disabled=true;
-
 submitBtn.innerText="Submitting...";
 
 try{
@@ -186,35 +206,30 @@ try{
 const name=document.getElementById("name").value;
 const age=document.getElementById("age").value;
 const type=document.getElementById("type").value;
-  // Age validation as per Government of India marriage law
 
 if(type === "bride" && age < 18){
-
 alert("Bride must be at least 18 years old as per Government of India law.");
-
 submitBtn.disabled=false;
 submitBtn.innerText="Submit Profile";
 return;
-
 }
 
 if(type === "groom" && age < 21){
-
 alert("Groom must be at least 21 years old as per Government of India law.");
-
 submitBtn.disabled=false;
 submitBtn.innerText="Submit Profile";
 return;
-
 }
+
 const category=document.getElementById("category").value;
 const city=document.getElementById("City").value;
 const district=document.getElementById("district").value;
 const state=document.getElementById("state").value;
 const contact=document.getElementById("contact").value;
-const profileID = "VM" + Date.now();
-const file=document.getElementById("photo").files[0];
 
+const profileID = "VM" + Date.now();
+
+const file=document.getElementById("photo").files[0];
 let photoURL="";
 
 if(file){
@@ -240,7 +255,6 @@ photo:photoURL,
 contact:contact,
 status:"pending",
 createdAt:new Date()
-
 };
 
 await addDoc(collection(db,"pendingProfiles"),profileData);
@@ -250,7 +264,6 @@ const messageBox=document.getElementById("message");
 messageBox.style.display="block";
 
 messageBox.innerHTML=`
-
 <div style="background:#e8f5e9;border:1px solid #4CAF50;padding:20px;border-radius:6px;max-width:450px;margin:auto;">
 
 <b style="color:#2e7d32;font-size:18px;">Profile Submitted Successfully!</b>
@@ -266,24 +279,21 @@ Contact Admin for Approval.
 <br><br>
 
 <button id="whatsappBtn" style="background:#25D366;color:white;padding:10px 15px;border:none;border-radius:5px;font-weight:bold;cursor:pointer;">
-
 Click Here to Chat
-
 </button>
 
 </div>
-
 `;
 
 messageBox.scrollIntoView({behavior:"smooth"});
 
 document.getElementById("profileForm").reset();
-
 submitBtn.innerText="Submitted";
 
 const whatsappMessage=
 `Hello Admin,
 New profile submitted on Vishwakarma Matrimony
+
 Profile ID: ${profileID}
 Name: ${name}
 Age: ${age}
@@ -306,11 +316,9 @@ window.open(`https://wa.me/917990589183?text=${encodedMessage}`,"_blank");
 catch(error){
 
 document.getElementById("message").style.display="block";
-
 document.getElementById("message").innerText="Error submitting profile. Please try again.";
 
 submitBtn.disabled=false;
-
 submitBtn.innerText="Submit Profile";
 
 console.error(error);
