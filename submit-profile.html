@@ -145,7 +145,15 @@ font-weight:bold;
 <option>Working</option>
 <option>Not Working</option>
 </select>
+<div id="jobDetails" style="display:none;">
 
+<label>Occupation / Company</label>
+<input type="text" id="occupation" placeholder="Enter Occupation or Company">
+
+<label>Annual Salary (₹)</label>
+<input type="number" id="salary" placeholder="Enter Salary Package">
+
+</div>
 <label>Father Name</label>
 <input type="text" id="father" required>
 
@@ -249,7 +257,18 @@ document.getElementById("fileName").textContent = file.name;
 
 });
 
+document.getElementById("job").addEventListener("change", function(){
 
+const jobStatus = this.value;
+const jobDetails = document.getElementById("jobDetails");
+
+if(jobStatus === "Working"){
+jobDetails.style.display = "block";
+}else{
+jobDetails.style.display = "none";
+}
+
+});
 document.getElementById("profileForm").addEventListener("submit", async (e)=>{
 
 e.preventDefault();
@@ -282,6 +301,8 @@ const weight=document.getElementById("weight").value;
 const manglik=document.getElementById("manglik").value;
 const qualification=document.getElementById("qualification").value;
 const job=document.getElementById("job").value;
+  const occupation=document.getElementById("occupation").value;
+const salary=document.getElementById("salary").value;
 const father=document.getElementById("father").value;
 const mother=document.getElementById("mother").value;
 
