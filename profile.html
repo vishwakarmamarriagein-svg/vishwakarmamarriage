@@ -1,29 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Profile Details</title>
-<link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-
-<!-- Logout Button -->
-<button id="logoutBtn" style="
-position:absolute;
-top:20px;
-right:20px;
-padding:8px 15px;
-background:maroon;
-color:white;
-border:none;
-cursor:pointer;
-display:none;
-">
-Logout
-</button>
-
-<div id="profileContainer" style="max-width:800px;margin:auto;padding:30px;"></div>
-
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
@@ -43,18 +17,39 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-const logoutBtn = document.getElementById("logoutBtn");
 const container = document.getElementById("profileContainer");
-
-window.addEventListener("DOMContentLoaded", async () => {
+const logoutBtn = document.getElementById("logoutBtn");
 
 const urlParams = new URLSearchParams(window.location.search);
 const profileId = urlParams.get("id");
 
-if (!profileId) {
-container.innerHTML = "<h2>Invalid Profile Link</h2>";
+onAuthStateChanged(auth, async (user) => {
+
+if (!user) {
+
+container.innerHTML = `
+
+<h2 style="text-align:center;">Login Required</h2>
+
+<p style="text-align:center;">
+You must login to view full profile
+</p>
+
+<div style="text-align:center;margin-top:20px;">
+<a href="login.html">
+<button style="padding:10px 20px;background:maroon;color:white;border:none;border-radius:5px;">
+Login Now
+</button>
+</a>
+</div>
+
+`;
+
 return;
+
 }
+
+logoutBtn.style.display = "block";
 
 try {
 
@@ -81,54 +76,26 @@ container.innerHTML = `
 <p><strong>Manglik:</strong> ${profile.manglik}</p>
 
 <p><strong>Qualification:</strong> ${profile.qualification}</p>
-<p><strong>Job Status:</strong> ${profile.job}</p>
+<p><strong>Job:</strong> ${profile.job}</p>
 
 ${profile.job === "Working" ? `
 <p><strong>Occupation:</strong> ${profile.occupation}</p>
 <p><strong>Salary:</strong> ₹${profile.salary}</p>
 ` : ""}
 
-<p><strong>Father Name:</strong> ${profile.father}</p>
-<p><strong>Mother Name:</strong> ${profile.mother}</p>
+<p><strong>Father:</strong> ${profile.father}</p>
+<p><strong>Mother:</strong> ${profile.mother}</p>
 
 <p><strong>Category:</strong> ${profile.category}</p>
 
 <p><strong>Location:</strong> ${profile.city}, ${profile.district}, ${profile.state}</p>
 
-<p id="contactArea">
-
-Login to view contact<br><br>
-
-<a href="login.html">
-<button style="padding:8px 15px;background:maroon;color:white;border:none;border-radius:5px;cursor:pointer;">
-Login Now
-</button>
-</a>
-
-</p>
+<p><strong>Contact:</strong> ${profile.contact || "Contact via Admin"}</p>
 
 `;
 
-onAuthStateChanged(auth, (user) => {
-
-if (user) {
-
-logoutBtn.style.display = "block";
-
-const contactArea = document.getElementById("contactArea");
-
-if (contactArea) {
-contactArea.innerHTML =
-"<strong>Contact:</strong> " + (profile.contact || "Contact via Admin");
-}
-
-}
-
-});
-
 } catch (error) {
 
-console.error(error);
 container.innerHTML = "<h2>Error loading profile</h2>";
 
 }
@@ -136,13 +103,8 @@ container.innerHTML = "<h2>Error loading profile</h2>";
 });
 
 logoutBtn.addEventListener("click", async () => {
-
 await signOut(auth);
 window.location.href = "login.html";
-
 });
 
 </script>
-
-</body>
-</html>
