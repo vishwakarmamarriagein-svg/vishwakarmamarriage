@@ -67,7 +67,7 @@
 <option value="Lakshadweep">Lakshadweep</option>
 <option value="Puducherry">Puducherry</option>
 
-<input type="text" id="photo" placeholder="Photo URL" required>
+<input type="file" id="photo" accept="image/*" required>
   <input type="text" id="contact" placeholder="Contact Number" required>
 
   <button type="submit" style="background:maroon;color:white;padding:10px;border:none;cursor:pointer;">
@@ -79,9 +79,11 @@
 <p id="message" style="text-align:center;margin-top:15px;"></p>
 
 <script type="module">
+  
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
-
+import { getStorage, ref, uploadBytes, getDownloadURL }
+from "https://www.gstatic.com/firebasejs/12.9.0/firebase-storage.js";
 const firebaseConfig = {
   apiKey: "AIzaSyAyT4AF8qZMyvqZNC8hGanMvGSwfydTDJU",
   authDomain: "vishwakarmamarriage-e8e13.firebaseapp.com",
@@ -93,7 +95,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
+const storage = getStorage(app);
 document.getElementById("profileForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
