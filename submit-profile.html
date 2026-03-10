@@ -135,14 +135,15 @@ font-weight:bold;
 <option>Yes</option>
 <option>No</option>
 </select>
-<label>Marital Status</label>
 
+<label>Marital Status</label>
 <select id="maritalStatus" required>
-  <option value="">Select</option>
-  <option value="Unmarried">Unmarried</option>
-  <option value="Divorced">Divorced</option>
-  <option value="Widow/Widower">Widow / Widower</option>
+<option value="">Select</option>
+<option value="Unmarried">Unmarried</option>
+<option value="Divorced">Divorced</option>
+<option value="Widow/Widower">Widow / Widower</option>
 </select>
+
 <label>Highest Qualification</label>
 <input type="text" id="qualification" required>
 
@@ -152,15 +153,17 @@ font-weight:bold;
 <option>Working</option>
 <option>Not Working</option>
 </select>
+
 <div id="jobDetails" style="display:none;">
 
 <label>Occupation / Company</label>
-<input type="text" id="occupation" placeholder="Enter Occupation or Company">
+<input type="text" id="occupation">
 
 <label>Annual Salary (₹)</label>
-<input type="number" id="salary" placeholder="Enter Salary Package">
+<input type="number" id="salary">
 
 </div>
+
 <label>Father Name</label>
 <input type="text" id="father" required>
 
@@ -217,66 +220,56 @@ font-weight:bold;
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-import { getFirestore, collection, addDoc }
-from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
-import { getStorage, ref, uploadBytes, getDownloadURL }
-from "https://www.gstatic.com/firebasejs/12.9.0/firebase-storage.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-storage.js";
 
 const firebaseConfig = {
-
 apiKey: "AIzaSyAy...",
 authDomain: "vishwakarmamarriage-e8e13.firebaseapp.com",
 projectId: "vishwakarmamarriage-e8e13",
 storageBucket: "vishwakarmamarriage-e8e13.firebasestorage.app",
 messagingSenderId: "287592386640",
 appId: "1:287592386640:web:93a60b14daf415eac3c155"
-
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
+document.getElementById("dob").addEventListener("change",function(){
 
-document.getElementById("dob").addEventListener("change", function(){
+const dob=new Date(this.value);
+const today=new Date();
 
-const dob = new Date(this.value);
-const today = new Date();
+let age=today.getFullYear()-dob.getFullYear();
+const m=today.getMonth()-dob.getMonth();
 
-let age = today.getFullYear() - dob.getFullYear();
+if(m<0||(m===0&&today.getDate()<dob.getDate())) age--;
 
-const m = today.getMonth() - dob.getMonth();
-
-if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) age--;
-
-document.getElementById("age").value = age;
+document.getElementById("age").value=age;
 
 });
 
+document.getElementById("photo").addEventListener("change",function(){
 
-document.getElementById("photo").addEventListener("change", function(){
-
-const file = this.files[0];
+const file=this.files[0];
 
 if(file){
-document.getElementById("fileName").textContent = file.name;
+document.getElementById("fileName").textContent=file.name;
 }
 
 });
 
-document.getElementById("job").addEventListener("change", function(){
+document.getElementById("job").addEventListener("change",function(){
 
-const jobStatus = this.value;
-const jobDetails = document.getElementById("jobDetails");
+const jobStatus=this.value;
+const jobDetails=document.getElementById("jobDetails");
 
-if(jobStatus === "Working"){
-jobDetails.style.display = "block";
-}else{
-jobDetails.style.display = "none";
-}
+jobDetails.style.display = jobStatus==="Working" ? "block" : "none";
 
 });
-document.getElementById("profileForm").addEventListener("submit", async (e)=>{
+
+document.getElementById("profileForm").addEventListener("submit",async(e)=>{
 
 e.preventDefault();
 
@@ -304,26 +297,6 @@ const heightFeet=document.getElementById("heightFeet").value;
 const heightInch=document.getElementById("heightInch").value;
 const height=heightFeet + "'" + heightInch + '"';
 
-const weight=document.getElementById("weight").value;
-const manglik=document.getElementById("manglik").value;
-const qualification=document.getElementById("qualification").value;
-const job=document.getElementById("job").value;
-  const occupation=document.getElementById("occupation").value;
-const salary=document.getElementById("salary").value;
-const father=document.getElementById("father").value;
-const mother=document.getElementById("mother").value;
-
-const category=document.getElementById("category").value;
-const city=document.getElementById("City").value;
-const district=document.getElementById("district").value;
-const state=document.getElementById("state").value;
-const contact=document.getElementById("contact").value;
-
-if(contact.length!==10){
-alert("Please enter 10 digit mobile number");
-return;
-}
-
 const profileID="VM"+Date.now();
 
 const file=document.getElementById("photo").files[0];
@@ -340,48 +313,41 @@ photoURL=await getDownloadURL(storageRef);
 
 }
 
-const profileData={
+await addDoc(collection(db,"pendingProfiles"),{
 
 profileID,
 name,
 age,
 height,
-weight,
-manglik,
-qualification,
-job,
-father,
-mother,
-type,
-category,
-city,
-district,
-state,
-contact,
+contact:document.getElementById("contact").value,
 photo:photoURL,
-status:"pending",
 createdAt:new Date()
 
-};
+});
 
-await addDoc(collection(db,"pendingProfiles"),profileData);
+document.getElementById("profileForm").style.display="none";
 
 document.getElementById("message").style.display="block";
 
 document.getElementById("message").innerHTML=
+
 "<b style='color:green;font-size:18px;'>Profile Submitted Successfully</b><br><br>"+
 "Your Profile ID: <b>"+profileID+"</b><br><br>"+
 "Please contact admin on WhatsApp for profile approval.<br>"+
-"<a class='whatsapp-btn' href='https://wa.me/919429805159?text=Hello%20Admin%20My%20Profile%20ID%20is%20"+profileID+"%20on%20Vishwakarma%20Matrimony' target='_blank'>Click here to WhatsApp</a>";
 
-document.getElementById("profileForm").reset();
+"<a class='whatsapp-btn' href='https://wa.me/919429805159?text=Hello%20Admin%20My%20Profile%20ID%20is%20"+profileID+"' target='_blank'>Click here to WhatsApp</a>"+
+
+"<br><br>"+
+
+"<a href='index.html'><button style='margin:8px;'>🏠 Go to Home</button></a>"+
+
+"<button onclick='location.reload()' style='margin:8px;background:#444;'>➕ Submit Another Profile</button>";
 
 submitBtn.innerText="Submitted";
 
 }catch(error){
 
 alert("Error submitting profile");
-
 submitBtn.disabled=false;
 submitBtn.innerText="Submit Profile";
 
