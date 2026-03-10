@@ -161,6 +161,27 @@ try{
 const name=document.getElementById("name").value;
 const age=document.getElementById("age").value;
 const type=document.getElementById("type").value;
+  // Age validation as per Government of India marriage law
+
+if(type === "bride" && age < 18){
+
+alert("Bride must be at least 18 years old as per Government of India law.");
+
+submitBtn.disabled=false;
+submitBtn.innerText="Submit Profile";
+return;
+
+}
+
+if(type === "groom" && age < 21){
+
+alert("Groom must be at least 21 years old as per Government of India law.");
+
+submitBtn.disabled=false;
+submitBtn.innerText="Submit Profile";
+return;
+
+}
 const category=document.getElementById("category").value;
 const city=document.getElementById("City").value;
 const district=document.getElementById("district").value;
