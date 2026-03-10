@@ -97,6 +97,9 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const storage = getStorage(app);
 document.getElementById("profileForm").addEventListener("submit", async (e) => {
+
+  e.preventDefault();
+
   const file = document.getElementById("photo").files[0];
 
 let photoURL = "";
@@ -126,6 +129,7 @@ if (file) {
   };
 
   try {
+    console.log("Submitting profile:", profileData);
     await addDoc(collection(db, "pendingProfiles"), profileData);
     document.getElementById("message").innerText = "Profile Submitted Successfully! Waiting for Admin Approval.";
     document.getElementById("profileForm").reset();
