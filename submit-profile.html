@@ -129,7 +129,7 @@ display:none;
 <input type="file" id="photo" accept="image/*" required hidden>
 <div id="fileName" style="font-size:14px;color:#666;"></div>
 
-<input type="tel" id="contact" placeholder="Contact Number" pattern="[0-9]{10}" required>
+<input type="tel" id="contact" placeholder="Contact Number" maxlength="10" required>
 
 <button id="submitBtn" type="submit">Submit Profile</button>
 
@@ -225,7 +225,16 @@ const city=document.getElementById("City").value;
 const district=document.getElementById("district").value;
 const state=document.getElementById("state").value;
 const contact=document.getElementById("contact").value;
+if(contact.length !== 10 || !/^[0-9]+$/.test(contact)){
 
+alert("Please enter 10 digit mobile number");
+
+submitBtn.disabled=false;
+submitBtn.innerText="Submit Profile";
+
+return;
+
+}
 const profileID = "VM" + Date.now();
 
 const file=document.getElementById("photo").files[0];
