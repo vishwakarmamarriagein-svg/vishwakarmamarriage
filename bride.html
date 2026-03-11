@@ -67,6 +67,7 @@ const querySnapshot = await getDocs(collection(db,"pendingProfiles"));
 querySnapshot.forEach((docSnap)=>{
 
 const profile = docSnap.data();
+console.log("Profile:", profile);
 
 if(profile.type && profile.type.toLowerCase().trim() !== "bride") return;
 
