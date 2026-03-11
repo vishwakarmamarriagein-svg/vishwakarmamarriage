@@ -465,3 +465,15 @@ text-align:center;
 .upload-btn:hover{
 background:#a00000;
 }
+.register-free{
+background:#FFD700;
+color:black !important;
+padding:8px 14px;
+border-radius:6px;
+font-weight:600;
+margin-left:10px;
+}
+
+.register-free:hover{
+background:#ffcc00;
+}
