@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <title>Vishwakarma Matrimony</title>
+
 <link rel="stylesheet" href="style.css">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
+
 
 <header class="header">
 
@@ -17,41 +23,45 @@
 </div>
 
 <nav class="navbar">
+
 <a href="index.html">Home</a>
 <a href="groom.html">Groom</a>
 <a href="bride.html">Bride</a>
-<a href="register.html" class="register-btn">Register</a>
-<a href="login.html">Login</a>
+<a href="submit-profile.html" class="register-btn">Register</a>
+
+<a href="login.html" id="loginLink">Login</a>
+<a href="#" id="logoutLink" style="display:none;">Logout</a>
+
 </nav>
 
 </header>
 
 
 
+<!-- HERO SECTION -->
 
+<section class="hero">
 
-
-
-
-
-
-
-
-  
-  <section class="hero">
 <p class="blessing">With the blessings of Lord Vishwakarma</p>
+
 <h2>Connecting Vishwakarma Families with Trust & Tradition</h2>
+
 <p class="login-info">
 🔒 Register or Login to view contact numbers and connect with profiles
 </p>
 
 <div class="main-buttons">
 
-<a href="groom.html" class="btn groom">Browse Groom Profiles</a>
+<a href="groom.html" class="btn groom">
+Browse Groom Profiles
+</a>
 
-<a href="bride.html" class="btn bride">Browse Bride Profiles</a>
+<a href="bride.html" class="btn bride">
+Browse Bride Profiles
+</a>
 
 </div>
+
 
 <div class="register-section">
 
@@ -71,7 +81,6 @@ Register Your Profile Free
 
 <div class="stat-box">
 <h3>👨 100+</h3>
- 
 <p>Groom Profiles</p>
 </div>
 
@@ -100,14 +109,13 @@ According to tradition, Lord Vishwakarma had five sons whose descendants
 form the five branches of the Vishwakarma community.
 Marriages are traditionally considered acceptable among these lineages.
 </p>
+
 <div class="lineage-image">
 
 <img src="lineage.png" alt="Lord Vishwakarma and Five Sons">
 
 </div>
 
-
-  
 </section>
 
 
@@ -176,6 +184,7 @@ Connecting Vishwakarma families with trust and tradition.
 </footer>
 
 
+
 <!-- WHATSAPP BUTTON -->
 
 <div class="whatsapp-container">
@@ -191,6 +200,35 @@ Need Help? Chat on WhatsApp
 </span>
 
 </div>
+
+
+
+<!-- LOGIN / LOGOUT CONTROL -->
+
+<script>
+
+const loginLink=document.getElementById("loginLink");
+const logoutLink=document.getElementById("logoutLink");
+
+if(localStorage.getItem("userLoggedIn")==="true"){
+
+loginLink.style.display="none";
+logoutLink.style.display="inline";
+
+}
+
+logoutLink.addEventListener("click",function(){
+
+localStorage.removeItem("userLoggedIn");
+
+alert("Logged out successfully");
+
+window.location.href="index.html";
+
+});
+
+</script>
+
 
 </body>
 </html>
