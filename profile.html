@@ -1,8 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Profile Details</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="page-container">
+
+<h2>Profile Details</h2>
+
+<div id="profile-container"></div>
+
+</div>
+
+
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+
 
 const firebaseConfig = {
 apiKey: "AIzaSyAyT4AF8qZMyvqZNC8hGanMvGSwfydTDJU",
@@ -13,98 +34,67 @@ messagingSenderId: "287592386640",
 appId: "1:287592386640:web:93a60b14daf415eac3c155"
 };
 
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const auth = getAuth(app);
 
-const container = document.getElementById("profileContainer");
-const logoutBtn = document.getElementById("logoutBtn");
 
-const urlParams = new URLSearchParams(window.location.search);
-const profileId = urlParams.get("id");
+const params = new URLSearchParams(window.location.search);
+const profileId = params.get("id");
 
-onAuthStateChanged(auth, async (user) => {
+const container = document.getElementById("profile-container");
 
-if (!user) {
 
-container.innerHTML = `
+async function loadProfile(){
 
-<h2 style="text-align:center;">Login Required</h2>
+if(!profileId){
 
-<p style="text-align:center;">
-You must login to view full profile
-</p>
-
-<div style="text-align:center;margin-top:20px;">
-<a href="login.html">
-<button style="padding:10px 20px;background:maroon;color:white;border:none;border-radius:5px;">
-Login Now
-</button>
-</a>
-</div>
-
-`;
-
+container.innerHTML = "<p>Profile not found.</p>";
 return;
 
 }
 
-logoutBtn.style.display = "block";
-
-try {
-
-const docRef = doc(db, "profiles", profileId);
+const docRef = doc(db,"pendingProfiles",profileId);
 const docSnap = await getDoc(docRef);
 
-if (!docSnap.exists()) {
-container.innerHTML = "<h2>Profile Not Found</h2>";
+if(!docSnap.exists()){
+
+container.innerHTML = "<p>Profile not found.</p>";
 return;
+
 }
 
 const profile = docSnap.data();
 
 container.innerHTML = `
 
-<img src="${profile.photo}" style="width:100%;max-height:400px;object-fit:cover;border-radius:10px;">
+<div class="profile-card">
 
-<h2>${profile.name}</h2>
+<img src="${profile.photo}" class="profile-photo">
 
-<p><strong>Age:</strong> ${profile.age}</p>
-<p><strong>Height:</strong> ${profile.height}</p>
-<p><strong>Weight:</strong> ${profile.weight} kg</p>
+<h3>${profile.name}</h3>
 
-<p><strong>Manglik:</strong> ${profile.manglik}</p>
+<p><b>Age:</b> ${profile.age}</p>
 
-<p><strong>Qualification:</strong> ${profile.qualification}</p>
-<p><strong>Job:</strong> ${profile.job}</p>
+<p><b>Category:</b> ${profile.category}</p>
 
-${profile.job === "Working" ? `
-<p><strong>Occupation:</strong> ${profile.occupation}</p>
-<p><strong>Salary:</strong> ₹${profile.salary}</p>
-` : ""}
+<p><b>Height:</b> ${profile.height}</p>
 
-<p><strong>Father:</strong> ${profile.father}</p>
-<p><strong>Mother:</strong> ${profile.mother}</p>
+<p><b>District:</b> ${profile.district}</p>
 
-<p><strong>Category:</strong> ${profile.category}</p>
+<p><b>State:</b> ${profile.state}</p>
 
-<p><strong>Location:</strong> ${profile.city}, ${profile.district}, ${profile.state}</p>
+<p><b>Contact:</b> ${profile.contact}</p>
 
-<p><strong>Contact:</strong> ${profile.contact || "Contact via Admin"}</p>
+</div>
 
 `;
 
-} catch (error) {
-
-container.innerHTML = "<h2>Error loading profile</h2>";
-
 }
 
-});
-
-logoutBtn.addEventListener("click", async () => {
-await signOut(auth);
-window.location.href = "login.html";
-});
+loadProfile();
 
 </script>
+
+</body>
+</html>
