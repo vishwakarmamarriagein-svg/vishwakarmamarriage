@@ -1,27 +1,64 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <title>Bride Profiles</title>
+
 <link rel="stylesheet" href="style.css">
+
+<style>
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#8b0000;
+padding:15px 40px;
+color:white;
+}
+
+.logo{
+font-size:20px;
+font-weight:bold;
+}
+
+.navbar nav a{
+color:white;
+margin-left:20px;
+text-decoration:none;
+font-weight:500;
+}
+
+.navbar nav a:hover{
+text-decoration:underline;
+}
+
+</style>
+
 </head>
 
 <body>
 
-<!-- Logout Button -->
-<button id="logoutBtn" style="
-position:absolute;
-top:20px;
-right:20px;
-padding:8px 14px;
-background:#444;
-color:white;
-border:none;
-border-radius:5px;
-cursor:pointer;
-display:none;
-">
-Logout
-</button>
+<header class="navbar">
+
+<div class="logo">
+Vishwakarma Matrimony
+</div>
+
+<nav>
+
+<a href="index.html">Home</a>
+<a href="bride.html">Brides</a>
+<a href="groom.html">Grooms</a>
+<a href="submit-profile.html">Submit Profile</a>
+
+<a href="login.html" id="loginLink">Login</a>
+<a href="#" id="logoutLink" style="display:none;">Logout</a>
+
+</nav>
+
+</header>
+
 
 <div class="page-container">
 
@@ -46,6 +83,7 @@ Logout
 
 </div>
 
+
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
@@ -66,43 +104,50 @@ const db = getFirestore(app);
 const container = document.getElementById("profiles-container");
 const searchInput = document.getElementById("searchInput");
 
-let searchText = "";
-let selectedCategory = "All";
+let searchText="";
+let selectedCategory="All";
 
 async function loadProfiles(){
 
 container.innerHTML="";
 
-const querySnapshot = await getDocs(collection(db,"profiles"));
+const querySnapshot=await getDocs(collection(db,"profiles"));
 
 querySnapshot.forEach((docSnap)=>{
 
-const profile = docSnap.data();
+const profile=docSnap.data();
 
-if(!profile.type || profile.type.toLowerCase() !== "bride") return;
+if(!profile.type || profile.type.toLowerCase()!=="bride") return;
 
-if(selectedCategory !== "All" && profile.category !== selectedCategory) return;
+if(selectedCategory!=="All" && profile.category!==selectedCategory) return;
 
-const text = searchText.toLowerCase();
+const text=searchText.toLowerCase();
 
-const name = (profile.name || "").toLowerCase();
-const district = (profile.district || "").toLowerCase();
-const state = (profile.state || "").toLowerCase();
+const name=(profile.name||"").toLowerCase();
+const district=(profile.district||"").toLowerCase();
+const state=(profile.state||"").toLowerCase();
 
-if(name.indexOf(text) === -1 && district.indexOf(text) === -1 && state.indexOf(text) === -1) return;
+if(name.indexOf(text)===-1 && district.indexOf(text)===-1 && state.indexOf(text)===-1) return;
 
-const card = document.createElement("div");
-card.className = "profile-card";
+const card=document.createElement("div");
+card.className="profile-card";
 
-card.innerHTML = `
+card.innerHTML=`
+
 <img src="${profile.photo}" class="profile-photo">
+
 <h3>${profile.name}</h3>
+
 <p class="category-badge">${profile.category}</p>
+
 <p>👤 Age: ${profile.age}</p>
+
 <p>📍 ${profile.district}, ${profile.state}</p>
+
 <a href="profile.html?id=${docSnap.id}">
 <button class="view-btn">View Full Profile</button>
 </a>
+
 `;
 
 container.appendChild(card);
@@ -132,21 +177,28 @@ loadProfiles();
 
 };
 
+</script>
 
-// Logout Script
-const logoutBtn = document.getElementById("logoutBtn");
+
+<script>
+
+const loginLink=document.getElementById("loginLink");
+const logoutLink=document.getElementById("logoutLink");
 
 if(localStorage.getItem("userLoggedIn")==="true"){
-logoutBtn.style.display="block";
+
+loginLink.style.display="none";
+logoutLink.style.display="inline";
+
 }
 
-logoutBtn.addEventListener("click",function(){
+logoutLink.addEventListener("click",function(){
 
 localStorage.removeItem("userLoggedIn");
 
 alert("Logged out successfully");
 
-location.reload();
+window.location.href="index.html";
 
 });
 
