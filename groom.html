@@ -43,12 +43,22 @@ Register
 
 <h2>Groom Profiles</h2>
 
+<div class="top-bar">
+
 <input type="text" id="searchInput" placeholder="Search by Name, District or State">
 
-<div id="profiles-container"></div>
+<div class="filters">
+<button onclick="filterCategory(event,'All')" class="active">All</button>
+<button onclick="filterCategory(event,'Manu')">Manu</button>
+<button onclick="filterCategory(event,'May')">May</button>
+<button onclick="filterCategory(event,'Tvasta')">Tvasta</button>
+<button onclick="filterCategory(event,'Shilpi')">Shilpi</button>
+<button onclick="filterCategory(event,'Daivagya')">Daivagya</button>
+</div>
 
 </div>
 
+<div id="profiles-container"></div>
 
 <script type="module">
 
