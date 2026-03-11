@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html>
 <head>
 
@@ -7,23 +6,59 @@
 
 <link rel="stylesheet" href="style.css">
 
+<style>
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#8b0000;
+padding:15px 40px;
+color:white;
+}
+
+.logo{
+font-size:20px;
+font-weight:bold;
+}
+
+.navbar nav a{
+color:white;
+margin-left:20px;
+text-decoration:none;
+font-weight:500;
+}
+
+.navbar nav a:hover{
+text-decoration:underline;
+}
+
+</style>
+
 </head>
 
 <body>
 
-<button id="logoutBtn" style="
-position:absolute;
-top:20px;
-right:20px;
-padding:8px 14px;
-background:#444;
-color:white;
-border:none;
-border-radius:5px;
-cursor:pointer;
-display:none;
-">
-Logout </button>
+<header class="navbar">
+
+<div class="logo">
+Vishwakarma Matrimony
+</div>
+
+<nav>
+
+<a href="index.html">Home</a>
+<a href="bride.html">Brides</a>
+<a href="groom.html">Grooms</a>
+<a href="submit-profile.html">Submit Profile</a>
+
+<a href="login.html" id="loginLink">Login</a>
+<a href="#" id="logoutLink" style="display:none;">Logout</a>
+
+</nav>
+
+</header>
+
 
 <div class="page-container">
 
@@ -32,6 +67,7 @@ Logout </button>
 <div id="profile-container">Loading...</div>
 
 </div>
+
 
 <script type="module">
 
@@ -88,11 +124,13 @@ container.innerHTML=`
 
 <h3>${p.name}</h3>
 
-<p>Age: ${p.age}</p>
-<p>Height: ${p.height}</p>
-<p>Qualification: ${p.qualification}</p>
+<p><b>Age:</b> ${p.age}</p>
 
-<p>${p.city}, ${p.district}, ${p.state}</p>
+<p><b>Height:</b> ${p.height}</p>
+
+<p><b>Qualification:</b> ${p.qualification}</p>
+
+<p><b>Location:</b> ${p.city}, ${p.district}, ${p.state}</p>
 
 ${contactHTML}
 
@@ -104,21 +142,26 @@ loadProfile();
 
 </script>
 
+
 <script>
 
-const logoutBtn=document.getElementById("logoutBtn");
+const loginLink=document.getElementById("loginLink");
+const logoutLink=document.getElementById("logoutLink");
 
 if(localStorage.getItem("userLoggedIn")==="true"){
-logoutBtn.style.display="block";
+
+loginLink.style.display="none";
+logoutLink.style.display="inline";
+
 }
 
-logoutBtn.addEventListener("click",function(){
+logoutLink.addEventListener("click",function(){
 
 localStorage.removeItem("userLoggedIn");
 
 alert("Logged out successfully");
 
-location.reload();
+window.location.href="index.html";
 
 });
 
