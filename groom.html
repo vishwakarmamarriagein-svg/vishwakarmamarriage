@@ -1,26 +1,64 @@
 <!DOCTYPE html>
-
 <html>
 <head>
+
 <title>Groom Profiles</title>
+
 <link rel="stylesheet" href="style.css">
+
+<style>
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#8b0000;
+padding:15px 40px;
+color:white;
+}
+
+.logo{
+font-size:20px;
+font-weight:bold;
+}
+
+.navbar nav a{
+color:white;
+margin-left:20px;
+text-decoration:none;
+font-weight:500;
+}
+
+.navbar nav a:hover{
+text-decoration:underline;
+}
+
+</style>
+
 </head>
 
 <body>
 
-<button id="logoutBtn" style="
-position:absolute;
-top:20px;
-right:20px;
-padding:8px 14px;
-background:#444;
-color:white;
-border:none;
-border-radius:5px;
-cursor:pointer;
-display:none;
-">
-Logout </button>
+<header class="navbar">
+
+<div class="logo">
+Vishwakarma Matrimony
+</div>
+
+<nav>
+
+<a href="index.html">Home</a>
+<a href="bride.html">Brides</a>
+<a href="groom.html">Grooms</a>
+<a href="submit-profile.html">Submit Profile</a>
+
+<a href="login.html" id="loginLink">Login</a>
+<a href="#" id="logoutLink" style="display:none;">Logout</a>
+
+</nav>
+
+</header>
+
 
 <div class="page-container">
 
@@ -31,6 +69,7 @@ Logout </button>
 <div id="profiles-container"></div>
 
 </div>
+
 
 <script type="module">
 
@@ -83,14 +122,14 @@ card.innerHTML=`
 
 <h3>${profile.name}</h3>
 
-<p>${profile.category}</p>
+<p class="category-badge">${profile.category}</p>
 
-<p>Age: ${profile.age}</p>
+<p>👤 Age: ${profile.age}</p>
 
-<p>${profile.district}, ${profile.state}</p>
+<p>📍 ${profile.district}, ${profile.state}</p>
 
 <a href="profile.html?id=${docSnap.id}">
-<button>View Full Profile</button>
+<button class="view-btn">View Full Profile</button>
 </a>
 
 `;
@@ -112,21 +151,26 @@ loadProfiles();
 
 </script>
 
+
 <script>
 
-const logoutBtn=document.getElementById("logoutBtn");
+const loginLink=document.getElementById("loginLink");
+const logoutLink=document.getElementById("logoutLink");
 
 if(localStorage.getItem("userLoggedIn")==="true"){
-logoutBtn.style.display="block";
+
+loginLink.style.display="none";
+logoutLink.style.display="inline";
+
 }
 
-logoutBtn.addEventListener("click",function(){
+logoutLink.addEventListener("click",function(){
 
 localStorage.removeItem("userLoggedIn");
 
 alert("Logged out successfully");
 
-location.reload();
+window.location.href="index.html";
 
 });
 
