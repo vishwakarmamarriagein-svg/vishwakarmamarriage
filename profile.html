@@ -111,7 +111,7 @@ container.innerHTML="Profile not found";
 return;
 }
 
-const ref=doc(db,"pendingProfiles",id);
+const ref=doc(db,"profiles",id);
 const snap=await getDoc(ref);
 
 if(!snap.exists()){
