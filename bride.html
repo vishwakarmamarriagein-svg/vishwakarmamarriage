@@ -48,38 +48,38 @@ appId: "1:287592386640:web:93a60b14daf415eac3c155"
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const container=document.getElementById("profiles-container");
-const searchInput=document.getElementById("searchInput");
+const container = document.getElementById("profiles-container");
+const searchInput = document.getElementById("searchInput");
 
-let searchText="";
-let selectedCategory="All";
+let searchText = "";
+let selectedCategory = "All";
 
 async function loadProfiles(){
 
 container.innerHTML="";
 
-const querySnapshot=await getDocs(collection(db,"pendingProfiles"));
+const querySnapshot = await getDocs(collection(db,"profiles"));
 
 querySnapshot.forEach((docSnap)=>{
 
-const profile=docSnap.data();
+const profile = docSnap.data();
 
-if(!profile.type || profile.type.toLowerCase()!=="bride") return;
+if(!profile.type || profile.type.toLowerCase() !== "bride") return;
 
-if(selectedCategory!=="All" && profile.category!==selectedCategory) return;
+if(selectedCategory !== "All" && profile.category !== selectedCategory) return;
 
-const text=searchText.toLowerCase();
+const text = searchText.toLowerCase();
 
-const name=(profile.name||"").toLowerCase();
-const district=(profile.district||"").toLowerCase();
-const state=(profile.state||"").toLowerCase();
+const name = (profile.name || "").toLowerCase();
+const district = (profile.district || "").toLowerCase();
+const state = (profile.state || "").toLowerCase();
 
-if(name.indexOf(text)===-1 && district.indexOf(text)===-1 && state.indexOf(text)===-1) return;
+if(name.indexOf(text) === -1 && district.indexOf(text) === -1 && state.indexOf(text) === -1) return;
 
-const card=document.createElement("div");
-card.className="profile-card";
+const card = document.createElement("div");
+card.className = "profile-card";
 
-card.innerHTML=`
+card.innerHTML = `
 
 <img src="${profile.photo}" class="profile-photo">
 
