@@ -1,135 +1,136 @@
 <!DOCTYPE html>
+
 <html>
 <head>
-    <title>Groom Profiles</title>
-    <link rel="stylesheet" href="style.css">
+<title>Groom Profiles</title>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+
+<button id="logoutBtn" style="
+position:absolute;
+top:20px;
+right:20px;
+padding:8px 14px;
+background:#444;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+display:none;
+">
+Logout </button>
 
 <div class="page-container">
 
 <h2>Groom Profiles</h2>
 
-<div class="top-bar">
-
 <input type="text" id="searchInput" placeholder="Search by Name, District or State">
 
-<div class="filters">
-<button onclick="filterCategory('All')">All</button>
-<button onclick="filterCategory('Manu')">Manu</button>
-<button onclick="filterCategory('May')">May</button>
-<button onclick="filterCategory('Twasta')">Twasta</button>
-<button onclick="filterCategory('Shilpi')">Shilpi</button>
-<button onclick="filterCategory('Daiwaggya')">Daiwaggya</button>
-</div>
+<div id="profiles-container"></div>
 
 </div>
 
-<div id="profiles-container" data-type="groom"></div>
-    </div>
 <script type="module">
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-import { getFirestore, collection, getDocs } 
-from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
-import { getAuth, onAuthStateChanged } 
-from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAyT4AF8qZMyvqZNC8hGanMvGSwfydTDJU",
-  authDomain: "vishwakarmamarriage-e8e13.firebaseapp.com",
-  projectId: "vishwakarmamarriage-e8e13",
-  storageBucket: "vishwakarmamarriage-e8e13.firebasestorage.app",
-  messagingSenderId: "287592386640",
-  appId: "1:287592386640:web:93a60b14daf415eac3c155"
+apiKey: "AIzaSyAyT4AF8qZMyvqZNC8hGanMvGSwfydTDJU",
+authDomain: "vishwakarmamarriage-e8e13.firebaseapp.com",
+projectId: "vishwakarmamarriage-e8e13",
+storageBucket: "vishwakarmamarriage-e8e13.firebasestorage.app",
+messagingSenderId: "287592386640",
+appId: "1:287592386640:web:93a60b14daf415eac3c155"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const auth = getAuth(app);
-const container = document.getElementById("profiles-container");
-const searchInput = document.getElementById("searchInput");
-let searchText = "";
-async function loadProfiles() {
-  container.innerHTML = "";
 
-  const querySnapshot = await getDocs(collection(db, "profiles"));
+const container=document.getElementById("profiles-container");
+const searchInput=document.getElementById("searchInput");
 
-  querySnapshot.forEach((docSnap) => {
+let searchText="";
 
-    const profile = docSnap.data();
+async function loadProfiles(){
 
-   if (!profile.type || profile.type.toLowerCase().trim() !== "groom") return;
+container.innerHTML="";
 
-if (selectedCategory !== "All" && profile.category !== selectedCategory) return;
+const querySnapshot=await getDocs(collection(db,"profiles"));
 
-const text = searchText.toLowerCase();
+querySnapshot.forEach((docSnap)=>{
 
-if (
-  profile.name.toLowerCase().indexOf(text) === -1 &&
-  profile.district.toLowerCase().indexOf(text) === -1 &&
-  profile.state.toLowerCase().indexOf(text) === -1
-) return;
+const profile=docSnap.data();
 
-    const card = document.createElement("div");
-    card.className = "profile-card";
+if(!profile.type || profile.type.toLowerCase()!=="groom") return;
 
-card.innerHTML = `
-  <img src="${profile.photo}" class="profile-photo">
-  <h3>${profile.name}</h3>
-  <p class="category-badge">${profile.category}</p>
-<p>👤 Age: ${profile.age}</p>
-<p>📍 ${profile.district}, ${profile.state}</p>
-  <a href="profile.html?id=${docSnap.id}">
-   <button class="view-btn">
-View Full Profile
-</button>
-  </a>
+const text=searchText.toLowerCase();
+
+const name=(profile.name||"").toLowerCase();
+const district=(profile.district||"").toLowerCase();
+const state=(profile.state||"").toLowerCase();
+
+if(name.indexOf(text)===-1 && district.indexOf(text)===-1 && state.indexOf(text)===-1) return;
+
+const card=document.createElement("div");
+card.className="profile-card";
+
+card.innerHTML=`
+
+<img src="${profile.photo}" class="profile-photo">
+
+<h3>${profile.name}</h3>
+
+<p>${profile.category}</p>
+
+<p>Age: ${profile.age}</p>
+
+<p>${profile.district}, ${profile.state}</p>
+
+<a href="profile.html?id=${docSnap.id}">
+<button>View Full Profile</button>
+</a>
+
 `;
 
-    container.appendChild(card);
-      onAuthStateChanged(auth, (user) => {
-  if (user) {
-    card.querySelector(".contact-area").innerHTML =
-      "<strong>Contact:</strong> " + (profile.contact || "Contact via Admin");
-  }
+container.appendChild(card);
+
 });
-  });
+
 }
-loadProfiles();
-
-searchInput.addEventListener("input", function () {
-  searchText = this.value;
-  loadProfiles();
-});
-
-let selectedCategory = "All";
-window.filterCategory = function(category) {
-
-selectedCategory = category;
-
-document.querySelectorAll(".filters button").forEach(btn=>{
-btn.classList.remove("active");
-});
-
-event.target.classList.add("active");
 
 loadProfiles();
 
-};
+searchInput.addEventListener("input",function(){
+
+searchText=this.value;
+loadProfiles();
+
+});
+
 </script>
-<button id="logoutBtn" style="
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  padding: 8px 15px;
-  background: maroon;
-  color: white;
-  border: none;
-  cursor: pointer;
-  display: none;
-">
-  Logout
-</button>    
+
+<script>
+
+const logoutBtn=document.getElementById("logoutBtn");
+
+if(localStorage.getItem("userLoggedIn")==="true"){
+logoutBtn.style.display="block";
+}
+
+logoutBtn.addEventListener("click",function(){
+
+localStorage.removeItem("userLoggedIn");
+
+alert("Logged out successfully");
+
+location.reload();
+
+});
+
+</script>
+
 </body>
 </html>
