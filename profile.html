@@ -8,29 +8,27 @@
 
 <style>
 
-.navbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-background:#8b0000;
-padding:15px 40px;
-color:white;
+body{
+margin:0;
+background:#f5f5f5;
+font-family:Arial;
 }
 
-.logo{
-font-size:20px;
-font-weight:bold;
+.profile-box{
+max-width:600px;
+margin:30px auto;
+background:white;
+padding:25px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+text-align:center;
 }
 
-.navbar nav a{
-color:white;
-margin-left:20px;
-text-decoration:none;
-font-weight:500;
-}
-
-.navbar nav a:hover{
-text-decoration:underline;
+.profile-photo{
+width:100%;
+max-width:350px;
+border-radius:10px;
+margin-bottom:15px;
 }
 
 </style>
@@ -39,20 +37,39 @@ text-decoration:underline;
 
 <body>
 
-<header class="navbar">
 
-<div class="logo">
+<!-- HEADER (same as index.html) -->
+
+<header class="header">
+
+<div class="logo-container">
+
+<img src="icon.png" class="logo-icon">
+
+<span class="logo-text">
 Vishwakarma Matrimony
+</span>
+
 </div>
 
-<nav>
+<nav class="navbar">
 
 <a href="index.html">Home</a>
-<a href="bride.html">Brides</a>
-<a href="groom.html">Grooms</a>
-<a href="submit-profile.html">Submit Profile</a>
+
+<a href="groom.html">Groom</a>
+
+<a href="bride.html">Bride</a>
+
+<a href="submit-profile.html" class="register-free">
+Register Your Profile
+</a>
+
+<a href="submit-profile.html" class="register-btn">
+Register
+</a>
 
 <a href="login.html" id="loginLink">Login</a>
+
 <a href="#" id="logoutLink" style="display:none;">Logout</a>
 
 </nav>
@@ -60,13 +77,17 @@ Vishwakarma Matrimony
 </header>
 
 
+
 <div class="page-container">
 
-<h2>Profile Details</h2>
+<h2 style="text-align:center;">Profile Details</h2>
 
-<div id="profile-container">Loading...</div>
+<div id="profile-container" class="profile-box">
+Loading...
+</div>
 
 </div>
+
 
 
 <script type="module">
@@ -91,6 +112,7 @@ const container=document.getElementById("profile-container");
 const params=new URLSearchParams(window.location.search);
 const id=params.get("id");
 
+
 async function loadProfile(){
 
 const ref=doc(db,"profiles",id);
@@ -113,7 +135,7 @@ contactHTML=`<p><b>Contact:</b> ${p.contact}</p>`;
 
 contactHTML=`
 <p><b>Contact:</b> 🔒 Login required</p>
-<a href="login.html"><button>Login to View Contact</button></a>
+<a href="login.html"><button class="view-btn">Login to View Contact</button></a>
 `;
 
 }
@@ -141,6 +163,7 @@ ${contactHTML}
 loadProfile();
 
 </script>
+
 
 
 <script>
