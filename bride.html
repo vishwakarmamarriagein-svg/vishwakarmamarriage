@@ -21,7 +21,7 @@
 <button onclick="filterCategory(event,'May')">May</button>
 <button onclick="filterCategory(event,'Tvasta')">Tvasta</button>
 <button onclick="filterCategory(event,'Shilpi')">Shilpi</button>
-<button onclick="filterCategory(event,'Daiwaggya')">Daiwaggya</button>
+<button onclick="filterCategory(event,'Daivagya')">Daivagya</button>
 </div>
 
 </div>
@@ -34,9 +34,7 @@
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-import { getFirestore, collection, getDocs } 
-from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
-
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
 const firebaseConfig = {
 apiKey: "AIzaSyAyT4AF8qZMyvqZNC8hGanMvGSwfydTDJU",
@@ -47,63 +45,51 @@ messagingSenderId: "287592386640",
 appId: "1:287592386640:web:93a60b14daf415eac3c155"
 };
 
-
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+const container=document.getElementById("profiles-container");
+const searchInput=document.getElementById("searchInput");
 
-const container = document.getElementById("profiles-container");
-const searchInput = document.getElementById("searchInput");
-
-let searchText = "";
-let selectedCategory = "All";
-
+let searchText="";
+let selectedCategory="All";
 
 async function loadProfiles(){
 
 container.innerHTML="";
 
-const querySnapshot = await getDocs(collection(db,"pendingProfiles"));
+const querySnapshot=await getDocs(collection(db,"pendingProfiles"));
+
 querySnapshot.forEach((docSnap)=>{
 
-const profile = docSnap.data();
-console.log("Profile:", profile);
+const profile=docSnap.data();
 
-if(profile.type && profile.type.toLowerCase().trim() !== "bride") return;
+if(!profile.type || profile.type.toLowerCase()!=="bride") return;
 
+if(selectedCategory!=="All" && profile.category!==selectedCategory) return;
 
-if(selectedCategory !== "All" && profile.category !== selectedCategory) return;
+const text=searchText.toLowerCase();
 
+const name=(profile.name||"").toLowerCase();
+const district=(profile.district||"").toLowerCase();
+const state=(profile.state||"").toLowerCase();
 
-const text = searchText.toLowerCase();
+if(name.indexOf(text)===-1 && district.indexOf(text)===-1 && state.indexOf(text)===-1) return;
 
-const name = (profile.name || "").toLowerCase();
-const district = (profile.district || "").toLowerCase();
-const state = (profile.state || "").toLowerCase();
-
-
-if(
-name.indexOf(text) === -1 &&
-district.indexOf(text) === -1 &&
-state.indexOf(text) === -1
-) return;
-
-
-const card = document.createElement("div");
+const card=document.createElement("div");
 card.className="profile-card";
-
 
 card.innerHTML=`
 
-<img src="${profile.photo || 'default-profile.png'}" class="profile-photo">
+<img src="${profile.photo}" class="profile-photo">
 
-<h3>${profile.name || "No Name"}</h3>
+<h3>${profile.name}</h3>
 
-<p class="category-badge">${profile.category || ""}</p>
+<p class="category-badge">${profile.category}</p>
 
-<p>👤 Age: ${profile.age || ""}</p>
+<p>👤 Age: ${profile.age}</p>
 
-<p>📍 ${profile.district || ""}, ${profile.state || ""}</p>
+<p>📍 ${profile.district}, ${profile.state}</p>
 
 <a href="profile.html?id=${docSnap.id}">
 <button class="view-btn">View Full Profile</button>
@@ -117,17 +103,12 @@ container.appendChild(card);
 
 }
 
-
 loadProfiles();
-
 
 searchInput.addEventListener("input",function(){
-
 searchText=this.value;
 loadProfiles();
-
 });
-
 
 window.filterCategory=function(event,category){
 
