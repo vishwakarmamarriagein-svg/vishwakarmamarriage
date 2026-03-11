@@ -1,22 +1,51 @@
 <!DOCTYPE html>
-
 <html>
 <head>
 
-<title>User Login</title>
+<title>User Login - Vishwakarma Matrimony</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link rel="stylesheet" href="style.css">
+
 <style>
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#8b0000;
+padding:15px 40px;
+color:white;
+}
+
+.logo{
+font-size:20px;
+font-weight:bold;
+}
+
+.navbar nav a{
+color:white;
+margin-left:20px;
+text-decoration:none;
+font-weight:500;
+}
+
+.navbar nav a:hover{
+text-decoration:underline;
+}
 
 body{
 font-family:Arial;
 background:#f5f5f5;
 margin:0;
+}
+
+.login-container{
 display:flex;
-align-items:center;
 justify-content:center;
-height:100vh;
+align-items:center;
+height:80vh;
 }
 
 .login-box{
@@ -28,12 +57,12 @@ box-shadow:0 0 15px rgba(0,0,0,0.1);
 text-align:center;
 }
 
-h2{
+.login-box h2{
 color:#8b0000;
 margin-bottom:20px;
 }
 
-input{
+.login-box input{
 width:100%;
 padding:10px;
 margin:10px 0;
@@ -41,7 +70,7 @@ border:1px solid #ccc;
 border-radius:5px;
 }
 
-button{
+.login-box button{
 width:100%;
 padding:10px;
 background:#8b0000;
@@ -49,6 +78,7 @@ color:white;
 border:none;
 border-radius:5px;
 cursor:pointer;
+font-size:16px;
 }
 
 </style>
@@ -56,6 +86,29 @@ cursor:pointer;
 </head>
 
 <body>
+
+<header class="navbar">
+
+<div class="logo">
+Vishwakarma Matrimony
+</div>
+
+<nav>
+
+<a href="index.html">Home</a>
+<a href="bride.html">Brides</a>
+<a href="groom.html">Grooms</a>
+<a href="submit-profile.html">Submit Profile</a>
+
+<a href="login.html" id="loginLink">Login</a>
+<a href="#" id="logoutLink" style="display:none;">Logout</a>
+
+</nav>
+
+</header>
+
+
+<div class="login-container">
 
 <div class="login-box">
 
@@ -69,6 +122,9 @@ cursor:pointer;
 
 </div>
 
+</div>
+
+
 <script>
 
 function login(){
@@ -80,6 +136,27 @@ alert("Login Successful");
 window.location.href="index.html";
 
 }
+
+
+const loginLink=document.getElementById("loginLink");
+const logoutLink=document.getElementById("logoutLink");
+
+if(localStorage.getItem("userLoggedIn")==="true"){
+
+loginLink.style.display="none";
+logoutLink.style.display="inline";
+
+}
+
+logoutLink.addEventListener("click",function(){
+
+localStorage.removeItem("userLoggedIn");
+
+alert("Logged out successfully");
+
+window.location.href="index.html";
+
+});
 
 </script>
 
