@@ -80,7 +80,8 @@ const db = getFirestore(app);
 const container = document.getElementById("profiles-container");
 const searchInput = document.getElementById("searchInput");
 
-let searchText = "";
+let searchText="";
+let selectedCategory="All";
 
 async function loadProfiles(){
 
@@ -92,7 +93,7 @@ querySnapshot.forEach((docSnap)=>{
 
 const profile = docSnap.data();
 
-if(!profile.type || profile.type.toLowerCase() !== "groom") return;
+if(selectedCategory!=="All" && profile.category!==selectedCategory) return;
 
 const text = searchText.toLowerCase();
 
@@ -137,7 +138,19 @@ searchText = this.value;
 loadProfiles();
 
 });
+window.filterCategory=function(event,category){
 
+selectedCategory=category;
+
+document.querySelectorAll(".filters button").forEach(btn=>{
+btn.classList.remove("active");
+});
+
+event.target.classList.add("active");
+
+loadProfiles();
+
+};
 </script>
 
 
