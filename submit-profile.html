@@ -6,19 +6,45 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link rel="stylesheet" href="style.css">
+
 <style>
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#8b0000;
+padding:15px 40px;
+color:white;
+}
+
+.logo{
+font-size:20px;
+font-weight:bold;
+}
+
+.navbar nav a{
+color:white;
+margin-left:20px;
+text-decoration:none;
+font-weight:500;
+}
+
+.navbar nav a:hover{
+text-decoration:underline;
+}
 
 body{
 font-family:Arial, sans-serif;
 margin:0;
-padding:20px;
 background:#f5f5f5;
 }
 
 form{
 max-width:500px;
 width:95%;
-margin:auto;
+margin:20px auto;
 display:flex;
 flex-direction:column;
 gap:10px;
@@ -40,11 +66,6 @@ cursor:pointer;
 font-size:16px;
 }
 
-button:disabled{
-background:#999;
-cursor:not-allowed;
-}
-
 .upload-btn{
 display:block;
 background:#8b0000;
@@ -53,11 +74,6 @@ padding:10px;
 border-radius:4px;
 cursor:pointer;
 text-align:center;
-font-size:15px;
-}
-
-.upload-btn:hover{
-background:#a00000;
 }
 
 #message{
@@ -83,7 +99,28 @@ font-weight:bold;
 
 <body>
 
-<h2 style="text-align:center;">Submit Your Profile</h2>
+<header class="navbar">
+
+<div class="logo">
+Vishwakarma Matrimony
+</div>
+
+<nav>
+
+<a href="index.html">Home</a>
+<a href="bride.html">Brides</a>
+<a href="groom.html">Grooms</a>
+<a href="submit-profile.html">Submit Profile</a>
+
+<a href="login.html" id="loginLink">Login</a>
+<a href="#" id="logoutLink" style="display:none;">Logout</a>
+
+</nav>
+
+</header>
+
+
+<h2 style="text-align:center;margin-top:20px;">Submit Your Profile</h2>
 
 <form id="profileForm">
 
@@ -139,9 +176,9 @@ font-weight:bold;
 <label>Marital Status</label>
 <select id="maritalStatus" required>
 <option value="">Select</option>
-<option value="Unmarried">Unmarried</option>
-<option value="Divorced">Divorced</option>
-<option value="Widow/Widower">Widow / Widower</option>
+<option>Unmarried</option>
+<option>Divorced</option>
+<option>Widow/Widower</option>
 </select>
 
 <label>Highest Qualification</label>
@@ -178,34 +215,27 @@ font-weight:bold;
 
 <select id="category" required>
 <option value="">Select Category</option>
-<option value="Manu">Manu</option>
-<option value="May">May</option>
-<option value="Tvasta">Tvasta</option>
-<option value="Shilpi">Shilpi</option>
-<option value="Daivagya">Daivagya</option>
+<option>Manu</option>
+<option>May</option>
+<option>Tvasta</option>
+<option>Shilpi</option>
+<option>Daivagya</option>
 </select>
 
-<input type="text" id="City" placeholder="Enter Village/City" required>
-
-<input type="text" id="district" placeholder="Enter District" required>
+<input type="text" id="City" placeholder="Village/City" required>
+<input type="text" id="district" placeholder="District" required>
 
 <select id="state" required>
 <option value="">Select State</option>
 <option>Gujarat</option>
-<option>Uttar Pradesh</option>
 <option>Maharashtra</option>
 <option>Rajasthan</option>
 <option>Madhya Pradesh</option>
-<option>Bihar</option>
-<option>Punjab</option>
-<option>Haryana</option>
-<option>Tamil Nadu</option>
-<option>Karnataka</option>
-<option>West Bengal</option>
+<option>Uttar Pradesh</option>
 </select>
 
 <label for="photo" class="upload-btn">Upload Photo</label>
-<input type="file" id="photo" accept="image/*" required hidden>
+<input type="file" id="photo" accept="image/*" hidden required>
 
 <div id="fileName"></div>
 
@@ -217,6 +247,7 @@ font-weight:bold;
 
 <p id="message"></p>
 
+
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
@@ -224,7 +255,7 @@ import { getFirestore, collection, addDoc } from "https://www.gstatic.com/fireba
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-storage.js";
 
 const firebaseConfig = {
-apiKey: "AIzaSyAy...",
+apiKey: "AIzaSyAyT4AF8qZMyvqZNC8hGanMvGSwfydTDJU",
 authDomain: "vishwakarmamarriage-e8e13.firebaseapp.com",
 projectId: "vishwakarmamarriage-e8e13",
 storageBucket: "vishwakarmamarriage-e8e13.firebasestorage.app",
@@ -236,38 +267,35 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
+
 document.getElementById("dob").addEventListener("change",function(){
 
 const dob=new Date(this.value);
 const today=new Date();
 
 let age=today.getFullYear()-dob.getFullYear();
-const m=today.getMonth()-dob.getMonth();
-
-if(m<0||(m===0&&today.getDate()<dob.getDate())) age--;
+if(today < new Date(today.getFullYear(),dob.getMonth(),dob.getDate())) age--;
 
 document.getElementById("age").value=age;
 
 });
 
+
 document.getElementById("photo").addEventListener("change",function(){
 
 const file=this.files[0];
-
-if(file){
-document.getElementById("fileName").textContent=file.name;
-}
+if(file) document.getElementById("fileName").textContent=file.name;
 
 });
+
 
 document.getElementById("job").addEventListener("change",function(){
 
-const jobStatus=this.value;
-const jobDetails=document.getElementById("jobDetails");
-
-jobDetails.style.display = jobStatus==="Working" ? "block" : "none";
+document.getElementById("jobDetails").style.display=
+this.value==="Working"?"block":"none";
 
 });
+
 
 document.getElementById("profileForm").addEventListener("submit",async(e)=>{
 
@@ -293,14 +321,11 @@ alert("Groom must be at least 21 years old.");
 return;
 }
 
-const heightFeet=document.getElementById("heightFeet").value;
-const heightInch=document.getElementById("heightInch").value;
-const height=heightFeet + "'" + heightInch + '"';
+const height=document.getElementById("heightFeet").value+"'"+document.getElementById("heightInch").value+'"';
 
 const profileID="VM"+Date.now();
 
 const file=document.getElementById("photo").files[0];
-
 let photoURL="";
 
 if(file){
@@ -308,7 +333,6 @@ if(file){
 const storageRef=ref(storage,"profiles/"+Date.now()+"_"+file.name);
 
 await uploadBytes(storageRef,file);
-
 photoURL=await getDownloadURL(storageRef);
 
 }
@@ -328,7 +352,7 @@ occupation:document.getElementById("occupation").value,
 salary:document.getElementById("salary").value,
 father:document.getElementById("father").value,
 mother:document.getElementById("mother").value,
-type:document.getElementById("type").value,
+type:type,
 category:document.getElementById("category").value,
 city:document.getElementById("City").value,
 district:document.getElementById("district").value,
@@ -339,6 +363,7 @@ status:"pending",
 createdAt:new Date()
 
 });
+
 document.getElementById("profileForm").style.display="none";
 
 document.getElementById("message").style.display="block";
@@ -347,17 +372,7 @@ document.getElementById("message").innerHTML=
 
 "<b style='color:green;font-size:18px;'>Profile Submitted Successfully</b><br><br>"+
 "Your Profile ID: <b>"+profileID+"</b><br><br>"+
-"Please contact admin on WhatsApp for profile approval.<br>"+
-
-"<a class='whatsapp-btn' href='https://wa.me/919429805159?text=Hello%20Admin%20My%20Profile%20ID%20is%20"+profileID+"' target='_blank'>Click here to WhatsApp</a>"+
-
-"<br><br>"+
-
-"<a href='index.html'><button style='margin:8px;'>🏠 Go to Home</button></a>"+
-
-"<button onclick='location.reload()' style='margin:8px;background:#444;'>➕ Submit Another Profile</button>";
-
-submitBtn.innerText="Submitted";
+"<a class='whatsapp-btn' href='https://wa.me/919429805159?text=Hello Admin My Profile ID is "+profileID+"' target='_blank'>Contact Admin on WhatsApp</a>";
 
 }catch(error){
 
@@ -366,6 +381,31 @@ submitBtn.disabled=false;
 submitBtn.innerText="Submit Profile";
 
 }
+
+});
+
+</script>
+
+
+<script>
+
+const loginLink=document.getElementById("loginLink");
+const logoutLink=document.getElementById("logoutLink");
+
+if(localStorage.getItem("userLoggedIn")==="true"){
+
+loginLink.style.display="none";
+logoutLink.style.display="inline";
+
+}
+
+logoutLink.addEventListener("click",function(){
+
+localStorage.removeItem("userLoggedIn");
+
+alert("Logged out successfully");
+
+window.location.href="index.html";
 
 });
 
