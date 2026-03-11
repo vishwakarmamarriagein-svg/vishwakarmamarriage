@@ -7,8 +7,7 @@
 
 <body>
 
-
-
+<!-- Logout Button -->
 <button id="logoutBtn" style="
 position:absolute;
 top:20px;
@@ -25,6 +24,7 @@ Logout
 </button>
 
 <div class="page-container">
+
 <h2>Bride Profiles</h2>
 
 <div class="top-bar">
@@ -45,7 +45,6 @@ Logout
 <div id="profiles-container"></div>
 
 </div>
-
 
 <script type="module">
 
@@ -96,21 +95,14 @@ const card = document.createElement("div");
 card.className = "profile-card";
 
 card.innerHTML = `
-
 <img src="${profile.photo}" class="profile-photo">
-
 <h3>${profile.name}</h3>
-
 <p class="category-badge">${profile.category}</p>
-
 <p>👤 Age: ${profile.age}</p>
-
 <p>📍 ${profile.district}, ${profile.state}</p>
-
 <a href="profile.html?id=${docSnap.id}">
 <button class="view-btn">View Full Profile</button>
 </a>
-
 `;
 
 container.appendChild(card);
@@ -139,6 +131,24 @@ event.target.classList.add("active");
 loadProfiles();
 
 };
+
+
+// Logout Script
+const logoutBtn = document.getElementById("logoutBtn");
+
+if(localStorage.getItem("userLoggedIn")==="true"){
+logoutBtn.style.display="block";
+}
+
+logoutBtn.addEventListener("click",function(){
+
+localStorage.removeItem("userLoggedIn");
+
+alert("Logged out successfully");
+
+location.reload();
+
+});
 
 </script>
 
