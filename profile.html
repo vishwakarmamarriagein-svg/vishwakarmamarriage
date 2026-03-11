@@ -16,37 +16,48 @@ margin:0;
 padding:30px;
 }
 
-.page-container{
+.container{
 max-width:700px;
 margin:auto;
 background:white;
 padding:30px;
-border-radius:10px;
+border-radius:12px;
 box-shadow:0 0 15px rgba(0,0,0,0.1);
 text-align:center;
 }
 
 .profile-photo{
-width:220px;
+width:100%;
+max-height:350px;
+object-fit:cover;
 border-radius:10px;
 margin-bottom:20px;
 }
 
-.profile-info{
+.details{
 text-align:left;
-margin-top:20px;
 line-height:1.8;
 font-size:16px;
+margin-top:20px;
 }
 
 h2{
 color:#8b0000;
 }
 
+.login-btn{
+background:#8b0000;
+color:white;
+padding:8px 14px;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
 .back-btn{
 margin-top:25px;
 padding:10px 18px;
-background:#8b0000;
+background:#444;
 color:white;
 border:none;
 border-radius:5px;
@@ -59,13 +70,11 @@ cursor:pointer;
 
 <body>
 
-<div class="page-container">
+<div class="container">
 
 <h2>Profile Details</h2>
 
-<div id="profile-container">
-Loading profile...
-</div>
+<div id="profile">Loading profile...</div>
 
 <button class="back-btn" onclick="history.back()">⬅ Back</button>
 
@@ -76,7 +85,6 @@ Loading profile...
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
-
 const firebaseConfig = {
 apiKey: "AIzaSyAyT4AF8qZMyvqZNC8hGanMvGSwfydTDJU",
 authDomain: "vishwakarmamarriage-e8e13.firebaseapp.com",
@@ -86,74 +94,98 @@ messagingSenderId: "287592386640",
 appId: "1:287592386640:web:93a60b14daf415eac3c155"
 };
 
-
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+const container=document.getElementById("profile");
 
-const container = document.getElementById("profile-container");
+const params=new URLSearchParams(window.location.search);
+const id=params.get("id");
 
-const params = new URLSearchParams(window.location.search);
-const profileId = params.get("id");
-
+let loggedIn=false; // simple login simulation
 
 async function loadProfile(){
 
-if(!profileId){
-container.innerHTML = "<p>Profile not found.</p>";
+if(!id){
+container.innerHTML="Profile not found";
 return;
 }
 
-try{
+const ref=doc(db,"pendingProfiles",id);
+const snap=await getDoc(ref);
 
-const docRef = doc(db,"pendingProfiles",profileId);
-const docSnap = await getDoc(docRef);
-
-if(!docSnap.exists()){
-container.innerHTML = "<p>Profile not found.</p>";
+if(!snap.exists()){
+container.innerHTML="Profile not found";
 return;
 }
 
-const p = docSnap.data();
+const p=snap.data();
 
-container.innerHTML = `
+let contactHTML="";
 
-<img src="${p.photo || ''}" class="profile-photo">
+if(loggedIn){
 
-<h3>${p.name || ''}</h3>
+contactHTML=`<p><b>Contact:</b> ${p.contact || ""}</p>`;
 
-<div class="profile-info">
+}else{
 
-<p><b>Age:</b> ${p.age || ''}</p>
+contactHTML=`
+<p><b>Contact:</b> 🔐 Login required</p>
+<button class="login-btn" onclick="login()">Login to View</button>
+`;
 
-<p><b>Height:</b> ${p.height || ''}</p>
+}
 
-<p><b>Category:</b> ${p.category || ''}</p>
+container.innerHTML=`
 
-<p><b>District:</b> ${p.district || ''}</p>
+<img src="${p.photo}" class="profile-photo">
 
-<p><b>State:</b> ${p.state || ''}</p>
+<h3>${p.name || ""}</h3>
 
-<p><b>Qualification:</b> ${p.qualification || ''}</p>
+<div class="details">
 
-<p><b>Job Status:</b> ${p.job || ''}</p>
+<p><b>Age:</b> ${p.age || ""}</p>
 
-<p><b>Father Name:</b> ${p.father || ''}</p>
+<p><b>Height:</b> ${p.height || ""}</p>
 
-<p><b>Mother Name:</b> ${p.mother || ''}</p>
+<p><b>Weight:</b> ${p.weight || ""}</p>
 
-<p><b>Contact:</b> ${p.contact || ''}</p>
+<p><b>Manglik:</b> ${p.manglik || ""}</p>
+
+<p><b>Marital Status:</b> ${p.maritalStatus || ""}</p>
+
+<p><b>Qualification:</b> ${p.qualification || ""}</p>
+
+<p><b>Job:</b> ${p.job || ""}</p>
+
+<p><b>Occupation:</b> ${p.occupation || ""}</p>
+
+<p><b>Salary:</b> ${p.salary || ""}</p>
+
+<p><b>Father Name:</b> ${p.father || ""}</p>
+
+<p><b>Mother Name:</b> ${p.mother || ""}</p>
+
+<p><b>Category:</b> ${p.category || ""}</p>
+
+<p><b>City:</b> ${p.city || ""}</p>
+
+<p><b>District:</b> ${p.district || ""}</p>
+
+<p><b>State:</b> ${p.state || ""}</p>
+
+${contactHTML}
 
 </div>
 
 `;
 
-}catch(error){
-
-container.innerHTML = "<p>Error loading profile.</p>";
-console.error(error);
-
 }
+
+window.login=function(){
+
+loggedIn=true;
+loadProfile();
 
 }
 
