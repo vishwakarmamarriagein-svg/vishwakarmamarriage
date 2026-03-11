@@ -16,12 +16,12 @@
 <input type="text" id="searchInput" placeholder="Search by Name, District or State">
 
 <div class="filters">
-<button onclick="filterCategory('All')">All</button>
-<button onclick="filterCategory('Manu')">Manu</button>
-<button onclick="filterCategory('May')">May</button>
-<button onclick="filterCategory('Twasta')">Twasta</button>
-<button onclick="filterCategory('Shilpi')">Shilpi</button>
-<button onclick="filterCategory('Daiwaggya')">Daiwaggya</button>
+<button onclick="filterCategory(event,'All')" class="active">All</button>
+<button onclick="filterCategory(event,'Manu')">Manu</button>
+<button onclick="filterCategory(event,'May')">May</button>
+<button onclick="filterCategory(event,'Twasta')">Twasta</button>
+<button onclick="filterCategory(event,'Shilpi')">Shilpi</button>
+<button onclick="filterCategory(event,'Daiwaggya')">Daiwaggya</button>
 </div>
 
 </div>
@@ -37,6 +37,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebas
 import { getFirestore, collection, getDocs } 
 from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
+
 const firebaseConfig = {
 apiKey: "AIzaSyAyT4AF8qZMyvqZNC8hGanMvGSwfydTDJU",
 authDomain: "vishwakarmamarriage-e8e13.firebaseapp.com",
@@ -46,8 +47,10 @@ messagingSenderId: "287592386640",
 appId: "1:287592386640:web:93a60b14daf415eac3c155"
 };
 
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+
 
 const container = document.getElementById("profiles-container");
 const searchInput = document.getElementById("searchInput");
@@ -66,33 +69,43 @@ querySnapshot.forEach((docSnap)=>{
 
 const profile = docSnap.data();
 
-if(!profile.type || profile.type.toLowerCase().trim() !== "bride") return;
+if(!profile.type) return;
+
+if(profile.type.toLowerCase().trim() !== "bride") return;
+
 
 if(selectedCategory !== "All" && profile.category !== selectedCategory) return;
 
+
 const text = searchText.toLowerCase();
 
+const name = (profile.name || "").toLowerCase();
+const district = (profile.district || "").toLowerCase();
+const state = (profile.state || "").toLowerCase();
+
+
 if(
-profile.name.toLowerCase().indexOf(text) === -1 &&
-profile.district.toLowerCase().indexOf(text) === -1 &&
-profile.state.toLowerCase().indexOf(text) === -1
+name.indexOf(text) === -1 &&
+district.indexOf(text) === -1 &&
+state.indexOf(text) === -1
 ) return;
 
 
 const card = document.createElement("div");
 card.className="profile-card";
 
+
 card.innerHTML=`
 
-<img src="${profile.photo}" class="profile-photo">
+<img src="${profile.photo || 'default-profile.png'}" class="profile-photo">
 
-<h3>${profile.name}</h3>
+<h3>${profile.name || "No Name"}</h3>
 
-<p class="category-badge">${profile.category}</p>
+<p class="category-badge">${profile.category || ""}</p>
 
-<p>👤 Age: ${profile.age}</p>
+<p>👤 Age: ${profile.age || ""}</p>
 
-<p>📍 ${profile.district}, ${profile.state}</p>
+<p>📍 ${profile.district || ""}, ${profile.state || ""}</p>
 
 <a href="profile.html?id=${docSnap.id}">
 <button class="view-btn">View Full Profile</button>
@@ -106,6 +119,7 @@ container.appendChild(card);
 
 }
 
+
 loadProfiles();
 
 
@@ -117,7 +131,7 @@ loadProfiles();
 });
 
 
-window.filterCategory=function(category){
+window.filterCategory=function(event,category){
 
 selectedCategory=category;
 
