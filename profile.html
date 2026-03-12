@@ -163,7 +163,9 @@ contactHTML=`<p><b>Contact:</b> ${profileData.contact}</p>`;
 
 contactHTML=`
 <p><b>Contact:</b> 🔒 Login required</p>
-<a href="login.html"><button class="view-btn">Login to View Contact</button></a>
+<a href="login.html?redirect=${window.location.href}">
+<button class="view-btn">Login to View Contact</button>
+</a>
 `;
 
 }
