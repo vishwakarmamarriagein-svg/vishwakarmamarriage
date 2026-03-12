@@ -78,7 +78,6 @@ margin-bottom:8px;
 </div>
 
 
-
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
@@ -98,7 +97,6 @@ addDoc,
 deleteDoc,
 doc
 } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
-
 
 
 const firebaseConfig = {
@@ -121,13 +119,13 @@ const db = getFirestore(app);
 
 /* ADMIN AUTH CHECK */
 
-auth.authStateReady().then(()=>{
-
-const user = auth.currentUser;
+onAuthStateChanged(auth,(user)=>{
 
 if(!user){
+
 window.location.href="login.html";
 return;
+
 }
 
 const adminEmail="vishwakarmamarriage.in@gmail.com";
@@ -249,14 +247,15 @@ container.appendChild(div);
 
 /* APPROVE PROFILE */
 
-window.approveProfile=async function(docId){
+window.approveProfile = async function(docId){
 
-const docRef=doc(db,"pendingProfiles",docId);
-const docSnap=await getDoc(docRef);
+const docRef = doc(db,"pendingProfiles",docId);
+
+const docSnap = await getDoc(docRef);
 
 if(docSnap.exists()){
 
-const profileData=docSnap.data();
+const profileData = docSnap.data();
 
 await addDoc(collection(db,"profiles"),profileData);
 
@@ -269,61 +268,55 @@ loadApprovedProfiles();
 
 }
 
-}
+};
 
 
 
 /* REJECT PROFILE */
 
-window.rejectProfile=async function(docId){
+window.rejectProfile = async function(docId){
 
 if(!confirm("Reject this profile?")) return;
 
-const docRef=doc(db,"pendingProfiles",docId);
-
-await deleteDoc(docRef);
+await deleteDoc(doc(db,"pendingProfiles",docId));
 
 alert("Profile Rejected");
 
 loadPendingProfiles();
 
-}
+};
 
 
 
-/* DELETE PENDING */
+/* DELETE PENDING PROFILE */
 
-window.deleteProfile=async function(docId){
+window.deleteProfile = async function(docId){
 
 if(!confirm("Delete this profile permanently?")) return;
 
-const docRef=doc(db,"pendingProfiles",docId);
-
-await deleteDoc(docRef);
+await deleteDoc(doc(db,"pendingProfiles",docId));
 
 alert("Profile Deleted");
 
 loadPendingProfiles();
 
-}
+};
 
 
 
-/* DELETE APPROVED */
+/* DELETE APPROVED PROFILE */
 
-window.deleteApprovedProfile=async function(docId){
+window.deleteApprovedProfile = async function(docId){
 
 if(!confirm("Delete this approved profile permanently?")) return;
 
-const docRef=doc(db,"profiles",docId);
-
-await deleteDoc(docRef);
+await deleteDoc(doc(db,"profiles",docId));
 
 alert("Approved profile deleted");
 
 loadApprovedProfiles();
 
-}
+};
 
 
 
