@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Admin Login - Vishwakarma Matrimony</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f4f4;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.box{
+background:white;
+padding:30px;
+width:320px;
+border-radius:8px;
+box-shadow:0 0 10px rgba(0,0,0,0.2);
+text-align:center;
+}
+
+input{
+width:100%;
+padding:10px;
+margin:10px 0;
+border:1px solid #ccc;
+}
+
+button{
+background:maroon;
+color:white;
+padding:10px;
+width:100%;
+border:none;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>Admin Login</h2>
+
+<input type="email" id="email" placeholder="Admin Email">
+
+<input type="password" id="password" placeholder="Password">
+
+<button id="loginBtn">Login</button>
+
+</div>
+
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+
+import {
+getAuth,
+signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyAyT4AF8qZMyvqZNC8hGanMvGSwfydTDJU",
+authDomain: "vishwakarmamarriage-e8e13.firebaseapp.com",
+projectId: "vishwakarmamarriage-e8e13",
+storageBucket: "vishwakarmamarriage-e8e13.firebasestorage.app",
+messagingSenderId: "287592386640",
+appId: "1:287592386640:web:93a60b14daf415eac3c155"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+document.getElementById("loginBtn").addEventListener("click", async ()=>{
+
+const email=document.getElementById("email").value;
+const password=document.getElementById("password").value;
+
+if(email!=="vishwakarmamarriage.in@gmail.com"){
+alert("Only admin can login");
+return;
+}
+
+try{
+
+await signInWithEmailAndPassword(auth,email,password);
+
+window.location.href="admin.html";
+
+}catch(error){
+
+alert("Login Failed");
+
+}
+
+});
+
+</script>
+
+</body>
+</html>
