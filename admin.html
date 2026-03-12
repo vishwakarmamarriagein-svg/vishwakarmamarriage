@@ -1,60 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <title>Admin Dashboard - Vishwakarma Matrimony</title>
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-
-body{
-font-family:Arial;
-padding:30px;
-background:#f4f4f4;
-}
-
-.box{
-background:white;
-padding:20px;
-box-shadow:0 0 10px rgba(0,0,0,0.2);
-}
-
-button{
-padding:8px 12px;
-border:none;
-cursor:pointer;
-color:white;
-margin-right:5px;
-border-radius:4px;
-}
-
+body{font-family:Arial;padding:30px;background:#f4f4f4;}
+.box{background:white;padding:20px;box-shadow:0 0 10px rgba(0,0,0,0.2);}
+button{padding:8px 12px;border:none;cursor:pointer;color:white;margin-right:5px;border-radius:4px;}
 .approve{background:green;}
 .reject{background:red;}
 .delete{background:#555;}
-
-.logout{
-position:absolute;
-top:20px;
-right:20px;
-background:maroon;
-}
-
-.profileCard{
-border:1px solid #ccc;
-padding:10px;
-margin-bottom:10px;
-border-radius:5px;
-background:#fafafa;
-}
-
-.profileCard img{
-border-radius:5px;
-margin-bottom:8px;
-}
-
+.logout{position:absolute;top:20px;right:20px;background:maroon;}
+.profileCard{border:1px solid #ccc;padding:10px;margin-bottom:10px;border-radius:5px;background:#fafafa;}
+.profileCard img{border-radius:5px;margin-bottom:8px;}
 </style>
-
 </head>
 
 <body>
@@ -82,7 +42,7 @@ margin-bottom:8px;
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
 
-import {
+import { 
 getAuth,
 onAuthStateChanged,
 signOut
@@ -97,7 +57,6 @@ setDoc,
 deleteDoc,
 doc
 } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
-
 
 const firebaseConfig = {
 apiKey: "AIzaSyAyT4AF8qZMyvqZNC8hGanMvGSwfydTDJU",
@@ -118,31 +77,14 @@ const db = getFirestore(app);
 onAuthStateChanged(auth,(user)=>{
 
 if(!user){
-
-setTimeout(()=>{
-
-const currentUser = auth.currentUser;
-
-if(!currentUser){
 window.location.href="login.html";
-}
-
-},800);
-
 return;
-
 }
 
-const adminEmail="vishwakarmamarriage.in@gmail.com";
-
-if(user.email.toLowerCase() !== adminEmail.toLowerCase()){
-
-alert("Only admin can access this page");
-
+if(user.email !== "vishwakarmamarriage.in@gmail.com"){
+alert("Access denied");
 window.location.href="index.html";
-
 return;
-
 }
 
 loadPendingProfiles();
@@ -251,35 +193,26 @@ loadApprovedProfiles();
 };
 
 
-/* REJECT PROFILE */
+/* REJECT */
 
 window.rejectProfile = async function(docId){
 
-if(!confirm("Reject profile?")) return;
-
 await deleteDoc(doc(db,"pendingProfiles",docId));
 loadPendingProfiles();
 
 };
 
 
-/* DELETE PENDING PROFILE */
+/* DELETE */
 
 window.deleteProfile = async function(docId){
 
-if(!confirm("Delete permanently?")) return;
-
 await deleteDoc(doc(db,"pendingProfiles",docId));
 loadPendingProfiles();
 
 };
 
-
-/* DELETE APPROVED PROFILE */
-
 window.deleteApprovedProfile = async function(docId){
-
-if(!confirm("Delete approved profile?")) return;
 
 await deleteDoc(doc(db,"profiles",docId));
 loadApprovedProfiles();
@@ -289,14 +222,9 @@ loadApprovedProfiles();
 
 /* LOGOUT */
 
-const logoutBtn=document.getElementById("logoutBtn");
-
-logoutBtn.addEventListener("click", async ()=>{
+document.getElementById("logoutBtn").addEventListener("click",async()=>{
 
 await signOut(auth);
-
-alert("Logged out successfully");
-
 window.location.href="login.html";
 
 });
