@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 <head>
 <title>Admin Dashboard - Vishwakarma Matrimony</title>
@@ -6,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+
 body{
 font-family:Arial;
 padding:30px;
@@ -50,7 +52,9 @@ background:#fafafa;
 border-radius:5px;
 margin-bottom:8px;
 }
+
 </style>
+
 </head>
 
 <body>
@@ -73,8 +77,6 @@ margin-bottom:8px;
 <div id="approvedProfilesContainer"></div>
 
 </div>
-
-
 
 <script type="module">
 
@@ -117,17 +119,31 @@ const db = getFirestore(app);
 
 onAuthStateChanged(auth,(user)=>{
 
-if(user){
+if(!user){
+
+/* wait for firebase session restore */
+
+setTimeout(()=>{
+
+const currentUser = auth.currentUser;
+
+if(!currentUser){
+window.location.href="login.html";
+}
+
+},800);
+
+return;
+
+}
 
 const adminEmail="vishwakarmamarriage.in@gmail.com";
 
 if(user.email.toLowerCase() !== adminEmail.toLowerCase()){
 
-alert("Access Denied");
+alert("Only admin can access this page");
 
-signOut(auth);
-
-window.location.href="login.html";
+window.location.href="index.html";
 
 return;
 
@@ -135,12 +151,6 @@ return;
 
 loadPendingProfiles();
 loadApprovedProfiles();
-
-}else{
-
-window.location.href="login.html";
-
-}
 
 });
 
@@ -164,7 +174,8 @@ const div=document.createElement("div");
 div.className="profileCard";
 
 div.innerHTML=`
-<img src="${data.photo || ''}" width="100"><br>
+
+<img src="${data.photo || 'icon.png'}" width="100"><br>
 
 <strong>${data.name}</strong><br>
 
@@ -177,6 +188,7 @@ Contact: ${data.contact}<br><br>
 <button class="approve" onclick="approveProfile('${docId}')">Approve</button>
 <button class="reject" onclick="rejectProfile('${docId}')">Reject</button>
 <button class="delete" onclick="deleteProfile('${docId}')">Delete</button>
+
 `;
 
 container.appendChild(div);
@@ -205,97 +217,5 @@ const div=document.createElement("div");
 div.className="profileCard";
 
 div.innerHTML=`
-<img src="${data.photo || ''}" width="100"><br>
 
-<strong>${data.name}</strong><br>
-
-Age: ${data.age}<br>
-Type: ${data.type}<br>
-Category: ${data.category}<br>
-Location: ${data.district}, ${data.state}<br>
-Contact: ${data.contact}<br><br>
-
-<button class="delete" onclick="deleteApprovedProfile('${docId}')">Delete</button>
-`;
-
-container.appendChild(div);
-
-});
-
-}
-
-
-
-/* APPROVE PROFILE */
-
-window.approveProfile = async function(docId){
-
-const docRef = doc(db,"pendingProfiles",docId);
-const snap = await getDoc(docRef);
-
-if(snap.exists()){
-
-await setDoc(doc(db,"profiles",docId),snap.data());
-await deleteDoc(docRef);
-
-alert("Profile Approved");
-
-loadPendingProfiles();
-loadApprovedProfiles();
-
-}
-
-};
-
-
-
-window.rejectProfile = async function(docId){
-
-if(!confirm("Reject profile?")) return;
-
-await deleteDoc(doc(db,"pendingProfiles",docId));
-
-loadPendingProfiles();
-
-};
-
-
-
-window.deleteProfile = async function(docId){
-
-if(!confirm("Delete permanently?")) return;
-
-await deleteDoc(doc(db,"pendingProfiles",docId));
-
-loadPendingProfiles();
-
-};
-
-
-
-window.deleteApprovedProfile = async function(docId){
-
-if(!confirm("Delete approved profile?")) return;
-
-await deleteDoc(doc(db,"profiles",docId));
-
-loadApprovedProfiles();
-
-};
-
-
-
-/* LOGOUT */
-
-document.getElementById("logoutBtn").addEventListener("click",async()=>{
-
-await signOut(auth);
-
-window.location.href="login.html";
-
-});
-
-</script>
-
-</body>
-</html>
+<img src="${d
