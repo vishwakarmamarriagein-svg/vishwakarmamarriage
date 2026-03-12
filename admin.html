@@ -6,7 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-
 body{
 font-family:Arial;
 padding:30px;
@@ -51,7 +50,6 @@ background:#fafafa;
 border-radius:5px;
 margin-bottom:8px;
 }
-
 </style>
 </head>
 
@@ -64,8 +62,7 @@ margin-bottom:8px;
 <h2>Admin Dashboard</h2>
 <p>Welcome Admin 👋</p>
 
-<hr>
-<hr>
+<hr><hr>
 
 <h3>Pending Profiles</h3>
 <div id="profilesContainer"></div>
@@ -76,6 +73,7 @@ margin-bottom:8px;
 <div id="approvedProfilesContainer"></div>
 
 </div>
+
 
 
 <script type="module">
@@ -99,17 +97,15 @@ doc
 } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
 
-const firebaseConfig = {
 
+const firebaseConfig = {
 apiKey: "AIzaSyAyT4AF8qZMyvqZNC8hGanMvGSwfydTDJU",
 authDomain: "vishwakarmamarriage-e8e13.firebaseapp.com",
 projectId: "vishwakarmamarriage-e8e13",
 storageBucket: "vishwakarmamarriage-e8e13.firebasestorage.app",
 messagingSenderId: "287592386640",
 appId: "1:287592386640:web:93a60b14daf415eac3c155"
-
 };
-
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -121,12 +117,7 @@ const db = getFirestore(app);
 
 onAuthStateChanged(auth,(user)=>{
 
-if(!user){
-
-window.location.href="login.html";
-return;
-
-}
+if(user){
 
 const adminEmail="vishwakarmamarriage.in@gmail.com";
 
@@ -134,9 +125,9 @@ if(user.email.toLowerCase() !== adminEmail.toLowerCase()){
 
 alert("Access Denied");
 
-signOut(auth).then(()=>{
+signOut(auth);
+
 window.location.href="login.html";
-});
 
 return;
 
@@ -144,6 +135,12 @@ return;
 
 loadPendingProfiles();
 loadApprovedProfiles();
+
+}else{
+
+window.location.href="login.html";
+
+}
 
 });
 
@@ -154,7 +151,6 @@ loadApprovedProfiles();
 async function loadPendingProfiles(){
 
 const container=document.getElementById("profilesContainer");
-
 container.innerHTML="";
 
 const querySnapshot=await getDocs(collection(db,"pendingProfiles"));
@@ -168,27 +164,19 @@ const div=document.createElement("div");
 div.className="profileCard";
 
 div.innerHTML=`
-
-<img src="${data.photo || 'images/default.jpg'}" width="100"><br>
+<img src="${data.photo || ''}" width="100"><br>
 
 <strong>${data.name}</strong><br>
 
 Age: ${data.age}<br>
-
 Type: ${data.type}<br>
-
 Category: ${data.category}<br>
-
 Location: ${data.district}, ${data.state}<br>
-
 Contact: ${data.contact}<br><br>
 
 <button class="approve" onclick="approveProfile('${docId}')">Approve</button>
-
 <button class="reject" onclick="rejectProfile('${docId}')">Reject</button>
-
 <button class="delete" onclick="deleteProfile('${docId}')">Delete</button>
-
 `;
 
 container.appendChild(div);
@@ -204,7 +192,6 @@ container.appendChild(div);
 async function loadApprovedProfiles(){
 
 const container=document.getElementById("approvedProfilesContainer");
-
 container.innerHTML="";
 
 const querySnapshot=await getDocs(collection(db,"profiles"));
@@ -218,23 +205,17 @@ const div=document.createElement("div");
 div.className="profileCard";
 
 div.innerHTML=`
-
-<img src="${data.photo || 'images/default.jpg'}" width="100"><br>
+<img src="${data.photo || ''}" width="100"><br>
 
 <strong>${data.name}</strong><br>
 
 Age: ${data.age}<br>
-
 Type: ${data.type}<br>
-
 Category: ${data.category}<br>
-
 Location: ${data.district}, ${data.state}<br>
-
 Contact: ${data.contact}<br><br>
 
 <button class="delete" onclick="deleteApprovedProfile('${docId}')">Delete</button>
-
 `;
 
 container.appendChild(div);
@@ -250,18 +231,14 @@ container.appendChild(div);
 window.approveProfile = async function(docId){
 
 const docRef = doc(db,"pendingProfiles",docId);
+const snap = await getDoc(docRef);
 
-const docSnap = await getDoc(docRef);
+if(snap.exists()){
 
-if(docSnap.exists()){
-
-const profileData = docSnap.data();
-
-await addDoc(collection(db,"profiles"),profileData);
-
+await addDoc(collection(db,"profiles"),snap.data());
 await deleteDoc(docRef);
 
-alert("Profile Approved Successfully");
+alert("Profile Approved");
 
 loadPendingProfiles();
 loadApprovedProfiles();
@@ -272,31 +249,23 @@ loadApprovedProfiles();
 
 
 
-/* REJECT PROFILE */
-
 window.rejectProfile = async function(docId){
 
-if(!confirm("Reject this profile?")) return;
+if(!confirm("Reject profile?")) return;
 
 await deleteDoc(doc(db,"pendingProfiles",docId));
-
-alert("Profile Rejected");
 
 loadPendingProfiles();
 
 };
 
 
-
-/* DELETE PENDING PROFILE */
 
 window.deleteProfile = async function(docId){
 
-if(!confirm("Delete this profile permanently?")) return;
+if(!confirm("Delete permanently?")) return;
 
 await deleteDoc(doc(db,"pendingProfiles",docId));
-
-alert("Profile Deleted");
 
 loadPendingProfiles();
 
@@ -304,15 +273,11 @@ loadPendingProfiles();
 
 
 
-/* DELETE APPROVED PROFILE */
-
 window.deleteApprovedProfile = async function(docId){
 
-if(!confirm("Delete this approved profile permanently?")) return;
+if(!confirm("Delete approved profile?")) return;
 
 await deleteDoc(doc(db,"profiles",docId));
-
-alert("Approved profile deleted");
 
 loadApprovedProfiles();
 
