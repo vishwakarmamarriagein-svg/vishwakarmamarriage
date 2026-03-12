@@ -92,7 +92,7 @@ const querySnapshot = await getDocs(collection(db,"profiles"));
 querySnapshot.forEach((docSnap)=>{
 
 const profile = docSnap.data();
-
+if(!profile.type || profile.type.toLowerCase() !== "groom") return;
 if(selectedCategory!=="All" && profile.category!==selectedCategory) return;
 
 const text = searchText.toLowerCase();
