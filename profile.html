@@ -140,15 +140,8 @@ if(!snap.exists()){
 container.innerHTML="Profile not found";
 return;
 }
-
 profileData=snap.data();
-
-showProfile(null);
-
 }
-
-
-
 /* SHOW PROFILE */
 
 function showProfile(user){
@@ -189,9 +182,6 @@ ${contactHTML}
 `;
 
 }
-
-
-
 /* CHECK LOGIN STATE */
 
 onAuthStateChanged(auth,(user)=>{
