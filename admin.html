@@ -81,8 +81,12 @@ window.location.href="login.html";
 return;
 }
 
-if(user.email !== "vishwakarmamarriage.in@gmail.com"){
-alert("Access denied");
+const adminEmails = [
+"vishwakarmamarriage.in@gmail.com"
+];
+
+if(!adminEmails.includes(user.email)){
+alert("Admin access only");
 window.location.href="index.html";
 return;
 }
