@@ -46,9 +46,6 @@ margin-top:10px;
 
 <body>
 
-
-<!-- HEADER -->
-
 <header class="header">
 
 <div class="logo-container">
@@ -71,13 +68,11 @@ Register
 </a>
 
 <a href="login.html" id="loginLink">Login</a>
-
 <a href="#" id="logoutLink" style="display:none;">Logout</a>
 
 </nav>
 
 </header>
-
 
 
 <div class="page-container">
@@ -89,7 +84,6 @@ Loading...
 </div>
 
 </div>
-
 
 
 <script type="module">
@@ -130,7 +124,6 @@ const id=params.get("id");
 let profileData=null;
 
 
-
 async function loadProfile(){
 
 const ref=doc(db,"profiles",id);
@@ -140,11 +133,17 @@ if(!snap.exists()){
 container.innerHTML="Profile not found";
 return;
 }
+
 profileData=snap.data();
+
 }
-/* SHOW PROFILE */
+
 
 function showProfile(user){
+
+if(!profileData){
+return;
+}
 
 let contactHTML="";
 
@@ -156,7 +155,7 @@ contactHTML=`<p><b>Contact:</b> ${profileData.contact}</p>`;
 
 contactHTML=`
 <p><b>Contact:</b> 🔒 Login required</p>
-<a href="login.html?redirect=${window.location.href}">
+<a href="login.html?redirect=${encodeURIComponent(window.location.href)}">
 <button class="view-btn">Login to View Contact</button>
 </a>
 `;
@@ -165,7 +164,7 @@ contactHTML=`
 
 container.innerHTML=`
 
-<img src="${profileData.photo}" class="profile-photo">
+<img src="${profileData.photo || 'icon.png'}" class="profile-photo">
 
 <h3>${profileData.name}</h3>
 
@@ -182,7 +181,10 @@ ${contactHTML}
 `;
 
 }
-/* CHECK LOGIN STATE */
+
+
+await loadProfile();
+
 
 onAuthStateChanged(auth,(user)=>{
 
@@ -202,21 +204,17 @@ logoutLink.style.display="none";
 });
 
 
-/* LOGOUT */
-
 document.getElementById("logoutLink").addEventListener("click",async()=>{
 
 await signOut(auth);
+
+localStorage.removeItem("userLoggedIn");
 
 alert("Logged out successfully");
 
 window.location.href="index.html";
 
 });
-
-
-
-loadProfile();
 
 </script>
 
