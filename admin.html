@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-
 <html>
 <head>
+
 <title>Admin Dashboard - Vishwakarma Matrimony</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -99,7 +99,6 @@ doc
 } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
 
-
 const firebaseConfig = {
 apiKey: "AIzaSyAyT4AF8qZMyvqZNC8hGanMvGSwfydTDJU",
 authDomain: "vishwakarmamarriage-e8e13.firebaseapp.com",
@@ -114,14 +113,11 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 
-
 /* ADMIN AUTH CHECK */
 
 onAuthStateChanged(auth,(user)=>{
 
 if(!user){
-
-/* wait for firebase session restore */
 
 setTimeout(()=>{
 
@@ -155,7 +151,6 @@ loadApprovedProfiles();
 });
 
 
-
 /* LOAD PENDING PROFILES */
 
 async function loadPendingProfiles(){
@@ -174,7 +169,6 @@ const div=document.createElement("div");
 div.className="profileCard";
 
 div.innerHTML=`
-
 <img src="${data.photo || 'icon.png'}" width="100"><br>
 
 <strong>${data.name}</strong><br>
@@ -188,7 +182,6 @@ Contact: ${data.contact}<br><br>
 <button class="approve" onclick="approveProfile('${docId}')">Approve</button>
 <button class="reject" onclick="rejectProfile('${docId}')">Reject</button>
 <button class="delete" onclick="deleteProfile('${docId}')">Delete</button>
-
 `;
 
 container.appendChild(div);
@@ -196,7 +189,6 @@ container.appendChild(div);
 });
 
 }
-
 
 
 /* LOAD APPROVED PROFILES */
@@ -217,5 +209,99 @@ const div=document.createElement("div");
 div.className="profileCard";
 
 div.innerHTML=`
+<img src="${data.photo || 'icon.png'}" width="100"><br>
 
-<img src="${d
+<strong>${data.name}</strong><br>
+
+Age: ${data.age}<br>
+Type: ${data.type}<br>
+Category: ${data.category}<br>
+Location: ${data.district}, ${data.state}<br>
+Contact: ${data.contact}<br><br>
+
+<button class="delete" onclick="deleteApprovedProfile('${docId}')">Delete</button>
+`;
+
+container.appendChild(div);
+
+});
+
+}
+
+
+/* APPROVE PROFILE */
+
+window.approveProfile = async function(docId){
+
+const docRef = doc(db,"pendingProfiles",docId);
+const snap = await getDoc(docRef);
+
+if(snap.exists()){
+
+await setDoc(doc(db,"profiles",docId),snap.data());
+await deleteDoc(docRef);
+
+alert("Profile Approved");
+
+loadPendingProfiles();
+loadApprovedProfiles();
+
+}
+
+};
+
+
+/* REJECT PROFILE */
+
+window.rejectProfile = async function(docId){
+
+if(!confirm("Reject profile?")) return;
+
+await deleteDoc(doc(db,"pendingProfiles",docId));
+loadPendingProfiles();
+
+};
+
+
+/* DELETE PENDING PROFILE */
+
+window.deleteProfile = async function(docId){
+
+if(!confirm("Delete permanently?")) return;
+
+await deleteDoc(doc(db,"pendingProfiles",docId));
+loadPendingProfiles();
+
+};
+
+
+/* DELETE APPROVED PROFILE */
+
+window.deleteApprovedProfile = async function(docId){
+
+if(!confirm("Delete approved profile?")) return;
+
+await deleteDoc(doc(db,"profiles",docId));
+loadApprovedProfiles();
+
+};
+
+
+/* LOGOUT */
+
+const logoutBtn=document.getElementById("logoutBtn");
+
+logoutBtn.addEventListener("click", async ()=>{
+
+await signOut(auth);
+
+alert("Logged out successfully");
+
+window.location.href="login.html";
+
+});
+
+</script>
+
+</body>
+</html>
