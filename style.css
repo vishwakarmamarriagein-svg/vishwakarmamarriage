@@ -477,3 +477,23 @@ margin-left:10px;
 .register-free:hover{
 background:#ffcc00;
 }
+.welcome{
+background:#ffffff;
+padding:70px 20px;
+text-align:center;
+}
+
+.welcome h2{
+font-size:32px;
+margin-bottom:25px;
+color:#333;
+}
+
+.welcome p{
+max-width:800px;
+margin:auto;
+margin-bottom:18px;
+line-height:1.7;
+color:#555;
+font-size:16px;
+}
