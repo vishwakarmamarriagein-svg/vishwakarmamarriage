@@ -103,6 +103,12 @@ alert("Please agree to the Terms & Conditions before continuing.");
 }
 
 </script>
-
+<script>
+fetch("footer.html")
+.then(response => response.text())
+.then(data => {
+document.getElementById("footer").innerHTML = data;
+});
+</script>
 </body>
 </html>
