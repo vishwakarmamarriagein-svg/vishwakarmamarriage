@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Terms & Conditions - Vishwakarma Marriage</title>
+
+<link rel="stylesheet" href="style.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<header class="header">
+
+<div class="logo-container">
+<img src="icon.png" class="logo-icon">
+<span class="logo-text">Vishwakarma Marriage</span>
+</div>
+
+<nav class="navbar">
+<a href="index.html">Home</a>
+<a href="groom.html">Groom</a>
+<a href="bride.html">Bride</a>
+</nav>
+
+</header>
+
+
+<div class="page-container">
+
+<h2>Terms & Conditions</h2>
+
+<p>
+Welcome to <b>Vishwakarma Marriage</b>. By submitting a profile on this platform,
+you agree to follow the terms and conditions mentioned below.
+</p>
+
+<h3>1. Eligibility</h3>
+<p>
+Users must be legally eligible for marriage according to Indian law.
+Minimum age must be:
+<br>Groom – 21 years
+<br>Bride – 18 years
+</p>
+
+<h3>2. Accurate Information</h3>
+<p>
+Users must provide true and correct information while submitting profiles.
+Any false or misleading information may result in profile rejection or removal.
+</p>
+
+<h3>3. Profile Verification</h3>
+<p>
+All submitted profiles are reviewed by the administrator before being published.
+The platform reserves the right to approve or reject any profile.
+</p>
+
+<h3>4. Platform Responsibility</h3>
+<p>
+Vishwakarma Marriage only provides a platform to connect individuals and families.
+Users should independently verify all information before making matrimonial decisions.
+</p>
+
+<h3>5. Misuse Policy</h3>
+<p>
+Users must not misuse contact details or use the platform for any illegal activity.
+Such actions may lead to permanent removal from the platform.
+</p>
+
+<br>
+
+<label>
+<input type="checkbox" id="agree">
+I have read and agree to the Terms & Conditions
+</label>
+
+<br><br>
+
+<button onclick="continueRegistration()" class="btn">
+Continue to Profile Submission
+</button>
+
+</div>
+
+<script>
+
+function continueRegistration(){
+
+if(document.getElementById("agree").checked){
+
+window.location.href="submit-profile.html";
+
+}else{
+
+alert("Please agree to the Terms & Conditions before continuing.");
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
