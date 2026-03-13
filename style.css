@@ -592,3 +592,11 @@ border-radius:50%;
 font-weight:bold;
 margin:0 auto 15px auto;
 }
+.how-it-works h2::after{
+content:"";
+display:block;
+width:80px;
+height:3px;
+background:#FFD700;
+margin:10px auto;
+}
