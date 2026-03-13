@@ -580,3 +580,15 @@ transition:0.3s;
 .step:hover{
 transform:translateY(-5px);
 }
+.step-number{
+width:40px;
+height:40px;
+background:#8b0000;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:50%;
+font-weight:bold;
+margin:0 auto 15px auto;
+}
