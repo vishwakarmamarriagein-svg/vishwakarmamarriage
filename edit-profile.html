@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Edit Profile</title>
+
+<style>
+body{font-family:Arial;background:#f4f4f4;padding:30px;}
+.box{background:white;padding:20px;max-width:500px;margin:auto;box-shadow:0 0 10px rgba(0,0,0,0.2);}
+input,select{width:100%;padding:8px;margin-bottom:10px;}
+button{background:green;color:white;padding:10px;border:none;cursor:pointer;}
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>Edit Profile</h2>
+
+<input id="name" placeholder="Name">
+
+<input id="age" placeholder="Age">
+
+<select id="manglik">
+<option value="No">No</option>
+<option value="Yes">Yes</option>
+</select>
+
+<select id="manglikType">
+<option value="">Select Manglik Type</option>
+<option value="Manglik">Manglik</option>
+<option value="Anshik Manglik">Anshik Manglik</option>
+</select>
+
+<input id="qualification" placeholder="Qualification">
+
+<input id="occupation" placeholder="Occupation">
+
+<input id="salary" placeholder="Salary">
+
+<input id="contact" placeholder="Contact">
+
+<button onclick="saveProfile()">Save Changes</button>
+
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+
+const firebaseConfig={
+apiKey:"AIzaSyAyT4AF8qZMyvqZNC8hGanMvGSwfydTDJU",
+authDomain:"vishwakarmamarriage-e8e13.firebaseapp.com",
+projectId:"vishwakarmamarriage-e8e13",
+storageBucket:"vishwakarmamarriage-e8e13.firebasestorage.app",
+messagingSenderId:"287592386640",
+appId:"1:287592386640:web:93a60b14daf415eac3c155"
+};
+
+const app=initializeApp(firebaseConfig);
+const db=getFirestore(app);
+
+const params=new URLSearchParams(window.location.search);
+const id=params.get("id");
+
+let collectionName="profiles";
+
+
+async function loadProfile(){
+
+let ref=doc(db,"profiles",id);
+let snap=await getDoc(ref);
+
+if(!snap.exists()){
+
+collectionName="pendingProfiles";
+
+ref=doc(db,"pendingProfiles",id);
+snap=await getDoc(ref);
+
+}
+
+if(!snap.exists()){
+alert("Profile not found");
+return;
+}
+
+const data=snap.data();
+
+document.getElementById("name").value=data.name || "";
+document.getElementById("age").value=data.age || "";
+document.getElementById("manglik").value=data.manglik || "";
+document.getElementById("manglikType").value=data.manglikType || "";
+document.getElementById("qualification").value=data.qualification || "";
+document.getElementById("occupation").value=data.occupation || "";
+document.getElementById("salary").value=data.salary || "";
+document.getElementById("contact").value=data.contact || "";
+
+}
+
+window.saveProfile=async function(){
+
+const ref=doc(db,collectionName,id);
+
+await updateDoc(ref,{
+name:document.getElementById("name").value,
+age:document.getElementById("age").value,
+manglik:document.getElementById("manglik").value,
+manglikType:document.getElementById("manglikType").value,
+qualification:document.getElementById("qualification").value,
+occupation:document.getElementById("occupation").value,
+salary:document.getElementById("salary").value,
+contact:document.getElementById("contact").value
+});
+
+alert("Profile updated successfully");
+
+}
+
+loadProfile();
+
+</script>
+
+</body>
+</html>
