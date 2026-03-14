@@ -535,3 +535,9 @@ align-items:center;
 width:90%;
 }
 }
+
+
+html,body{
+height:auto;
+overflow:auto;
+}
