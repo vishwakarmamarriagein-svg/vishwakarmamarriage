@@ -133,14 +133,13 @@ if(!snap.exists()){
 ref = doc(db,"pendingProfiles",id);
 snap = await getDoc(ref);
 }
-const snap=await getDoc(ref);
 
 if(!snap.exists()){
 container.innerHTML="Profile not found";
 return;
 }
 
-profileData=snap.data();
+profileData = snap.data();
 
 }
 
