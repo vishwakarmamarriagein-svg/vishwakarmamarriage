@@ -11,6 +11,8 @@ button{padding:8px 12px;border:none;cursor:pointer;color:white;margin-right:5px;
 .approve{background:green;}
 .reject{background:red;}
 .delete{background:#555;}
+.view{background:#007bff;}
+.edit{background:#ff9800;}
 .logout{position:absolute;top:20px;right:20px;background:maroon;}
 .profileCard{border:1px solid #ccc;padding:10px;margin-bottom:10px;border-radius:5px;background:#fafafa;}
 .profileCard img{border-radius:5px;margin-bottom:8px;}
@@ -128,6 +130,8 @@ Contact:
 <a href="https://wa.me/91${data.contact}" target="_blank" style="color:green;font-weight:bold;">
 ${data.contact}
 </a><br><br>
+<button class="view" onclick="viewProfile('${docId}')">View</button>
+<button class="edit" onclick="editProfile('${docId}')">Edit</button>
 <button class="approve" onclick="approveProfile('${docId}')">Approve</button>
 <button class="reject" onclick="rejectProfile('${docId}')">Reject</button>
 <button class="delete" onclick="deleteProfile('${docId}')">Delete</button>
@@ -171,7 +175,8 @@ Contact:
 <a href="https://wa.me/91${data.contact}" target="_blank" style="color:green;font-weight:bold;">
 ${data.contact}
 </a><br><br>
-
+<button class="view" onclick="viewProfile('${docId}')">View</button>
+<button class="edit" onclick="editProfile('${docId}')">Edit</button>
 <button class="delete" onclick="deleteApprovedProfile('${docId}')">Delete</button>
 `;
 
@@ -229,7 +234,18 @@ await deleteDoc(doc(db,"profiles",docId));
 loadApprovedProfiles();
 
 };
+/* VIEW PROFILE */
 
+window.viewProfile = function(docId){
+
+window.open("profile.html?id=" + docId, "_blank");
+
+};
+  window.editProfile = function(docId){
+
+window.location.href = "edit-profile.html?id=" + docId;
+
+};
 
 /* LOGOUT */
 
