@@ -126,7 +126,13 @@ let profileData=null;
 
 async function loadProfile(){
 
-const ref=doc(db,"profiles",id);
+let ref = doc(db,"profiles",id);
+let snap = await getDoc(ref);
+
+if(!snap.exists()){
+ref = doc(db,"pendingProfiles",id);
+snap = await getDoc(ref);
+}
 const snap=await getDoc(ref);
 
 if(!snap.exists()){
