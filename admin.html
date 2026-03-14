@@ -123,8 +123,10 @@ Age: ${data.age}<br>
 Type: ${data.type}<br>
 Category: ${data.category}<br>
 Location: ${data.district}, ${data.state}<br>
-Contact: ${data.contact}<br><br>
-
+Contact: 
+<a href="https://wa.me/91${data.contact}" target="_blank" style="color:green;font-weight:bold;">
+${data.contact}
+</a><br><br>
 <button class="approve" onclick="approveProfile('${docId}')">Approve</button>
 <button class="reject" onclick="rejectProfile('${docId}')">Reject</button>
 <button class="delete" onclick="deleteProfile('${docId}')">Delete</button>
@@ -163,7 +165,10 @@ Age: ${data.age}<br>
 Type: ${data.type}<br>
 Category: ${data.category}<br>
 Location: ${data.district}, ${data.state}<br>
-Contact: ${data.contact}<br><br>
+Contact: 
+<a href="https://wa.me/91${data.contact}" target="_blank" style="color:green;font-weight:bold;">
+${data.contact}
+</a><br><br>
 
 <button class="delete" onclick="deleteApprovedProfile('${docId}')">Delete</button>
 `;
