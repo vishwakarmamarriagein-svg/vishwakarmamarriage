@@ -94,7 +94,7 @@ const data=snap.data();
 document.getElementById("name").value=data.name || "";
 document.getElementById("age").value=data.age || "";
 document.getElementById("type").value=data.type || "";  
-document.getElementById("manglik").value=data.manglik || "";
+
 document.getElementById("manglikType").value=data.manglikType || "";
 document.getElementById("qualification").value=data.qualification || "";
 document.getElementById("occupation").value=data.occupation || "";
@@ -111,7 +111,7 @@ await updateDoc(ref,{
 name:document.getElementById("name").value,
 age:document.getElementById("age").value,
 type:document.getElementById("type").value,
-manglik:document.getElementById("manglik").value,
+
 manglikType:document.getElementById("manglikType").value,
 qualification:document.getElementById("qualification").value,
 occupation:document.getElementById("occupation").value,
