@@ -361,7 +361,27 @@ this.value==="Working"?"block":"none";
 
 });
 
+document.getElementById("job").addEventListener("change",function(){
 
+document.getElementById("jobDetails").style.display=
+this.value==="Working"?"block":"none";
+
+});
+
+
+// Manglik show/hide
+
+document.getElementById("manglik").addEventListener("change", function(){
+
+const box = document.getElementById("manglikTypeBox");
+
+if(this.value === "Yes"){
+box.style.display = "block";
+}else{
+box.style.display = "none";
+}
+
+});
 
 document.getElementById("profileForm").addEventListener("submit",async(e)=>{
 
