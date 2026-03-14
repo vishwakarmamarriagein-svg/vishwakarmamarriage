@@ -123,6 +123,7 @@ Age: ${data.age}<br>
 Type: ${data.type}<br>
 Category: ${data.category}<br>
 Location: ${data.district}, ${data.state}<br>
+Submitted On: ${data.createdAt ? data.createdAt.toDate().toLocaleDateString() : ''}<br>
 Contact: 
 <a href="https://wa.me/91${data.contact}" target="_blank" style="color:green;font-weight:bold;">
 ${data.contact}
@@ -165,6 +166,7 @@ Age: ${data.age}<br>
 Type: ${data.type}<br>
 Category: ${data.category}<br>
 Location: ${data.district}, ${data.state}<br>
+Submitted On: ${data.createdAt ? data.createdAt.toDate().toLocaleDateString() : ''}<br>
 Contact: 
 <a href="https://wa.me/91${data.contact}" target="_blank" style="color:green;font-weight:bold;">
 ${data.contact}
