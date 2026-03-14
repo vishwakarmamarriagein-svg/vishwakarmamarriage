@@ -174,7 +174,11 @@ container.innerHTML=`
 
 <p><b>Weight:</b> ${profileData.weight || "-"}</p>
 
-<p><b>Manglik:</b> ${profileData.manglik || "-"}</p>
+<p><b>Manglik:</b> ${
+profileData.manglik === "Yes"
+? (profileData.manglikType || "Manglik")
+: "No"
+}</p>
 
 <p><b>Marital Status:</b> ${profileData.maritalStatus || "-"}</p>
 
