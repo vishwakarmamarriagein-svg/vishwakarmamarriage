@@ -506,9 +506,9 @@ margin-top:10px;
 }
 
 .navbar a{
-font-size:12px;
-margin:0 3px;
-white-space:nowrap;
+font-size:13px;
+margin:4px;
+white-space:normal;
 }
 
 .hero{
