@@ -131,7 +131,7 @@ Contact:
 ${data.contact}
 </a><br><br>
 <button class="view" onclick="viewProfile('${docId}')">View</button>
-<button class="edit" onclick="editProfile('${docId}')">Edit</button>
+<button class="edit" onclick="editProfile('${docId}','pending')">Edit</button>
 <button class="approve" onclick="approveProfile('${docId}')">Approve</button>
 <button class="reject" onclick="rejectProfile('${docId}')">Reject</button>
 <button class="delete" onclick="deleteProfile('${docId}')">Delete</button>
@@ -176,7 +176,7 @@ Contact:
 ${data.contact}
 </a><br><br>
 <button class="view" onclick="viewProfile('${docId}')">View</button>
-<button class="edit" onclick="editProfile('${docId}')">Edit</button>
+<button class="edit" onclick="editProfile('${docId}','approved')">Edit</button>
 <button class="delete" onclick="deleteApprovedProfile('${docId}')">Delete</button>
 `;
 
@@ -241,10 +241,8 @@ window.viewProfile = function(docId){
 window.open("profile.html?id=" + docId, "_blank");
 
 };
-  window.editProfile = function(docId){
-
-window.location.href = "edit-profile.html?id=" + docId;
-
+window.editProfile = function(docId, type){
+  window.location.href = "edit-profile.html?id=" + docId + "&type=" + type;
 };
 
 /* LOGOUT */
