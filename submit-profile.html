@@ -293,17 +293,9 @@ Upload clear portrait photo (face visible, no group photo)
 <input type="file" id="photo" accept="image/*" hidden required>
 
 <div id="fileName"></div>
+  
 <img id="preview" style="width:100%;max-height:250px;object-fit:cover;margin-top:10px;display:none;">
-  document.getElementById("photo").addEventListener("change", function(e){
-
-const file = e.target.files[0];
-if(!file) return;
-
-const preview = document.getElementById("preview");
-preview.src = URL.createObjectURL(file);
-preview.style.display = "block";
-
-});
+  
 <input type="tel" id="contact" placeholder="Contact Number" maxlength="10" required>
 
 
@@ -358,11 +350,17 @@ document.getElementById("age").value=age;
 document.getElementById("photo").addEventListener("change", function(e){
 
 const file = e.target.files[0];
-
+if(file.size > 2 * 1024 * 1024){
+alert("Image size should be less than 2MB");
+e.target.value = "";
+return;
+}
 if(!file) return;
 
 document.getElementById("fileName").textContent = file.name;
-
+const preview = document.getElementById("preview");
+preview.src = URL.createObjectURL(file);
+preview.style.display = "block";
 const img = new Image();
 img.src = URL.createObjectURL(file);
 
@@ -376,6 +374,7 @@ if(width > height){
 alert("Please upload portrait image (face clearly visible)");
 e.target.value = "";
 document.getElementById("fileName").textContent = "";
+  document.getElementById("preview").style.display = "none";
 return;
 }
 
@@ -384,6 +383,7 @@ if(width < 300 || height < 400){
 alert("Image too small. Upload clear photo.");
 e.target.value = "";
 document.getElementById("fileName").textContent = "";
+document.getElementById("preview").style.display = "none";
 return;
 }
 
@@ -392,6 +392,7 @@ if(height / width < 1.2){
 alert("Please upload proper portrait photo");
 e.target.value = "";
 document.getElementById("fileName").textContent = "";
+document.getElementById("preview").style.display = "none";
 return;
 }
 
@@ -406,14 +407,6 @@ document.getElementById("jobDetails").style.display=
 this.value==="Working"?"block":"none";
 
 });
-
-document.getElementById("job").addEventListener("change",function(){
-
-document.getElementById("jobDetails").style.display=
-this.value==="Working"?"block":"none";
-
-});
-
 
 // Manglik show/hide
 
