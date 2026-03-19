@@ -400,7 +400,14 @@ return;
 }
 
 /* 🧠 FACE DETECTION */
-const detections = await faceapi.detectAllFaces(img, new faceapi.TinyFaceDetectorOptions());
+let detections = [];
+try{
+  detections = await faceapi.detectAllFaces(img, new faceapi.TinyFaceDetectorOptions());
+}catch(err){
+  alert("Face detection failed. Please try another image.");
+  resetImage();
+  return;
+}
 
 if(detections.length === 0){
 alert("No face detected. Upload clear face photo.");
