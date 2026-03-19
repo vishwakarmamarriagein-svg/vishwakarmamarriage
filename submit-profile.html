@@ -287,12 +287,23 @@ Submit Your Profile
 <label for="photo" class="upload-btn">
 Upload Photo
 </label>
-
+<p style="color:red;font-size:13px;">
+Upload clear portrait photo (face visible, no group photo)
+</p>
 <input type="file" id="photo" accept="image/*" hidden required>
 
 <div id="fileName"></div>
+<img id="preview" style="width:100%;max-height:250px;object-fit:cover;margin-top:10px;display:none;">
+  document.getElementById("photo").addEventListener("change", function(e){
 
+const file = e.target.files[0];
+if(!file) return;
 
+const preview = document.getElementById("preview");
+preview.src = URL.createObjectURL(file);
+preview.style.display = "block";
+
+});
 <input type="tel" id="contact" placeholder="Contact Number" maxlength="10" required>
 
 
@@ -344,12 +355,47 @@ document.getElementById("age").value=age;
 });
 
 
-document.getElementById("photo").addEventListener("change",function(){
+document.getElementById("photo").addEventListener("change", function(e){
 
-const file=this.files[0];
+const file = e.target.files[0];
 
-if(file)
-document.getElementById("fileName").textContent=file.name;
+if(!file) return;
+
+document.getElementById("fileName").textContent = file.name;
+
+const img = new Image();
+img.src = URL.createObjectURL(file);
+
+img.onload = function(){
+
+const width = img.width;
+const height = img.height;
+
+/* ❌ Reject landscape */
+if(width > height){
+alert("Please upload portrait image (face clearly visible)");
+e.target.value = "";
+document.getElementById("fileName").textContent = "";
+return;
+}
+
+/* ❌ Reject very small image */
+if(width < 300 || height < 400){
+alert("Image too small. Upload clear photo.");
+e.target.value = "";
+document.getElementById("fileName").textContent = "";
+return;
+}
+
+/* ❌ Reject bad ratio (optional but strong) */
+if(height / width < 1.2){
+alert("Please upload proper portrait photo");
+e.target.value = "";
+document.getElementById("fileName").textContent = "";
+return;
+}
+
+};
 
 });
 
