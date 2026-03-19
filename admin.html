@@ -14,7 +14,23 @@ button{padding:8px 12px;border:none;cursor:pointer;color:white;margin-right:5px;
 .view{background:#007bff;}
 .edit{background:#ff9800;}
 .logout{position:absolute;top:20px;right:20px;background:maroon;}
-.profileCard{border:1px solid #ccc;padding:10px;margin-bottom:10px;border-radius:5px;background:#fafafa;}
+/* GRID CONTAINER */
+#profilesContainer,
+#approvedProfilesContainer{
+display:flex;
+flex-wrap:wrap;
+gap:15px;
+}
+
+/* CARD STYLE */
+.profileCard{
+width:250px;
+border:1px solid #ccc;
+padding:10px;
+border-radius:8px;
+background:#fafafa;
+box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
 .profileCard img{border-radius:5px;margin-bottom:8px;}
 </style>
 </head>
