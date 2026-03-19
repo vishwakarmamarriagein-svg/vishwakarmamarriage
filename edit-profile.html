@@ -50,7 +50,7 @@ button{background:green;color:white;padding:10px;border:none;cursor:pointer;}
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
 const firebaseConfig={
 apiKey:"AIzaSyAyT4AF8qZMyvqZNC8hGanMvGSwfydTDJU",
@@ -66,23 +66,17 @@ const db=getFirestore(app);
 
 const params=new URLSearchParams(window.location.search);
 const id=params.get("id");
+const type=params.get("type");
 
-let collectionName="profiles";
+let collectionName = type === "approved" ? "profiles" : "pendingProfiles";
 
 
 async function loadProfile(){
 
-let ref=doc(db,"profiles",id);
-let snap=await getDoc(ref);
 
-if(!snap.exists()){
-
-collectionName="pendingProfiles";
-
-ref=doc(db,"pendingProfiles",id);
-snap=await getDoc(ref);
-
-}
+let ref = doc(db, collectionName, id);
+let snap = await getDoc(ref);
+  
 
 if(!snap.exists()){
 alert("Profile not found");
@@ -103,24 +97,19 @@ document.getElementById("contact").value=data.contact || "";
 
 }
 
-window.saveProfile=async function(){
-
-const ref=doc(db,collectionName,id);
-
-await updateDoc(ref,{
+window.saveProfile = async function(){
+const ref = doc(db, collectionName, id);
+await setDoc(ref, {
 name:document.getElementById("name").value,
 age:document.getElementById("age").value,
 type:document.getElementById("type").value,
-
 manglikType:document.getElementById("manglikType").value,
 qualification:document.getElementById("qualification").value,
 occupation:document.getElementById("occupation").value,
 salary:document.getElementById("salary").value,
 contact:document.getElementById("contact").value
-});
-
+}, { merge:true });
 alert("Profile updated successfully");
-
 }
 
 loadProfile();
