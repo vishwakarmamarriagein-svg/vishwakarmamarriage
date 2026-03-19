@@ -36,7 +36,7 @@ button{background:green;color:white;padding:10px;border:none;cursor:pointer;}
 </select>
 
 <input id="qualification" placeholder="Qualification">
-
+<input id="category" placeholder="Caste / Category">
 <input id="occupation" placeholder="Occupation">
 
 <input id="salary" placeholder="Salary">
@@ -91,6 +91,7 @@ document.getElementById("type").value=data.type || "";
 
 document.getElementById("manglikType").value=data.manglikType || "";
 document.getElementById("qualification").value=data.qualification || "";
+  document.getElementById("category").value = data.category || "";
 document.getElementById("occupation").value=data.occupation || "";
 document.getElementById("salary").value=data.salary || "";
 document.getElementById("contact").value=data.contact || "";
@@ -105,6 +106,7 @@ age:document.getElementById("age").value,
 type:document.getElementById("type").value,
 manglikType:document.getElementById("manglikType").value,
 qualification:document.getElementById("qualification").value,
+  category:document.getElementById("category").value,
 occupation:document.getElementById("occupation").value,
 salary:document.getElementById("salary").value,
 contact:document.getElementById("contact").value
