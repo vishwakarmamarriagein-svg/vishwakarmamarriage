@@ -331,7 +331,15 @@ appId: "1:287592386640:web:93a60b14daf415eac3c155"
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const storage = getStorage(app);
-await faceapi.nets.tinyFaceDetector.loadFromUri('https://justadudewhohacks.github.io/face-api.js/models');
+// Wait until faceapi is loaded
+async function loadFaceAPI(){
+  while(typeof faceapi === "undefined"){
+    await new Promise(res => setTimeout(res, 100));
+  }
+  await faceapi.nets.tinyFaceDetector.loadFromUri('https://justadudewhohacks.github.io/face-api.js/models');
+}
+
+await loadFaceAPI();
 
 
 document.getElementById("dob").addEventListener("change",function(){
