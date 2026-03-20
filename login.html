@@ -155,7 +155,12 @@ return;
 }
 try{
 
-await signInWithEmailAndPassword(auth,email,password);
+const userCredential = await signInWithEmailAndPassword(auth,email,password);
+
+if(!userCredential.user.emailVerified){
+alert("Please verify your email before login");
+return;
+}
 
 localStorage.setItem("userLoggedIn","true");
 
