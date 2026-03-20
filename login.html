@@ -210,7 +210,10 @@ return;
 
 try{
 
-await sendPasswordResetEmail(auth, email);
+await sendPasswordResetEmail(auth, email, {
+  url: "https://vishwakarmamarriage.in/reset.html",
+  handleCodeInApp: true
+});
 
 alert("Reset link sent! Please check your email (and spam folder).");
 
