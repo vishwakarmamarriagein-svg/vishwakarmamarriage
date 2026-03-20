@@ -101,7 +101,7 @@ Register
 
 <button id="loginBtn">Login</button>
 <p style="text-align:center; margin-top:10px;">
-  <a href="#" id="forgotPasswordLink" style="color:#8b0000;">
+<a href="javascript:void(0)" id="forgotPasswordLink" style="color:#8b0000;">
     Forgot Password?
   </a>
 </p>
@@ -138,7 +138,21 @@ document.getElementById("loginBtn").addEventListener("click", async ()=>{
 
 const email=document.getElementById("email").value;
 const password=document.getElementById("password").value;
+// ✅ Better validation
+if(email === ""){
+alert("Please enter email");
+return;
+}
 
+if(!email.includes("@")){
+alert("Please enter a valid email");
+return;
+}
+
+if(password === ""){
+alert("Please enter password");
+return;
+}
 try{
 
 await signInWithEmailAndPassword(auth,email,password);
@@ -172,25 +186,16 @@ alert("Email is required");
 return;
 }
 
-try{
-
-await sendPasswordResetEmail(auth, email);
-
-alert("Password reset link sent to your email");
-
-}catch(error){
-
-alert("Error: " + error.message);
-
+if(!email.includes("@")){
+alert("Please enter a valid email");
+return;
 }
 
-});
-
 try{
 
 await sendPasswordResetEmail(auth, email);
 
-alert("Password reset link sent to your email");
+alert("Reset link sent! Please check your email (and spam folder).");
 
 }catch(error){
 
