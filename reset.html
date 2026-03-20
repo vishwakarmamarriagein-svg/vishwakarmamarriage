@@ -51,7 +51,7 @@ cursor:pointer;
 <h2>Reset Password</h2>
 
 <input type="password" id="newPassword" placeholder="Enter new password">
-
+<input type="password" id="confirmPassword" placeholder="Confirm password">
 <button id="resetBtn">Update Password</button>
 </div>
 
@@ -78,17 +78,23 @@ const auth = getAuth(app);
 // 🔥 GET oobCode FROM URL
 const urlParams = new URLSearchParams(window.location.search);
 const oobCode = urlParams.get("oobCode");
-
+if(!oobCode){
+alert("Invalid or expired reset link");
+window.location.href = "login.html";
+}
 
 document.getElementById("resetBtn").addEventListener("click", async ()=>{
 
 const newPassword = document.getElementById("newPassword").value;
-
+const confirmPassword = document.getElementById("confirmPassword").value;
 if(newPassword.length < 6){
 alert("Password must be at least 6 characters");
 return;
 }
-
+if(newPassword !== confirmPassword){
+alert("Passwords do not match");
+return;
+}
 try{
 
 await confirmPasswordReset(auth, oobCode, newPassword);
