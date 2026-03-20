@@ -100,7 +100,11 @@ Register
 <input type="password" id="password" placeholder="Enter Password">
 
 <button id="loginBtn">Login</button>
-
+<p style="text-align:center; margin-top:10px;">
+  <a href="#" id="forgotPasswordLink" style="color:#8b0000;">
+    Forgot Password?
+  </a>
+</p>
 </div>
 
 </div>
@@ -111,7 +115,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebas
 
 import { 
 getAuth,
-signInWithEmailAndPassword
+signInWithEmailAndPassword,
+sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
 
@@ -153,6 +158,28 @@ window.location.href = "index.html";
 }catch(error){
 
 alert("Login Failed: "+error.message);
+
+}
+
+});
+  document.getElementById("forgotPasswordLink").addEventListener("click", async () => {
+
+const email = document.getElementById("email").value;
+
+if(email === ""){
+alert("Please enter your email first");
+return;
+}
+
+try{
+
+await sendPasswordResetEmail(auth, email);
+
+alert("Password reset link sent to your email");
+
+}catch(error){
+
+alert("Error: " + error.message);
 
 }
 
