@@ -125,7 +125,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebas
 
 import { 
 getAuth,
-createUserWithEmailAndPassword
+createUserWithEmailAndPassword,
+sendEmailVerification
 } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
 
@@ -161,11 +162,14 @@ return;
 
 try{
 
-await createUserWithEmailAndPassword(auth, email, password);
+const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 
-alert("Account Created Successfully");
+// ✅ Send verification email
+await sendEmailVerification(userCredential.user);
 
-window.location.href="submit-profile.html";
+alert("Account created! Please verify your email before login.");
+
+window.location.href="login.html";
 
 }catch(error){
 
