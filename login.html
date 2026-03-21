@@ -164,7 +164,10 @@ const resend = confirm("Email not verified.\n\nClick OK to resend verification e
 
 if(resend){
 try{
-await sendEmailVerification(userCredential.user);
+await sendEmailVerification(userCredential.user, {
+  url: "https://vishwakarmamarriage.in/login.html",
+  handleCodeInApp: true
+});
 alert("Verification email sent again. Please check your inbox/spam.");
 }catch(error){
 alert("Error sending email: " + error.message);
